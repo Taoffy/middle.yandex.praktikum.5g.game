@@ -1,0 +1,1 @@
+export const serverYandexURL = "https://ya-praktikum.tech/api/v2";
