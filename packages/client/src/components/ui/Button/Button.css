@@ -1,0 +1,24 @@
+.btn{
+    padding: 12px 32px;
+    height: 44px;
+    background: linear-gradient(90deg, #5754EB 2.08%, #2C28DB 68.23%, #0E0BA7 100%);
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.btn:hover{
+    background: linear-gradient(90deg, #54BEEB 2.08%, #2870DB 68.23%, #0BA794 100%);
+}
+
+.btn:active{
+    box-shadow: 0px 0px 0px 2px #000000;
+    background: linear-gradient(90deg, #5754EB 2.08%, #2C28DB 68.23%, #0E0BA7 100%);
+}
+
+.btn:disabled{
+    background: #D5D5D5;
+}
