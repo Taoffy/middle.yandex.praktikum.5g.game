@@ -1,3 +1,5 @@
+import "./Button.css"
+
 interface ButtonProps {
     onClick?: () => void,
     children: string,
@@ -5,8 +7,6 @@ interface ButtonProps {
     className?: string,
     type?: "button" | "submit" | "reset"
 }
-
-import "./Button.css";
 
 const Button = ({className = 'btn', type = 'button', ...props}: ButtonProps) => {
     return (
