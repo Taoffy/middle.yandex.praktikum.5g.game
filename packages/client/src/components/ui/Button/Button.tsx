@@ -1,26 +1,24 @@
 interface ButtonProps {
-    onClick: () => void,
+    onClick?: () => void,
     children: string,
     disabled?: boolean,
     className?: string,
-    type?: "button" | "submit" | "reset" | undefined,
+    type?: "button" | "submit" | "reset"
 }
 
-const Button = (props: ButtonProps) => {
+import "./Button.css";
+
+const Button = ({className = 'btn', type = 'button', ...props}: ButtonProps) => {
     return (
         <button 
-            className={props.className} 
-            type={props.type} 
+            className={className} 
+            type={type} 
             onClick={props.onClick} 
             disabled={props.disabled}
         >  
             {props.children}
         </button>
     )
-}
-
-Button.defaultProps = {
-    type: 'button'
 }
 
 export default Button
