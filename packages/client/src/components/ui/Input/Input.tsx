@@ -1,3 +1,4 @@
+import "./InputProps.css";
 
 interface InputProps {
     onChange?: () => void
@@ -9,23 +10,18 @@ interface InputProps {
     placeholder?: string
 }
 
-const Input = (props: InputProps) => {
+const Input = ({type = 'text', readOnly = false, ...props}: InputProps)  => {
     return (
         <input 
             className={props.className} 
             name={props.name} 
-            type={props.type} 
+            type={type} 
             value={props.value} 
-            readOnly={props.readOnly} 
+            readOnly={readOnly} 
             placeholder={props.placeholder}
             onChange={props.onChange}
         />
     )
-}
-
-Input.defaultProps = {
-    readOnly: false,
-    type: 'text'
 }
 
 export default Input

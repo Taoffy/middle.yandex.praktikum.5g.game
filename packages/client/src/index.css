@@ -1,3 +1,12 @@
-@import "components/ui/ControlledInput/ControlledInput.css";
-@import "components/ui/Input/Input.css";
-@import "components/ui/ErrorComponent/ErrorComponent.css";
+:root{
+    --color-purple: #5754EB;
+    --color-blue: #2C28DB;
+    --color-dark-blue: #0E0BA7;
+    --color-cyan: #54BEEB;
+    --color-light-blue: #2870DB;
+    --color-green: #0BA794;
+    --color-white: #FFFFFF;
+    --color-light-grey: #F5F5F5;
+    --color-grey: #D5D5D5;
+    --color-red: #FF4D4D
+}

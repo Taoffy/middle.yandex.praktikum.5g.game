@@ -1,6 +1,8 @@
 import Input from '../Input/Input';
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
 
+import "./ControlledInput.css";
+
 interface ControlledInputProps {
     onChange?: () => void
     type?: 'text' | 'password' | 'email'
@@ -13,7 +15,7 @@ interface ControlledInputProps {
     className?: string
 }
 
-const ControlledInput = (props: ControlledInputProps) => {
+const ControlledInput = ({...props}: ControlledInputProps) => {
     return (
         <div className="controller-input">
             <label className="form__label">

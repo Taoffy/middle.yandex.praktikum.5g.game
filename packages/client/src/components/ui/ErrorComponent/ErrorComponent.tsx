@@ -1,10 +1,12 @@
+import "./ErrorComponent.css";
+
 interface ErrorProps {
     text?: string
 }
 
-const ErrorComponent  = (props: ErrorProps) => {
+const ErrorComponent  = ({text}: ErrorProps) => {
     return (
-        <div className="error">{props.text}</div>
+        <div className="error">{text}</div>
     )
 }
 
