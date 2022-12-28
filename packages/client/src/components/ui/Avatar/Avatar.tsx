@@ -1,17 +1,11 @@
 interface AvatarProps {
-  className: string,
+  className?: string,
   src: string,
 }
 
-const Avatar = (props: AvatarProps) => {
+function Avatar({className, src, ...props}: AvatarProps) {
   return (
-    <div>
-      <label htmlFor='avatar-input'>
-        <img id='avatar' className={props.className} src={props.src} alt='user avatar' />
-      </label>
-
-      <input id='avatar-input' type='file'/>
-    </div>
+    <img className={'avatar ' + (className ? className : '')} src={src} alt='user avatar' />
   );
 }
 

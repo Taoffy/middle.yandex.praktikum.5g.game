@@ -1,8 +1,14 @@
-#avatar-input {
-    display: none;
-}
-
-#avatar {
+.avatar {
     box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.25);
     border-radius: 50%;
+}
+
+.avatar--small {
+    width: 48px;
+    height: 48px;
+}
+
+.avatar--big {
+    width: 64px;
+    height: 64px;
 }
