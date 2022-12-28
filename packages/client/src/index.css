@@ -10,3 +10,7 @@
     --color-grey: #D5D5D5;
     --color-red: #FF4D4D
 }
+
+*{
+    box-sizing: border-box;
+}
