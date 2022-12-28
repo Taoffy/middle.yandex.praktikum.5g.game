@@ -1,3 +1,13 @@
+:root{
+    --color-purple: #5754EB;
+    --color-blue: #2C28DB;
+    --color-dark-blue: #0E0BA7;
+    --color-cyan: #54BEEB;
+    --color-light-blue: #2870DB;
+    --color-green: #0BA794;
+    --color-white: #FFFFFF;
+}
+
 .btn{
     padding: 12px 32px;
     background: linear-gradient(90deg, var(--color-purple) 2%,  var(--color-blue) 68%, var(--color-dark-blue) 100%);
