@@ -1,22 +1,23 @@
+import { ReactNode } from "react"
 import "./Button.css"
 
-interface ButtonProps {
+interface Props {
     onClick?: () => void,
-    children: string,
+    children: ReactNode,
     disabled?: boolean,
     className?: string,
     type?: "button" | "submit" | "reset"
 }
 
-const Button = ({className = 'btn', type = 'button', ...props}: ButtonProps) => {
+const Button = ({onClick, children, className = 'btn', disabled, type = 'button'}: Props) => {
     return (
         <button 
             className={className} 
             type={type} 
-            onClick={props.onClick} 
-            disabled={props.disabled}
+            onClick={onClick} 
+            disabled={disabled}
         >  
-            {props.children}
+            {children}
         </button>
     )
 }
