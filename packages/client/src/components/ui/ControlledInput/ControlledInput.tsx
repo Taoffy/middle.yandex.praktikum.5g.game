@@ -1,8 +1,7 @@
 import "./ControlledInput.css";
 
-interface ControlledInputProps {
+interface Props {
     onChange?: () => void
-    type?: string
     placeholder?: string
     value?: string
     error?: string
@@ -10,24 +9,25 @@ interface ControlledInputProps {
     label?: string
     readOnly?: boolean
     className?: string
+    type?: "text" | "email" | "password" | "tel" | "number"
 }
 
-const ControlledInput = ({type = 'text', ...props}: ControlledInputProps) => {
+const ControlledInput = ({onChange, placeholder, value, error, name, label, readOnly, className, type = 'text'}: Props) => {
     return (
         <div className="controller-input">
             <label className="form__label">
-                {props.label}
+                {label}
                 <input 
-                    className={props.className} 
-                    name={props.name} 
+                    className={className} 
+                    name={name} 
                     type={type} 
-                    value={props.value} 
-                    readOnly={props.readOnly} 
-                    placeholder={props.placeholder}
-                    onChange={props.onChange}
+                    value={value} 
+                    readOnly={readOnly} 
+                    placeholder={placeholder}
+                    onChange={onChange}
                 />
             </label>
-            <div className="error">{props.error}</div>
+            <div className="error">{error}</div>
         </div>
     )
 }
