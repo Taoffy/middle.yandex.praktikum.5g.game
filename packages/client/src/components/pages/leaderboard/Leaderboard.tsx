@@ -1,7 +1,7 @@
 import React from 'react'
 import './Leaderboard.css'
 
-function Leaderboard() {
+function LeaderboardPage() {
     return <main className="leaderboard">
                 <div className="centered-box">
                     <div className="centered-box__inner">
@@ -37,4 +37,4 @@ function Leaderboard() {
         </main>
 }
 
-export default Leaderboard
+export default LeaderboardPage

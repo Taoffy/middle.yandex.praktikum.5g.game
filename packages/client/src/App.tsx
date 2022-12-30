@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+
+import { GeneralRoutes } from './components/routes/GeneralRoutes'
 
 function App() {
   useEffect(() => {
@@ -12,7 +15,9 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return (
+      <BrowserRouter><GeneralRoutes /></BrowserRouter>
+  )
 }
 
 export default App
