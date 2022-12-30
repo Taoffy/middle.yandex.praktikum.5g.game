@@ -1,7 +1,7 @@
 import React from 'react'
 import './Login.css'
 
-function Login() {
+function LoginPage() {
     return  <main className="login">
                 <div className="centered-box">
                     <div className="centered-box__inner">
@@ -22,4 +22,4 @@ function Login() {
             </main>
 }
 
-export default Login
+export { LoginPage }
