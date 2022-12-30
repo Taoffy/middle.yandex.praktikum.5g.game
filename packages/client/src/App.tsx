@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './App.css'
+import Avatar from './components/ui/Avatar/Avatar'
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,7 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return <div className="App"><Avatar src='https://via.placeholder.com/150' /></div>
 }
 
 export default App
