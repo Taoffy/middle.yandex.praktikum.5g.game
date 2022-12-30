@@ -1,3 +1,5 @@
+import './Avatar.css'
+
 interface AvatarProps {
   className?: string,
   src: string,
