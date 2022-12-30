@@ -37,4 +37,4 @@ function LeaderboardPage() {
         </main>
 }
 
-export default LeaderboardPage
+export { LeaderboardPage }
