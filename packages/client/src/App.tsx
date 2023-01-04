@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import './App.css'
+import './css/index.css'
 import { BrowserRouter } from 'react-router-dom'
 
 import { GeneralRoutes } from './components/routes/GeneralRoutes'
