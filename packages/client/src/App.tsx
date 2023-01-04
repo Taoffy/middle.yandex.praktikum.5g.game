@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
-import './css/index.css'
-import { BrowserRouter } from 'react-router-dom'
+import { useEffect } from 'react';
+import './css/index.css';
+import { BrowserRouter } from 'react-router-dom';
 
-import { GeneralRoutes } from './components/routes/GeneralRoutes'
+import { GeneralRoutes } from './components/routes/GeneralRoutes';
 
 function App() {
   useEffect(() => {
