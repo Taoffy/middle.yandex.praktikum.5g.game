@@ -9,7 +9,7 @@ declare global {
     phone: string
     avatar: string | null
   }
-  type UserDTO = {
+  type UserServer = {
     id: number
     first_name: string
     second_name: string

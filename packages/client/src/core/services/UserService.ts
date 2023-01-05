@@ -1,12 +1,12 @@
 import { api } from '../api'
 import { apiHasError } from '../utils/apiHasError'
-import { transformUser } from '../utils/apiTransformers'
+import { getUserData } from '../utils/getUserData'
 import { AxiosResponse } from 'axios'
 type LoginRequestData = {
   login: string
   password: string
 }
-type RegistrRequestData = {
+type RegistrationRequestData = {
   first_name: string
   second_name: string
   login: string
@@ -14,9 +14,15 @@ type RegistrRequestData = {
   password: string
   phone: string
 }
+enum AuthPath {
+  signup = '/auth/signup',
+  signin = '/auth/signin',
+  authUser = '/auth/user',
+  logout = '/auth/logout',
+}
 
 class UserService {
-  checkAnswer<T>(response: AxiosResponse<T>) {
+  private checkAnswer<T>(response: AxiosResponse<T>) {
     if (response.status !== 200) {
       if (apiHasError(response.data)) {
         throw new Error(response.data.reason)
@@ -25,36 +31,36 @@ class UserService {
     }
     return response.data
   }
-  async registration(data: RegistrRequestData) {
+  async signup(data: RegistrationRequestData) {
     try {
       const response = await api.post<
         string,
         AxiosResponse<string>,
-        RegistrRequestData
-      >('/auth/signup', data)
+        RegistrationRequestData
+      >(AuthPath.signup, data)
       return this.checkAnswer<string>(response)
     } catch (error) {
       console.error(error)
     }
   }
-  async login(data: LoginRequestData) {
+  async signin(data: LoginRequestData) {
     try {
       const response = await api.post<
         string,
         AxiosResponse<string>,
         LoginRequestData
-      >('/auth/signin', data)
+      >(AuthPath.signin, data)
       return this.checkAnswer<string>(response)
     } catch (error) {
       console.error(error)
     }
   }
-  async getUserInfo() {
+  async authUser() {
     try {
-      const response = await api.get<string, AxiosResponse<UserDTO>>(
-        '/auth/user'
+      const response = await api.get<string, AxiosResponse<UserServer>>(
+        AuthPath.authUser
       )
-      return transformUser(this.checkAnswer<UserDTO>(response))
+      return getUserData(this.checkAnswer<UserServer>(response))
     } catch (error) {
       console.error(error)
     }
@@ -62,7 +68,7 @@ class UserService {
   async logout() {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
-        '/auth/logout'
+        AuthPath.logout
       )
       return this.checkAnswer<string>(response)
     } catch (error) {
