@@ -16,7 +16,9 @@ function App() {
     fetchServerData()
   }, [])
   return (
-      <BrowserRouter><GeneralRoutes /></BrowserRouter>
+    <BrowserRouter>
+      <GeneralRoutes />
+    </BrowserRouter>
   )
 }
 
