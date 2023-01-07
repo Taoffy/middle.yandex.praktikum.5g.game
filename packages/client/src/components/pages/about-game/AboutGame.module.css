@@ -1,0 +1,99 @@
+.aboutGame {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  min-height: 100vh;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 130px;
+  line-height: 1.215;
+  margin-top: 0.36em;
+  position: relative;
+  z-index: 1;
+}
+
+.title__grad {
+  background: linear-gradient(
+    90deg,
+    #54beeb 2.08%,
+    #2870db 68.23%,
+    #0ba794 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-left: -0.2em;
+}
+
+.title__up {
+  display: inline-block;
+  position: relative;
+  bottom: 0.4em;
+}
+
+.info {
+  padding: 0 0 0 15.9%;
+}
+
+.info__text {
+  margin: 2.56em 0 0;
+  font-size: 30px;
+  line-height: 1.23;
+}
+
+.main {
+  margin-top: -140px;
+  padding: 140px 6.94% 16px 5.9%;
+  flex: 1;
+  background: #121a15;
+  background-image: url(../../../assets/img/about-game.png);
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+  min-height: 500px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.main__buttonsWrap {
+  display: flex;
+  align-items: flex-end;
+}
+
+.main__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  bottom: 16px;
+}
+
+.main__link {
+  background: linear-gradient(
+    90deg,
+    #5754eb 2.08%,
+    #2c28db 68.23%,
+    #0e0ba7 100%
+  );
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 0.95;
+  padding: 1em 4.9em;
+  text-decoration: none;
+  color: white;
+}
+
+.main__btn {
+  font-size: 16px;
+  line-height: 1.2;
+  text-decoration: underline;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  margin-top: 0.5em;
+}
