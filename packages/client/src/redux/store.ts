@@ -6,7 +6,11 @@ import { appReducer } from './app-reducer';
 const reducers = combineReducers({
   app: appReducer,
 });
-
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 const composeEnchancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
