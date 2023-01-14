@@ -1,6 +1,6 @@
 export type APIError = {
-  reason: string
-}
+  reason: string;
+};
 export function apiHasError(response: any): response is APIError {
-  return response?.reason
+  return response?.reason;
 }

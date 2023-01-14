@@ -1,19 +1,19 @@
-import { api } from '../api'
-import { apiHasError } from '../utils/apiHasError'
-import { getUserData } from '../utils/getUserData'
-import { AxiosResponse } from 'axios'
+import { api } from '../api';
+import { apiHasError } from '../utils/apiHasError';
+import { getUserData } from '../utils/getUserData';
+import { AxiosResponse } from 'axios';
 type LoginRequestData = {
-  login: string
-  password: string
-}
+  login: string;
+  password: string;
+};
 type RegistrationRequestData = {
-  first_name: string
-  second_name: string
-  login: string
-  email: string
-  password: string
-  phone: string
-}
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+};
 enum AuthPath {
   signup = '/auth/signup',
   signin = '/auth/signin',
@@ -25,11 +25,11 @@ class UserService {
   private checkAnswer<T>(response: AxiosResponse<T>) {
     if (response.status !== 200) {
       if (apiHasError(response.data)) {
-        throw new Error(response.data.reason)
+        throw new Error(response.data.reason);
       }
-      throw new Error(response.statusText)
+      throw new Error(response.statusText);
     }
-    return response.data
+    return response.data;
   }
   async signup(data: RegistrationRequestData) {
     try {
@@ -37,10 +37,10 @@ class UserService {
         string,
         AxiosResponse<string>,
         RegistrationRequestData
-      >(AuthPath.signup, data)
-      return this.checkAnswer<string>(response)
+      >(AuthPath.signup, data);
+      return this.checkAnswer<string>(response);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
   async signin(data: LoginRequestData) {
@@ -49,32 +49,32 @@ class UserService {
         string,
         AxiosResponse<string>,
         LoginRequestData
-      >(AuthPath.signin, data)
-      return this.checkAnswer<string>(response)
+      >(AuthPath.signin, data);
+      return this.checkAnswer<string>(response);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
   async authUser() {
     try {
-      const response = await api.get<string, AxiosResponse<UserServer>>(
+      const response = await api.get<string, AxiosResponse<User>>(
         AuthPath.authUser
-      )
-      return getUserData(this.checkAnswer<UserServer>(response))
+      );
+      return this.checkAnswer<User>(response);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
   async logout() {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
         AuthPath.logout
-      )
-      return this.checkAnswer<string>(response)
+      );
+      return this.checkAnswer<string>(response);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 }
 
-export const myService = new UserService()
+export const myService = new UserService();

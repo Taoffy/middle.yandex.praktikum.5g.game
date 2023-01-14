@@ -1,4 +1,4 @@
-import { serverURL } from '../config/api.config'
+import { serverURL } from '../config/api.config';
 
 export const getUserData = (data: UserServer): User => {
   return {
@@ -10,5 +10,5 @@ export const getUserData = (data: UserServer): User => {
     avatar: data.avatar ? `${serverURL}/resources/${data.avatar}` : null,
     phone: data.phone,
     email: data.email,
-  }
-}
+  };
+};

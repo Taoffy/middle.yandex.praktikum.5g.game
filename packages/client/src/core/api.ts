@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { apiConfig } from './config'
+import axios from 'axios';
+import { apiConfig } from './config';
 
 const api = axios.create({
   baseURL: apiConfig.serverYandexURL,
-})
+});
 
-export { api }
+export { api };

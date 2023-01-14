@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './AboutGame.module.css'
+import React from 'react';
+import styles from './AboutGame.module.css';
 
 function AboutGame() {
   return (
@@ -28,7 +28,7 @@ function AboutGame() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export { AboutGame }
+export { AboutGame };
