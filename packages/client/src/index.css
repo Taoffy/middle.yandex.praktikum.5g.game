@@ -1,3 +1,15 @@
 html {
-    background: linear-gradient(88.67deg, #54BEEB 1.13%, #2870DB 63.38%, #0BA794 98.87%);
+  background: linear-gradient(
+    88.67deg,
+    #54beeb 1.13%,
+    #2870db 63.38%,
+    #0ba794 98.87%
+  );
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }

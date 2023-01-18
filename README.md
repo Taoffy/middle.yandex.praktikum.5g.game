@@ -74,3 +74,6 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+
+[Макет в Figma](https://www.figma.com/file/jdwzFQbZBwZB4mQnk2Yr6G/Memory-Game)
