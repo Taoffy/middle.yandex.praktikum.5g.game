@@ -1,12 +1,11 @@
 import { api } from '../api';
 import { apiHasError } from '../utils/apiHasError';
-import { getUserData } from '../utils/getUserData';
 import { AxiosResponse } from 'axios';
-type LoginRequestData = {
+export type LoginRequestData = {
   login: string;
   password: string;
 };
-type RegistrationRequestData = {
+export type RegistrationRequestData = {
   first_name: string;
   second_name: string;
   login: string;
@@ -21,7 +20,7 @@ enum AuthPath {
   logout = '/auth/logout',
 }
 
-class UserService {
+class UserServiceClass {
   private checkAnswer<T>(response: AxiosResponse<T>) {
     if (response.status !== 200) {
       if (apiHasError(response.data)) {
@@ -32,28 +31,20 @@ class UserService {
     return response.data;
   }
   async signup(data: RegistrationRequestData) {
-    try {
-      const response = await api.post<
-        string,
-        AxiosResponse<string>,
-        RegistrationRequestData
-      >(AuthPath.signup, data);
-      return this.checkAnswer<string>(response);
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await api.post<
+      string,
+      AxiosResponse<string>,
+      RegistrationRequestData
+    >(AuthPath.signup, data);
+    return this.checkAnswer<string>(response);
   }
   async signin(data: LoginRequestData) {
-    try {
-      const response = await api.post<
-        string,
-        AxiosResponse<string>,
-        LoginRequestData
-      >(AuthPath.signin, data);
-      return this.checkAnswer<string>(response);
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await api.post<
+      string,
+      AxiosResponse<string>,
+      LoginRequestData
+    >(AuthPath.signin, data);
+    return this.checkAnswer<string>(response);
   }
   async authUser() {
     try {
@@ -77,4 +68,4 @@ class UserService {
   }
 }
 
-export const myService = new UserService();
+export const UserService = new UserServiceClass();
