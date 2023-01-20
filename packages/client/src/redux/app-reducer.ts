@@ -17,6 +17,8 @@ const initialState: State = {
 const appReducer = (state = initialState, action: ItemActionType): State => {
   switch (action.type) {
     case actionsType.setAUTH:
+      console.log(state, action.payload);
+
       return {
         ...state,
         isAuth: action.payload,
