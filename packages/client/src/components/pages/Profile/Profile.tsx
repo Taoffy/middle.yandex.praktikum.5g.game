@@ -1,43 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import styles from './Profile.module.scss';
+import styles from './Profile.module.scss'
+import { connect } from 'react-redux'
+import store from '../../../redux/store'
+import { AvatarPopup } from '../../AvatarPopup/AvatarPopup'
 
-function Profile() {
+interface ProfileProps {
+  first_name: string,
+  second_name: string,
+  display_name: string,
+  login: string,
+  email: string,
+  phone: string,
+}
+
+function Profile(props: ProfileProps) {
+
+  const [isPopupActive, setPopupActive] = useState(false);
+
   return (
-    <div className={styles.profile__wrapper}>
-      <div className={styles.profile__container}>
-        <h1 className={styles.profile__title}>Профиль</h1>
+    <div>
+      <div className={styles.profile__wrapper}>
+        <div className={styles.profile__container}>
+          <h1 className={styles.profile__title}>Профиль</h1>
 
-        <img className={styles.avatar} src='https://via.placeholder.com/64' alt='user avatar' />
+          <img className={styles.avatar} src='https://via.placeholder.com/64' alt='user avatar' onClick={() => setPopupActive(true)} />
 
-        <ul className={styles.profile__list}>
-          <li className={styles.profile__item}>
-            <span className={styles.profile__subtitle}>Имя:</span>
-            <span className={styles.profile__info}>Константин</span>
-          </li>
-          <li className={styles.profile__item}>
-            <span className={styles.profile__subtitle}>Фамилия:</span>
-            <span className={styles.profile__info}>Константинопольский</span>
-          </li>
-          <li className={styles.profile__item}>
-            <span className={styles.profile__subtitle}>Логин:</span>
-            <span className={styles.profile__info}>constantinTheBest</span>
-          </li>
-          <li className={styles.profile__item}>
-            <span className={styles.profile__subtitle}>E-mail:</span>
-            <span className={styles.profile__info}>constantin@mail.ru</span>
-          </li>
-          <li className={styles.profile__item}>
-            <span className={styles.profile__subtitle}>Телефон:</span>
-            <span className={styles.profile__info}>+7 999 999 99 99</span>
-          </li>
-        </ul>
+          <ul className={styles.profile__list}>
+            <li className={styles.profile__item}>
+              <span className={styles.profile__subtitle}>Имя:</span>
+              <span className={styles.profile__info}>{props.first_name}</span>
+            </li>
+            <li className={styles.profile__item}>
+              <span className={styles.profile__subtitle}>Фамилия:</span>
+              <span className={styles.profile__info}>{props.second_name}</span>
+            </li>
+            <li className={styles.profile__item}>
+              <span className={styles.profile__subtitle}>Логин:</span>
+              <span className={styles.profile__info}>{props.login}</span>
+            </li>
+            <li className={styles.profile__item}>
+              <span className={styles.profile__subtitle}>E-mail:</span>
+              <span className={styles.profile__info}>{props.email}</span>
+            </li>
+            <li className={styles.profile__item}>
+              <span className={styles.profile__subtitle}>Телефон:</span>
+              <span className={styles.profile__info}>{props.phone}</span>
+            </li>
+          </ul>
 
-        <button className={styles.profile__btn}>Изменить данные</button>
-        <button className={styles.profile__btn}>Изменить пароль</button>
+          <Link className={styles.profile__btn} to='change-data'>Изменить данные</Link>
+          <Link className={styles.profile__btn} to='change-password'>Изменить пароль</Link>
+        </div>
       </div>
+
+      {isPopupActive ? <AvatarPopup setPopupActive={setPopupActive}/> : ''}
     </div>
   )
 }
 
-export { Profile };
+const mapStateToProps = (state: any) => {
+  return {
+    first_name: state.app.user.first_name,
+    second_name: state.app.user.second_name,
+    display_name: state.app.user.display_name,
+    login: state.app.user.login,
+    email: state.app.user.email,
+    phone: state.app.user.phone
+  }
+}
+
+export default connect(mapStateToProps)(Profile)
