@@ -7,6 +7,7 @@ import { AboutGame } from '../pages/about-game/AboutGame';
 import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
+import { Profile } from '../pages/Profile/Profile'
 
 const GeneralRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const GeneralRoutes = () => {
         <Route path="about-game" element={<AboutGame />} />
         <Route path="forum" element={<ForumPage />} />
         <Route path="leaderboard" element={<LeaderboardPage />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
   );
