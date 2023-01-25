@@ -1,8 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import styles from './ChangeData.module.scss'
+import { changeUserData } from '../../../../redux/actionCreators/profile/changeUserData'
+import UserDataService from '../../../../core/services/UserDataService'
 
 interface ChangeDataProps {
   first_name: string,
@@ -13,18 +15,47 @@ interface ChangeDataProps {
   phone: string,
 }
 
+export interface UserData {
+  first_name: FormDataEntryValue | null,
+  second_name: FormDataEntryValue | null,
+  display_name: string,
+  login: FormDataEntryValue | null,
+  email: FormDataEntryValue | null,
+  phone: FormDataEntryValue | null,
+}
+
 function ChangeData(props: ChangeDataProps) {
+  const dispatch = useDispatch();
+
+  const onDataSubmit = async (e: Event) => {
+    e.preventDefault();
+
+    const form = document.getElementById('change-data');
+    const formData = new FormData(form as HTMLFormElement);
+
+    const data: UserData = {
+      first_name: formData.get('first_name'),
+      second_name: formData.get('second_name'),
+      login: formData.get('login'),
+      email: formData.get('email'),
+      display_name: '',
+      phone: formData.get('phone'),
+    }
+
+    dispatch(changeUserData(data));
+  };
+
   return (
     <div className={styles.data__container}>
       <h1 className={styles.data__header}>Изменить данные</h1>
-      <form id='change-data'>
-        <input className={styles.data__input} type='text' placeholder={props.first_name} />
-        <input className={styles.data__input} type='text' placeholder={props.second_name} />
-        <input className={styles.data__input} type='text' placeholder={props.login} />
-        <input className={styles.data__input} type='email' placeholder={props.email} />
-        <input className={styles.data__input} type='tel' placeholder={props.phone} />
+      <form id='change-data' onSubmit={onDataSubmit} >
+        <input className={styles.data__input} type='text' placeholder={props.first_name} name='first_name' />
+        <input className={styles.data__input} type='text' placeholder={props.second_name} name='second_name' />
+        <input className={styles.data__input} type='text' placeholder={props.login} name='login' />
+        <input className={styles.data__input} type='email' placeholder={props.email} name='email' />
+        <input className={styles.data__input} type='tel' placeholder={props.phone} name='phone' />
 
-        <Link className={styles.data__btn} to='/profile'>Сохранить</Link>
+        <button className={styles.data__btn} type='submit'>Сохранить</button>
       </form>
     </div>
   );

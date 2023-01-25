@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import styles from './Profile.module.scss'
 import { connect } from 'react-redux'
-import store from '../../../redux/store'
 import { AvatarPopup } from '../../AvatarPopup/AvatarPopup'
 
 interface ProfileProps {

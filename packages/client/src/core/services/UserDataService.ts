@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { UserData } from '../../components/pages/Profile/ChangeData/ChangeData'
 
 const api = axios.create({
   baseURL: 'https://ya-praktikum.tech/api/v2',
@@ -18,6 +19,12 @@ class UserDataService {
 
   async getUser() {
     await api.get('/auth/user', {
+      withCredentials: true,
+    })
+  }
+
+  async changeUserData(data: UserData) {
+    await api.put('/user/profile', data,{
       withCredentials: true,
     })
   }

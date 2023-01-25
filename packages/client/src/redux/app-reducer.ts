@@ -1,3 +1,5 @@
+import CHANGE_USER_DATA from './actions/profile/profileActions'
+
 const initialState = {
   isAuth: false,
   user: {
@@ -19,4 +21,14 @@ const appReducer = (state = initialState, action: any) => {
   }
 };
 
-export { appReducer };
+const profileReducer = (state = initialState, action: any) => {
+  switch (action.type) {
+    case CHANGE_USER_DATA:
+      return {...state.user, ...action.payload}
+    default:
+      return state;
+  }
+};
+
+
+export { appReducer, profileReducer };
