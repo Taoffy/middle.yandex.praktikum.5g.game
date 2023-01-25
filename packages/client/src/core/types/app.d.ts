@@ -9,5 +9,11 @@ declare global {
     phone: string;
     avatar: string | null;
   };
+  type InputInfo = {
+    value: string;
+    type: string;
+    placeholder: string;
+  };
+  type Form = Record<string, InputInfo>;
 }
 export {};

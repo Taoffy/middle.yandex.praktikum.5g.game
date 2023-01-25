@@ -1,24 +1,88 @@
-import React from 'react'
-import styles from './SignUp.module.css'
-
+import React, { FormEvent } from 'react';
+import styles from './SignUp.module.css';
+import { useDispatch } from 'react-redux';
+import * as Actions from '../../../redux/actions';
 function SignUpPage() {
+  const dispatch = useDispatch();
+  const [form, setForm] = React.useState<Form>({
+    first_name: {
+      value: '',
+      type: 'text',
+      placeholder: 'Имя',
+    },
+    second_name: {
+      value: '',
+      type: 'text',
+      placeholder: 'Фамилия',
+    },
+    login: {
+      value: '',
+      type: 'text',
+      placeholder: 'Логин',
+    },
+    email: {
+      value: '',
+      type: 'email',
+      placeholder: 'E-mail',
+    },
+    phone: {
+      value: '',
+      type: 'tel',
+      placeholder: 'Телефон',
+    },
+    password: {
+      value: '',
+      type: 'password',
+      placeholder: 'Пароль',
+    },
+  });
+  const handleInputChange = (key: string, value: string) => {
+    setForm({
+      ...form,
+      [key]: { ...form[key], value },
+    } as Form);
+  };
+  const getFormValues = () => {
+    return {
+      first_name: form.first_name.value,
+      second_name: form.second_name.value,
+      login: form.login.value,
+      email: form.email.value,
+      password: form.password.value,
+      phone: form.phone.value,
+    };
+  };
+  const sendData = (event: FormEvent) => {
+    event.preventDefault();
+    dispatch(Actions.signup(getFormValues()));
+  };
   return (
     <div className={styles.registration__container}>
       <h1 className={styles.registration__title}>Регистрация</h1>
-
-      <form className={styles.registration__form} action=''>
-        <input className={styles.registration__item} type='text' placeholder='Имя'/>
-        <input className={styles.registration__item} type='text' placeholder='Фамилия'/>
-        <input className={styles.registration__item} type='text' placeholder='Логин'/>
-        <input className={styles.registration__item} type='text' placeholder='E-mail'/>
-        <input className={styles.registration__item} type='text' placeholder='Телефон'/>
-
-        <button className={styles.registration__btn} type='submit'>Зарегистрироваться</button>
+      <form className={styles.registration__form} onSubmit={sendData}>
+        {Object.entries(form).map(([key, item]) => (
+          <input
+            className={styles.registration__item}
+            value={form[key].value}
+            name={key}
+            type={item.type}
+            placeholder={item.placeholder}
+            key={key}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              handleInputChange(key, e.currentTarget.value)
+            }
+          />
+        ))}
+        <button className={styles.registration__btn} type="submit">
+          Зарегистрироваться
+        </button>
       </form>
 
-      <a className={styles.registration__login} href='/login'>Войти</a>
+      <a className={styles.registration__login} href="/login">
+        Войти
+      </a>
     </div>
-  )
+  );
 }
 
 export { SignUpPage };

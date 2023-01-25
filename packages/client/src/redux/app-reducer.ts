@@ -1,4 +1,4 @@
-import { ItemActionType, State, actionsType } from './types';
+import { State, actions, actionsType } from './types';
 
 const initialState: State = {
   isAuth: false,
@@ -14,15 +14,20 @@ const initialState: State = {
   },
 };
 
-const appReducer = (state = initialState, action: ItemActionType): State => {
+const appReducer = (state = initialState, action: actions): State => {
   switch (action.type) {
     case actionsType.setAUTH:
-      console.log(state, action.payload);
-
       return {
         ...state,
         isAuth: action.payload,
       };
+      break;
+    case actionsType.setUserInfo:
+      return {
+        ...state,
+        user: action.payload,
+      };
+      break;
     default:
       return state;
   }
