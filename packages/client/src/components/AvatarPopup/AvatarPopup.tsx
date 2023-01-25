@@ -12,7 +12,7 @@ function AvatarPopup({setPopupActive}: AvatarPopupProps) {
           <h1 className={styles.popup__header}>Загрузить аватар</h1>
           <form className={styles.popup__form}>
             <label htmlFor='avatar-file' className={styles.popup__file} />
-            <input id='avatar-file' type='file' />
+            <input id='avatar-file' type='file' name='file' />
 
             <button className={styles.popup__btn}>Сохранить</button>
           </form>

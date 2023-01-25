@@ -1,3 +1,0 @@
-const CHANGE_USER_DATA = "CHANGE_USER_DATA";
-
-export default CHANGE_USER_DATA;

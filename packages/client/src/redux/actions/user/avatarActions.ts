@@ -1,0 +1,3 @@
+const CHANGE_AVATAR = 'CHANGE_AVATAR';
+
+export default CHANGE_AVATAR;
