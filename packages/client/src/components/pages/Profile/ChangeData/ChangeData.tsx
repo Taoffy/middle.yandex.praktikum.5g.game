@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 import styles from './ChangeData.module.scss'
-import { changeUserData } from '../../../../redux/actionCreators/profile/changeUserData'
-import UserDataService from '../../../../core/services/UserDataService'
+import { UserData } from '../../../../redux/types'
+import * as Actions from '../../../../redux/actions';
 
 interface ChangeDataProps {
   first_name: string,
@@ -13,15 +12,6 @@ interface ChangeDataProps {
   login: string,
   email: string,
   phone: string,
-}
-
-export interface UserData {
-  first_name: FormDataEntryValue | null,
-  second_name: FormDataEntryValue | null,
-  display_name: string,
-  login: FormDataEntryValue | null,
-  email: FormDataEntryValue | null,
-  phone: FormDataEntryValue | null,
 }
 
 function ChangeData(props: ChangeDataProps) {
@@ -42,7 +32,7 @@ function ChangeData(props: ChangeDataProps) {
       phone: formData.get('phone'),
     }
 
-    dispatch(changeUserData(data));
+    dispatch(Actions.changeUserData(data));
   };
 
   return (

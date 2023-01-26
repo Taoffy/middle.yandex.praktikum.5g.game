@@ -1,4 +1,4 @@
-import CHANGE_USER_DATA from './actions/profile/profileActions'
+import { actions, actionsType } from './types'
 
 const initialState = {
   isAuth: false,
@@ -14,21 +14,18 @@ const initialState = {
   },
 };
 
-const appReducer = (state = initialState, action: any) => {
+const appReducer = (state = initialState, action: actions) => {
   switch (action.type) {
+    case actionsType.changeData:
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state;
   }
 };
 
-const profileReducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case CHANGE_USER_DATA:
-      return {...state.user, ...action.payload}
-    default:
-      return state;
-  }
-};
 
 
-export { appReducer, profileReducer };
+export { appReducer };

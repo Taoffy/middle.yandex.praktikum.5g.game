@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserData } from '../../components/pages/Profile/ChangeData/ChangeData'
+import { UserData } from '../../redux/types'
 
 const api = axios.create({
   baseURL: 'https://ya-praktikum.tech/api/v2',
@@ -27,6 +27,8 @@ class UserDataService {
     await api.put('/user/profile', data,{
       withCredentials: true,
     })
+
+    return data;
   }
 }
 
