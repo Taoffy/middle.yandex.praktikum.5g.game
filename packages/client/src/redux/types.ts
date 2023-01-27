@@ -1,4 +1,13 @@
-type valueof<T> = T[keyof T];
+type User = {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string | null;
+};
 export type State = {
   isAuth: boolean;
   user: User;
@@ -15,19 +24,4 @@ type setUserInfoAction = {
   type: actionsType.setUserInfo;
   payload: User;
 };
-// export type actions = {
-//   setAUTH: {
-//     type: actionsType.setAUTH;
-//     payload: boolean;
-//   };
-//   setUserInfo: {
-//     type: actionsType.setAUTH;
-//     payload: User;
-//   };
-// };
 export type actions = signupAction | setUserInfoAction;
-
-// export type ItemActionType = {
-//   type: actionsType;
-//   payload: actionsPayload[keyof actionsPayload];
-// };
