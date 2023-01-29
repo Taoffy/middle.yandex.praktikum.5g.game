@@ -4,11 +4,15 @@ import styles from './Profile.module.scss';
 
 function Profile() {
   return (
-    <div className={styles.profile__wrapper}>
+    <div className={styles.profile}>
       <div className={styles.profile__container}>
         <h1 className={styles.profile__title}>Профиль</h1>
 
-        <img className={styles.avatar} src='https://via.placeholder.com/64' alt='user avatar' />
+        <img
+          className={styles.avatar}
+          src="https://via.placeholder.com/64"
+          alt="user avatar"
+        />
 
         <ul className={styles.profile__list}>
           <li className={styles.profile__item}>
@@ -37,7 +41,7 @@ function Profile() {
         <button className={styles.profile__btn}>Изменить пароль</button>
       </div>
     </div>
-  )
+  );
 }
 
 export { Profile };
