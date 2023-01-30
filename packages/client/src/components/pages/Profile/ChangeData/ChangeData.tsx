@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { connect, useDispatch } from 'react-redux'
 
 import styles from './ChangeData.module.scss'
@@ -16,12 +16,12 @@ interface ChangeDataProps {
 
 function ChangeData(props: ChangeDataProps) {
   const dispatch = useDispatch();
+  const formEl = useRef(null);
 
   const onDataSubmit = async (e: Event) => {
     e.preventDefault();
 
-    const form = document.getElementById('change-data');
-    const formData = new FormData(form as HTMLFormElement);
+    const formData = new FormData(formEl.current as unknown as HTMLFormElement);
 
     const data: UserData = {
       first_name: formData.get('first_name'),
@@ -38,7 +38,7 @@ function ChangeData(props: ChangeDataProps) {
   return (
     <div className={styles.data__container}>
       <h1 className={styles.data__header}>Изменить данные</h1>
-      <form id='change-data' onSubmit={onDataSubmit} >
+      <form id='change-data' onSubmit={onDataSubmit} ref={formEl} >
         <input className={styles.data__input} type='text' placeholder={props.first_name} name='first_name' />
         <input className={styles.data__input} type='text' placeholder={props.second_name} name='second_name' />
         <input className={styles.data__input} type='text' placeholder={props.login} name='login' />
