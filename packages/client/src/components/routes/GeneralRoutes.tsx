@@ -7,7 +7,7 @@ import { AboutGame } from '../pages/about-game/AboutGame';
 import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
-import { Profile } from '../pages/Profile/Profile'
+import { Profile } from '../pages/Profile/Profile';
 
 const GeneralRoutes = () => {
   return (
