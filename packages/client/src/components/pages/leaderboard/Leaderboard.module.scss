@@ -1,28 +1,4 @@
-:root {
-  --color-purple: #5754eb;
-  --color-blue: #2c28db;
-  --color-dark-blue: #0e0ba7;
-  --color-cyan: #54beeb;
-  --color-light-blue: #2870db;
-  --color-green: #0ba794;
-  --color-white: #ffffff;
-}
-body {
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 .leaderboard {
-  background: linear-gradient(
-    88.67deg,
-    #54beeb 1.13%,
-    #2870db 63.38%,
-    #0ba794 98.87%
-  );
   font-family: 'Montserrat', sans-serif;
 }
 

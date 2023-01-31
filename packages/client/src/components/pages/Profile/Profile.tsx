@@ -4,7 +4,7 @@ import styles from './Profile.module.scss';
 
 function Profile() {
   return (
-    <div className={styles.profile__wrapper}>
+    <div className={styles.profile}>
       <div className={styles.profile__container}>
         <h1 className={styles.profile__title}>Профиль</h1>
 

@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react';
-import styles from './SignUp.module.css';
+import styles from './SignUp.module.scss';
 import { useDispatch } from 'react-redux';
 import * as Actions from '../../../redux/actions';
 function SignUpPage() {
@@ -57,30 +57,32 @@ function SignUpPage() {
     dispatch(Actions.signup(getFormValues()));
   };
   return (
-    <div className={styles.registration__container}>
-      <h1 className={styles.registration__title}>Регистрация</h1>
-      <form className={styles.registration__form} onSubmit={sendData}>
-        {Object.entries(form).map(([key, item]) => (
-          <input
-            className={styles.registration__item}
-            value={form[key].value}
-            name={key}
-            type={item.type}
-            placeholder={item.placeholder}
-            key={key}
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              handleInputChange(key, e.currentTarget.value)
-            }
-          />
-        ))}
-        <button className={styles.registration__btn} type="submit">
-          Зарегистрироваться
-        </button>
-      </form>
+    <div className={styles.registration}>
+      <div className={styles.registration__container}>
+        <h1 className={styles.registration__title}>Регистрация</h1>
+        <form className={styles.registration__form} onSubmit={sendData}>
+          {Object.entries(form).map(([key, item]) => (
+            <input
+              className={styles.registration__item}
+              value={form[key].value}
+              name={key}
+              type={item.type}
+              placeholder={item.placeholder}
+              key={key}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                handleInputChange(key, e.currentTarget.value)
+              }
+            />
+          ))}
+          <button className={styles.registration__btn} type="submit">
+            Зарегистрироваться
+          </button>
+        </form>
 
-      <a className={styles.registration__login} href="/login">
-        Войти
-      </a>
+        <a className={styles.registration__login} href="/login">
+          Войти
+        </a>
+      </div>
     </div>
   );
 }
