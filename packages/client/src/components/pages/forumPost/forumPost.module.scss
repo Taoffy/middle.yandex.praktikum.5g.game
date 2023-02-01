@@ -1,4 +1,3 @@
-// TODO: Убрать лишнее
 body {
     margin: 0;
     padding: 0;
@@ -67,20 +66,10 @@ body {
       }
     }
 
-    &__messageBlock{
-        display: flex;
-        justify-content: space-between;
-        float:right;
-        &child{
-            margin-right: 5px
-        }
-    }
-
   }
   .contentBlock{
     overflow-y:scroll;
     height: 70vh;
-    //overflow: auto;
   }
   .contentBlock::-webkit-scrollbar {
     width: 12px;
@@ -100,14 +89,6 @@ body {
   
   .forum__title {
     width: 100%;
-  }
-  
-  .form__wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
   }
   
   .form__btnSubmit {
