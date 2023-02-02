@@ -19,7 +19,6 @@ function Profile(props: ProfileProps) {
   const [isPopupActive, setPopupActive] = useState(false);
 
   return (
-    <div>
     <div className={styles.profile}>
       <div className={styles.profile__container}>
         <h1 className={styles.profile__title}>Профиль</h1>
@@ -52,7 +51,6 @@ function Profile(props: ProfileProps) {
           <Link className={styles.profile__btn} to='change-data'>Изменить данные</Link>
           <Link className={styles.profile__btn} to='change-password'>Изменить пароль</Link>
         </div>
-      </div>
 
       {isPopupActive ? <AvatarPopup setPopupActive={setPopupActive}/> : ''}
     </div>

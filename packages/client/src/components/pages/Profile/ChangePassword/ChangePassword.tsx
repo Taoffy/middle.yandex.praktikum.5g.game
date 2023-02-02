@@ -1,17 +1,38 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useRef } from 'react'
+import { connect, useDispatch } from 'react-redux'
 import styles from './ChangePassword.module.scss'
-import { Link } from 'react-router-dom'
+import * as Actions from '../../../../redux/actions'
 
-function ChangePassword() {
+type ChangePasswordProps = {
+    oldPassword: string;
+    newPassword: string;
+}
+
+function ChangePassword(props: ChangePasswordProps) {
+  const dispatch = useDispatch();
+  const formEl = useRef(null);
+
+  const onPasswordSubmit = (e: Event) => {
+    e.preventDefault();
+
+    const formData = new FormData(formEl.current as unknown as HTMLFormElement);
+
+    const data = {
+      oldPassword: formData.get('oldPassword'),
+      newPassword: formData.get('newPassword'),
+    }
+
+    dispatch(Actions.changeUserPassword(data));
+  }
+
   return (
     <div className={styles.password__container}>
       <h1 className={styles.password__header}> Изменить пароль</h1>
-      <form id='change-password' action=''>
-        <input className={styles.password__input} type='password' placeholder='Старый пароль' />
-        <input className={styles.password__input} type='password' placeholder='Новый пароль' />
+      <form id='change-password' action='' onSubmit={onPasswordSubmit} ref={formEl}>
+        <input className={styles.password__input} type='password' placeholder='Старый пароль' name='oldPassword' />
+        <input className={styles.password__input} type='password' placeholder='Новый пароль'  name='newPassword'  />
 
-        <Link className={styles.password__btn} to='/profile'>Изменить пароль</Link>
+        <button className={styles.password__btn} type='submit'>Изменить пароль</button>
       </form>
     </div>
   );

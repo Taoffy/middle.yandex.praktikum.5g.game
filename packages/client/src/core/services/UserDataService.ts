@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserData } from '../../redux/types'
+import { UserData, UserPassword } from '../../redux/types'
 
 const api = axios.create({
   baseURL: 'https://ya-praktikum.tech/api/v2',
@@ -29,6 +29,12 @@ class UserDataService {
     })
 
     return data;
+  }
+
+  async changeUserPassword(data: UserPassword) {
+    await api.put('/user/password', data, {
+      withCredentials: true,
+    })
   }
 }
 
