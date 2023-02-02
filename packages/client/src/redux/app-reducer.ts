@@ -1,15 +1,15 @@
-import { actions, actionsType } from './types'
+import { State, actions, actionsType } from './types';
 
-const initialState = {
+const initialState: State = {
   isAuth: false,
   user: {
     id: 1,
-    first_name: 'Danila',
-    second_name: 'Kryuchkov',
-    display_name: 'pavuk',
-    login: 'pavuk',
-    email: 'blabla@mail.ru',
-    phone: '+7(999)-999-99-99',
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    login: '',
+    email: '',
+    phone: '',
     avatar: '',
   },
 };
@@ -20,12 +20,22 @@ const appReducer = (state = initialState, action: actions) => {
       return {
         ...state,
         user: action.payload
-      }
+      };
+    case actionsType.setAUTH:
+      return {
+        ...state,
+        isAuth: action.payload,
+      };
+      break;
+    case actionsType.setUserInfo:
+      return {
+        ...state,
+        user: action.payload,
+      };
+      break;
     default:
       return state;
   }
 };
-
-
 
 export { appReducer };

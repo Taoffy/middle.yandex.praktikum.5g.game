@@ -20,12 +20,26 @@ html {
   writing-mode: lr-tb;
 }
 
+html,
+body,
+#root {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
 body {
   font-family: Montserrat, Helvetica, sans-serif;
   font-weight: normal;
   font-size: 16px;
   line-height: 1.2;
   color: var(--color-black);
+  background: linear-gradient(
+    88.67deg,
+    #54beeb 1.13%,
+    #2870db 63.38%,
+    #0ba794 98.87%
+  );
 }
 
 button,
