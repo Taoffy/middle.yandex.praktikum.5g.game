@@ -1,17 +1,27 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import styles from './ChangePassword.module.scss'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { connect } from 'react-redux';
+import styles from './ChangePassword.module.scss';
+import { Link } from 'react-router-dom';
 
 function ChangePassword() {
   return (
     <div className={styles.password__container}>
       <h1 className={styles.password__header}> Изменить пароль</h1>
-      <form id='change-password' action=''>
-        <input className={styles.password__input} type='password' placeholder='Старый пароль' />
-        <input className={styles.password__input} type='password' placeholder='Новый пароль' />
+      <form id="change-password" action="">
+        <input
+          className={styles.password__input}
+          type="password"
+          placeholder="Старый пароль"
+        />
+        <input
+          className={styles.password__input}
+          type="password"
+          placeholder="Новый пароль"
+        />
 
-        <Link className={styles.password__btn} to='/profile'>Изменить пароль</Link>
+        <Link className={styles.password__btn} to="/profile">
+          Изменить пароль
+        </Link>
       </form>
     </div>
   );
@@ -25,7 +35,7 @@ const mapStateToProps = (state: any) => {
     login: state.app.user.login,
     email: state.app.user.email,
     phone: state.app.user.phone,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(ChangePassword);
