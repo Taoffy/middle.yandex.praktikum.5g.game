@@ -46,7 +46,7 @@ const mapStateToProps = (state: any) => {
     login: state.app.user.login,
     email: state.app.user.email,
     phone: state.app.user.phone,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(ChangePassword);
