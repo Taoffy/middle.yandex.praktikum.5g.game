@@ -7,11 +7,7 @@ import * as Actions from '../../../../redux/actions';
 function ChangeData() {
   const dispatch = useDispatch();
   const formEl = useRef(null);
-  const first_name = useSelector((state: Store) => state.app.user.first_name);
-  const second_name = useSelector((state: Store) => state.app.user.second_name);
-  const login = useSelector((state: Store) => state.app.user.login);
-  const email = useSelector((state: Store) => state.app.user.email);
-  const phone = useSelector((state: Store) => state.app.user.phone);
+  const user = useSelector((state: Store) => state.app.user);
 
   const onDataSubmit = async (e: Event) => {
     e.preventDefault();
@@ -37,31 +33,31 @@ function ChangeData() {
         <input
           className={styles.data__input}
           type="text"
-          placeholder={first_name}
+          placeholder={user.first_name}
           name="first_name"
         />
         <input
           className={styles.data__input}
           type="text"
-          placeholder={second_name}
+          placeholder={user.second_name}
           name="second_name"
         />
         <input
           className={styles.data__input}
           type="text"
-          placeholder={login}
+          placeholder={user.login}
           name="login"
         />
         <input
           className={styles.data__input}
           type="email"
-          placeholder={email}
+          placeholder={user.email}
           name="email"
         />
         <input
           className={styles.data__input}
           type="tel"
-          placeholder={phone}
+          placeholder={user.phone}
           name="phone"
         />
 
