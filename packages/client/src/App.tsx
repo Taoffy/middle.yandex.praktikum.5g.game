@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { GeneralRoutes } from './components/routes/GeneralRoutes';
@@ -14,7 +14,7 @@ function App() {
       console.log(data);
     };
 
-    fetchServerData();
+    //fetchServerData();
   }, []);
   return (
     <BrowserRouter>
