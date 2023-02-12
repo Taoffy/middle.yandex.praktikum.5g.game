@@ -9,6 +9,7 @@ import { ForumPage } from '../pages/forum/Forum';
 import { ForumPostPage } from '../pages/forumPost/ForumPost';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
 import { Profile } from '../pages/Profile/Profile';
+import withAuth from '../hoc/withAuth';
 
 const GeneralRoutes = () => {
   return (
@@ -16,12 +17,12 @@ const GeneralRoutes = () => {
       <Route path="/">
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
-        <Route path="main" element={<MainPage />} />
-        <Route path="about-game" element={<AboutGame />} />
-        <Route path="forum" element={<ForumPage />} />
-        <Route path="forumpost" element={<ForumPostPage />} />
-        <Route path="leaderboard" element={<LeaderboardPage />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="main" element={withAuth(MainPage)({})} />
+        <Route path="about-game" element={withAuth(AboutGame)({})} />
+        <Route path="forum" element={withAuth(ForumPage)({})} />
+        <Route path="forumpost" element={withAuth(ForumPostPage)({})} />
+        <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
+        <Route path="profile" element={withAuth(Profile)({})} />
       </Route>
     </Routes>
   );
