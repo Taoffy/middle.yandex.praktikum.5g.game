@@ -48,9 +48,11 @@ class UserServiceClass {
   }
   async authUser() {
     try {
+      // @ts-ignore
       const response = await api.get<string, AxiosResponse<User>>(
         AuthPath.authUser
       );
+      // @ts-ignore
       return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);

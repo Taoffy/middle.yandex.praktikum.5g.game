@@ -15,7 +15,7 @@ const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route path="login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="main" element={withAuth(MainPage)({})} />
         <Route path="about-game" element={withAuth(AboutGame)({})} />

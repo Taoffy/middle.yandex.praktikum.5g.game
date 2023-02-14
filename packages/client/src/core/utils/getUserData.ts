@@ -1,5 +1,6 @@
 import { serverURL } from '../config/api.config';
 
+// @ts-ignore
 export const getUserData = (data: UserServer): User => {
   return {
     id: data.id,

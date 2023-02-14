@@ -1,6 +1,7 @@
 import React, { FormEvent } from 'react';
 import styles from './SignUp.module.scss';
 import { useDispatch } from 'react-redux';
+// @ts-ignore
 import * as Actions from '../../../redux/actions';
 function SignUpPage() {
   const dispatch = useDispatch();
