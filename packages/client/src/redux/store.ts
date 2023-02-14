@@ -10,15 +10,14 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-const composeEnchancers = compose(
-  typeof window !== 'undefined' && window.devToolsExtension
-    ? window.devToolsExtension()
-    : (f) => f
-);
+const composeEnhancers =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 const store = createStore(
   reducers,
-  composeEnchancers(applyMiddleware(thunk as ThunkMiddleware))
+  composeEnhancers(applyMiddleware(thunk as ThunkMiddleware))
 );
 
 export default store;
