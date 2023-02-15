@@ -8,14 +8,43 @@ type User = {
   phone: string;
   avatar: string | null;
 };
+
+export type Store = {
+  app: {
+    isAuth: false;
+    user: {
+      id: 1;
+      first_name: '';
+      second_name: '';
+      display_name: '';
+      login: '';
+      email: '';
+      phone: '';
+      avatar: '';
+    };
+  };
+};
+
+export interface UserData {
+  first_name: FormDataEntryValue | null;
+  second_name: FormDataEntryValue | null;
+  display_name: string;
+  login: FormDataEntryValue | null;
+  email: FormDataEntryValue | null;
+  phone: FormDataEntryValue | null;
+}
+
 export type State = {
   isAuth: boolean;
   user: User;
 };
+
 export enum actionsType {
   setAUTH = 'setAUTH',
   setUserInfo = 'setUserInfo',
+  changeData = 'CHANGE_DATA',
 }
+
 type signupAction = {
   type: actionsType.setAUTH;
   payload: boolean;
@@ -24,4 +53,10 @@ type setUserInfoAction = {
   type: actionsType.setUserInfo;
   payload: User;
 };
-export type actions = signupAction | setUserInfoAction;
+
+type changeDataAction = {
+  type: actionsType.changeData;
+  payload: UserData;
+};
+
+export type actions = signupAction | setUserInfoAction | changeDataAction;
