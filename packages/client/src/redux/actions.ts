@@ -1,4 +1,4 @@
-import { actionsType, UserData } from './types'
+import { actionsType, UserAvatar, UserData } from './types'
 import UserDataService from '../core/services/UserDataService'
 import { UserService } from '../core/services/UserService';
 
@@ -11,6 +11,21 @@ export const changeUserData = (userData: UserData) => {
         type: actionsType.changeData,
         payload: response,
       });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+export const changeUserAvatar = (avatar: UserAvatar) => {
+  return async (dispatch: any) => {
+    try {
+      const response = await UserDataService.changeUserAvatar(avatar);
+
+      dispatch({
+        type: actionsType.changeAvatar,
+        payload: response,
+      })
     } catch (e) {
       console.error(e);
     }

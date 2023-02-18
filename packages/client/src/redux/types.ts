@@ -34,6 +34,10 @@ export interface UserData {
   phone: FormDataEntryValue | null;
 }
 
+export interface UserAvatar {
+  avatar: FormData,
+}
+
 export type State = {
   isAuth: boolean;
   user: User;
@@ -43,6 +47,7 @@ export enum actionsType {
   setAUTH = 'setAUTH',
   setUserInfo = 'setUserInfo',
   changeData = 'CHANGE_DATA',
+  changeAvatar = 'CHANGE_AVATAR',
 }
 
 type signupAction = {
@@ -58,5 +63,10 @@ type changeDataAction = {
   type: actionsType.changeData;
   payload: UserData;
 };
+
+type changeAvatarAction = {
+  type: actionsType.changeAvatar;
+  payload: UserAvatar;
+}
 
 export type actions = signupAction | setUserInfoAction | changeDataAction;
