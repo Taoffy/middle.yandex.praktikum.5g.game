@@ -19,7 +19,15 @@ const appReducer = (state = initialState, action: actions) => {
     case actionsType.changeData:
       return {
         ...state,
-        user: action.payload
+        user: {
+          ...action.payload,
+          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
+        },
+      };
+    case actionsType.changeAvatar:
+      return {
+        ...state,
+        user: { ...state.user, avatar: action.payload },
       };
     case actionsType.setAUTH:
       return {

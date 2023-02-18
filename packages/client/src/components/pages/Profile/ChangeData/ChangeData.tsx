@@ -5,7 +5,7 @@ import { Store, UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
 
 function ChangeData() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch() as any;
   const formEl = useRef(null);
   const user = useSelector((state: Store) => state.app.user);
 
@@ -21,6 +21,7 @@ function ChangeData() {
       email: formData.get('email'),
       display_name: '',
       phone: formData.get('phone'),
+      avatar: '',
     };
 
     dispatch(Actions.changeUserData(data));

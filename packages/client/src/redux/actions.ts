@@ -1,5 +1,5 @@
-import { actionsType, UserAvatar, UserData } from './types'
-import UserDataService from '../core/services/UserDataService'
+import { actionsType, UserAvatar, UserData } from './types';
+import UserDataService from '../core/services/UserDataService';
 import { UserService } from '../core/services/UserService';
 
 export const changeUserData = (userData: UserData) => {
@@ -14,23 +14,24 @@ export const changeUserData = (userData: UserData) => {
     } catch (e) {
       console.error(e);
     }
-  }
-}
+  };
+};
 
-export const changeUserAvatar = (avatar: UserAvatar) => {
+export const changeUserAvatar = (data: UserAvatar) => {
   return async (dispatch: any) => {
     try {
-      const response = await UserDataService.changeUserAvatar(avatar);
+      const response = await UserDataService.changeUserAvatar(data);
+      const avatarPath = `https://ya-praktikum.tech/api/v2/resources${response.avatar}`;
 
       dispatch({
         type: actionsType.changeAvatar,
-        payload: response,
-      })
+        payload: avatarPath,
+      });
     } catch (e) {
       console.error(e);
     }
-  }
-}
+  };
+};
 
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };

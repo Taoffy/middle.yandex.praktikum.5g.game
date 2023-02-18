@@ -32,10 +32,11 @@ export interface UserData {
   login: FormDataEntryValue | null;
   email: FormDataEntryValue | null;
   phone: FormDataEntryValue | null;
+  avatar: FormDataEntryValue | null;
 }
 
 export interface UserAvatar {
-  avatar: FormData,
+  avatar: any;
 }
 
 export type State = {
@@ -67,6 +68,10 @@ type changeDataAction = {
 type changeAvatarAction = {
   type: actionsType.changeAvatar;
   payload: UserAvatar;
-}
+};
 
-export type actions = signupAction | setUserInfoAction | changeDataAction;
+export type actions =
+  | signupAction
+  | setUserInfoAction
+  | changeDataAction
+  | changeAvatarAction;
