@@ -21,7 +21,7 @@ function ChangeData() {
       email: formData.get('email'),
       display_name: '',
       phone: formData.get('phone'),
-      avatar: '',
+      avatar: ''
     };
 
     dispatch(Actions.changeUserData(data));
@@ -30,39 +30,39 @@ function ChangeData() {
   return (
     <div className={styles.data__container}>
       <h1 className={styles.data__header}>Изменить данные</h1>
-      <form id="change-data" onSubmit={onDataSubmit} ref={formEl}>
+      <form id='change-data' onSubmit={onDataSubmit} ref={formEl}>
         <input
           className={styles.data__input}
-          type="text"
+          type='text'
           placeholder={user.first_name}
-          name="first_name"
+          name='first_name'
         />
         <input
           className={styles.data__input}
-          type="text"
+          type='text'
           placeholder={user.second_name}
-          name="second_name"
+          name='second_name'
         />
         <input
           className={styles.data__input}
-          type="text"
+          type='text'
           placeholder={user.login}
-          name="login"
+          name='login'
         />
         <input
           className={styles.data__input}
-          type="email"
+          type='email'
           placeholder={user.email}
-          name="email"
+          name='email'
         />
         <input
           className={styles.data__input}
-          type="tel"
+          type='tel'
           placeholder={user.phone}
-          name="phone"
+          name='phone'
         />
 
-        <button className={styles.data__btn} type="submit">
+        <button className={styles.data__btn} type='submit'>
           Сохранить
         </button>
       </form>

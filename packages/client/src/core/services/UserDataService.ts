@@ -2,30 +2,30 @@ import axios from 'axios';
 import { UserAvatar, UserData } from '../../redux/types';
 
 const api = axios.create({
-  baseURL: 'https://ya-praktikum.tech/api/v2',
+  baseURL: 'https://ya-praktikum.tech/api/v2'
 });
 
 class UserDataService {
   async logIn() {
     const data = {
       login: 'pavukkkkk',
-      password: '12345asd',
+      password: '12345asd'
     };
     await api.post('/auth/signin', data, {
-      withCredentials: true,
+      withCredentials: true
     });
   }
 
   async getUser() {
     await api.get('/auth/user', {
-      withCredentials: true,
+      withCredentials: true
     });
   }
 
   async changeUserAvatar(data: UserAvatar) {
     const response = await api
       .put('user/profile/avatar', data, {
-        withCredentials: true,
+        withCredentials: true
       })
       .then((res) => res.data);
 
@@ -34,7 +34,7 @@ class UserDataService {
 
   async changeUserData(data: UserData) {
     const response = await api.put('/user/profile', data, {
-      withCredentials: true,
+      withCredentials: true
     });
 
     return response.data;

@@ -3,7 +3,7 @@ import React, {
   FormEvent,
   MutableRefObject,
   SetStateAction,
-  useRef,
+  useRef
 } from 'react';
 import styles from './AvatarPopup.module.scss';
 import { useDispatch } from 'react-redux';
@@ -36,13 +36,13 @@ function AvatarPopup({ setPopupActive }: AvatarPopupProps) {
         <h1 className={styles.popup__header}>Загрузить аватар</h1>
         <form
           className={styles.popup__form}
-          method="put"
+          method='put'
           ref={avatarForm}
           onSubmit={handleAvatarChange}>
-          <label htmlFor="avatar-file" className={styles.popup__file} />
-          <input id="avatar-file" type="file" name="file" />
+          <label htmlFor='avatar-file' className={styles.popup__file} />
+          <input id='avatar-file' type='file' name='file' />
 
-          <button type="submit" className={styles.popup__btn}>
+          <button type='submit' className={styles.popup__btn}>
             Сохранить
           </button>
         </form>

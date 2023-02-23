@@ -10,8 +10,8 @@ const initialState: State = {
     login: '',
     email: '',
     phone: '',
-    avatar: '',
-  },
+    avatar: ''
+  }
 };
 
 const appReducer = (state = initialState, action: actions) => {
@@ -21,24 +21,24 @@ const appReducer = (state = initialState, action: actions) => {
         ...state,
         user: {
           ...action.payload,
-          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
-        },
+          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`
+        }
       };
     case actionsType.changeAvatar:
       return {
         ...state,
-        user: { ...state.user, avatar: action.payload },
+        user: { ...state.user, avatar: action.payload }
       };
     case actionsType.setAUTH:
       return {
         ...state,
-        isAuth: action.payload,
+        isAuth: action.payload
       };
       break;
     case actionsType.setUserInfo:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload
       };
       break;
     default:

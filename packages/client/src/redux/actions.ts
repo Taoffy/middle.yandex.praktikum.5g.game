@@ -9,7 +9,7 @@ export const changeUserData = (userData: UserData) => {
 
       dispatch({
         type: actionsType.changeData,
-        payload: response,
+        payload: response
       });
     } catch (e) {
       console.error(e);
@@ -25,7 +25,7 @@ export const changeUserAvatar = (data: UserAvatar) => {
 
       dispatch({
         type: actionsType.changeAvatar,
-        payload: avatarPath,
+        payload: avatarPath
       });
     } catch (e) {
       console.error(e);
@@ -36,6 +36,7 @@ export const changeUserAvatar = (data: UserAvatar) => {
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };
 }
+
 // export async function signin(payload) {
 //   try {
 //     await UserService.signin(payload);
