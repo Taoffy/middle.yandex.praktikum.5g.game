@@ -14,7 +14,7 @@ function ChangePassword() {
 
     const data = {
       oldPassword: formData.get('oldPassword'),
-      newPassword: formData.get('newPassword'),
+      newPassword: formData.get('newPassword')
     };
 
     dispatch(Actions.changeUserPassword(data));
@@ -24,24 +24,24 @@ function ChangePassword() {
     <div className={styles.password__container}>
       <h1 className={styles.password__header}> Изменить пароль</h1>
       <form
-        id="change-password"
-        action=""
+        id='change-password'
+        action=''
         onSubmit={onPasswordSubmit}
         ref={formEl}>
         <input
           className={styles.password__input}
-          type="password"
-          placeholder="Старый пароль"
-          name="oldPassword"
+          type='password'
+          placeholder='Старый пароль'
+          name='oldPassword'
         />
         <input
           className={styles.password__input}
-          type="password"
-          placeholder="Новый пароль"
-          name="newPassword"
+          type='password'
+          placeholder='Новый пароль'
+          name='newPassword'
         />
 
-        <button className={styles.password__btn} type="submit">
+        <button className={styles.password__btn} type='submit'>
           Изменить пароль
         </button>
       </form>

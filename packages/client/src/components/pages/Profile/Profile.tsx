@@ -16,8 +16,8 @@ function Profile() {
 
         <img
           className={styles.avatar}
-          src="https://via.placeholder.com/64"
-          alt="user avatar"
+          src='https://via.placeholder.com/64'
+          alt='user avatar'
           onClick={() => setPopupActive(true)}
         />
 
@@ -44,10 +44,10 @@ function Profile() {
           </li>
         </ul>
 
-        <Link className={styles.profile__btn} to="change-data">
+        <Link className={styles.profile__btn} to='change-data'>
           Изменить данные
         </Link>
-        <Link className={styles.profile__btn} to="change-password">
+        <Link className={styles.profile__btn} to='change-password'>
           Изменить пароль
         </Link>
       </div>

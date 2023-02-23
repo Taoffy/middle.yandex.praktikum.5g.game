@@ -10,8 +10,8 @@ const initialState: State = {
     login: '',
     email: '',
     phone: '',
-    avatar: '',
-  },
+    avatar: ''
+  }
 };
 
 const appReducer = (state = initialState, action: actions) => {
@@ -25,13 +25,13 @@ const appReducer = (state = initialState, action: actions) => {
     case actionsType.setAUTH:
       return {
         ...state,
-        isAuth: action.payload,
+        isAuth: action.payload
       };
       break;
     case actionsType.setUserInfo:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload
       };
       break;
     default:
