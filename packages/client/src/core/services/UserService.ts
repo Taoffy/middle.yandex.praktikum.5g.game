@@ -1,9 +1,14 @@
+import { User } from '../../redux/types';
 import { api } from '../api';
 import { apiHasError } from '../utils/apiHasError';
 import { AxiosResponse } from 'axios';
 export type LoginRequestData = {
   login: string;
   password: string;
+};
+export type LoginRequestDataOauth = {
+  redirect_uri: string;
+  code: string;
 };
 export type RegistrationRequestData = {
   first_name: string;
@@ -18,6 +23,10 @@ enum AuthPath {
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
+}
+enum Oauth {
+  signin = '/oauth/yandex',
+  getId = '/oauth/yandex/service-id',
 }
 
 class UserServiceClass {
@@ -60,6 +69,27 @@ class UserServiceClass {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
         AuthPath.logout
+      );
+      return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async gitIdOAuth(redirect_uri: string) {
+    try {
+      const response = await api.get<string, AxiosResponse<string>>(
+        `${Oauth.getId}?redirect_uri=${redirect_uri}`
+      );
+      return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async signinOAuth(data: LoginRequestDataOauth) {
+    try {
+      const response = await api.post<string, AxiosResponse<string>>(
+        Oauth.signin,
+        data
       );
       return this.checkAnswer<string>(response);
     } catch (error) {

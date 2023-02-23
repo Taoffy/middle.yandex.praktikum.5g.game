@@ -1,22 +1,20 @@
 import React, { ComponentType, FC } from 'react';
-import { useSelector } from 'react-redux';
-import { State } from '../../redux/types';
-import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../hook/AppUseSelectorAndDispathch';
+import { LoginPage } from '../pages/login/Login';
+import { Spinner } from '../ui/spinner/spinner';
 
 const withAuth =
   (Component: ComponentType): FC =>
   (props) => {
-    const isAuth = useSelector((state: State) => state.isAuth);
+    const isAuth = useAppSelector(({ app }) => app.isAuth);
+    const isInit = useAppSelector(({ app }) => app.init);
+    if (!isInit) {
+      return <Spinner {...props} />;
+    }
     if (isAuth) {
       return <Component {...props} />;
     }
-    return (
-      <Navigate
-        to={{
-          pathname: '/login',
-        }}
-      />
-    );
+    return <LoginPage />;
   };
 
 export default withAuth;

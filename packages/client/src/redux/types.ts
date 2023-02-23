@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number;
   first_name: string;
   second_name: string;
@@ -9,12 +9,14 @@ type User = {
   avatar: string | null;
 };
 export type State = {
+  init: boolean;
   isAuth: boolean;
   user: User;
 };
 export enum actionsType {
   setAUTH = 'setAUTH',
   setUserInfo = 'setUserInfo',
+  setInit = 'setInit',
 }
 type signupAction = {
   type: actionsType.setAUTH;
@@ -24,4 +26,8 @@ type setUserInfoAction = {
   type: actionsType.setUserInfo;
   payload: User;
 };
-export type actions = signupAction | setUserInfoAction;
+type setInitAction = {
+  type: actionsType.setInit;
+  payload: boolean;
+};
+export type actions = signupAction | setUserInfoAction | setInitAction;

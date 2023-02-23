@@ -3,14 +3,6 @@ import { actionsType } from './types';
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };
 }
-// export async function signin(payload) {
-//   try {
-//     await UserService.signin(payload);
-//     return { type: actionsType.setAUTH, payload: true };
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 export const signin = (payload) => async (dispatch) => {
   try {
     const response = await UserService.signin(payload);
@@ -18,6 +10,13 @@ export const signin = (payload) => async (dispatch) => {
       dispatch({ type: actionsType.setAUTH, payload: true });
       dispatch(authUser());
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const logout = () => async () => {
+  try {
+    await UserService.logout();
   } catch (error) {
     console.error(error);
   }
@@ -34,11 +33,31 @@ export const signup = (payload) => async (dispatch) => {
 };
 export const authUser = () => async (dispatch) => {
   try {
-    console.log(123);
     const response = await UserService.authUser();
-    if (response.id) {
+    if (response?.id) {
       dispatch({ type: actionsType.setUserInfo, payload: response });
+      dispatch({ type: actionsType.setAUTH, payload: true });
     }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    dispatch({ type: actionsType.setInit, payload: true });
+  }
+};
+export const gitIdOAuth = (redirect_uri) => async () => {
+  try {
+    const response = await UserService.gitIdOAuth(redirect_uri);
+    console.log(response);
+    const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
+    window.open(urlYandexAuth, '_self');
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const signinOAuth = (data) => async () => {
+  try {
+    const response = await UserService.signinOAuth(data);
+    console.log(response);
   } catch (error) {
     console.error(error);
   }

@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
 import styles from './Login.module.scss';
-import { useDispatch } from 'react-redux';
 import * as Actions from '../../../redux/actions';
+import { useAppDispatch } from '../../hook/AppUseSelectorAndDispathch';
 function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [form, setForm] = React.useState<Form>({
     login: {
       value: '',
@@ -16,6 +16,7 @@ function LoginPage() {
       placeholder: 'Пароль',
     },
   });
+
   const handleInputChange = (key: string, value: string) => {
     setForm({
       ...form,
@@ -32,6 +33,9 @@ function LoginPage() {
     event.preventDefault();
     dispatch(Actions.signin(getFormValues()));
     dispatch(Actions.authUser());
+  };
+  const OathHandler = () => {
+    dispatch(Actions.gitIdOAuth('http://localhost:3000'));
   };
   return (
     <main className={styles.login}>
@@ -57,6 +61,7 @@ function LoginPage() {
               Войти
             </button>
           </form>
+          <button onClick={OathHandler}>Авторизация через Yandex</button>
           <a className={styles.form__link} href="#">
             Зарегистрироваться
           </a>
