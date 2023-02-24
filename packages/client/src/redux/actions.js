@@ -47,17 +47,16 @@ export const authUser = () => async (dispatch) => {
 export const gitIdOAuth = (redirect_uri) => async () => {
   try {
     const response = await UserService.gitIdOAuth(redirect_uri);
-    console.log(response);
     const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
     window.open(urlYandexAuth, '_self');
   } catch (error) {
     console.error(error);
   }
 };
-export const signinOAuth = (data) => async () => {
+export const signinOAuth = (data) => async (dispatch) => {
   try {
-    const response = await UserService.signinOAuth(data);
-    console.log(response);
+    await UserService.signinOAuth(data);
+    dispatch(authUser());
   } catch (error) {
     console.error(error);
   }
