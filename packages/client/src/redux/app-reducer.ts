@@ -15,8 +15,13 @@ const initialState: State = {
   },
 };
 
-const appReducer = (state = initialState, action: actions): State => {
+const appReducer = (state = initialState, action: actions) => {
   switch (action.type) {
+    case actionsType.changeData:
+      return {
+        ...state,
+        user: action.payload
+      };
     case actionsType.setAUTH:
       return {
         ...state,
