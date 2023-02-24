@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import styles from './loader.module.scss';
 import * as Actions from '../../../redux/actions';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../hook/AppUseSelectorAndDispathch';
+import { Spinner } from '../../ui/spinner/spinner';
 function Loader() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -31,11 +31,7 @@ function Loader() {
       navigate('/login');
     }
   }, [isInit]);
-  return (
-    <div className={styles.loader}>
-      <div className={styles.spinner__animation}></div>
-    </div>
-  );
+  return <Spinner />;
 }
 
 export { Loader };
