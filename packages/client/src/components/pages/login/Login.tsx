@@ -1,31 +1,33 @@
 import React, { FormEvent } from 'react';
 import styles from './Login.module.scss';
 import { useDispatch } from 'react-redux';
+// @ts-ignore
 import * as Actions from '../../../redux/actions';
+
 function LoginPage() {
   const dispatch = useDispatch();
   const [form, setForm] = React.useState<Form>({
     login: {
       value: '',
       type: 'text',
-      placeholder: 'Логин',
+      placeholder: 'Логин'
     },
     password: {
       value: '',
       type: 'password',
-      placeholder: 'Пароль',
-    },
+      placeholder: 'Пароль'
+    }
   });
   const handleInputChange = (key: string, value: string) => {
     setForm({
       ...form,
-      [key]: { ...form[key], value },
+      [key]: { ...form[key], value }
     } as Form);
   };
   const getFormValues = () => {
     return {
       login: form.login.value,
-      password: form.password.value,
+      password: form.password.value
     };
   };
   const sendData = (event: FormEvent) => {
@@ -53,11 +55,11 @@ function LoginPage() {
                 />
               </div>
             ))}
-            <button className={styles.form__btnSubmit} type="submit">
+            <button className={styles.form__btnSubmit} type='submit'>
               Войти
             </button>
           </form>
-          <a className={styles.form__link} href="#">
+          <a className={styles.form__link} href='#'>
             Зарегистрироваться
           </a>
         </div>

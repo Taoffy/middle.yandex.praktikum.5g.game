@@ -1,45 +1,47 @@
 import React, { FormEvent } from 'react';
 import styles from './SignUp.module.scss';
 import { useDispatch } from 'react-redux';
+// @ts-ignore
 import * as Actions from '../../../redux/actions';
+
 function SignUpPage() {
   const dispatch = useDispatch();
   const [form, setForm] = React.useState<Form>({
     first_name: {
       value: '',
       type: 'text',
-      placeholder: 'Имя',
+      placeholder: 'Имя'
     },
     second_name: {
       value: '',
       type: 'text',
-      placeholder: 'Фамилия',
+      placeholder: 'Фамилия'
     },
     login: {
       value: '',
       type: 'text',
-      placeholder: 'Логин',
+      placeholder: 'Логин'
     },
     email: {
       value: '',
       type: 'email',
-      placeholder: 'E-mail',
+      placeholder: 'E-mail'
     },
     phone: {
       value: '',
       type: 'tel',
-      placeholder: 'Телефон',
+      placeholder: 'Телефон'
     },
     password: {
       value: '',
       type: 'password',
-      placeholder: 'Пароль',
-    },
+      placeholder: 'Пароль'
+    }
   });
   const handleInputChange = (key: string, value: string) => {
     setForm({
       ...form,
-      [key]: { ...form[key], value },
+      [key]: { ...form[key], value }
     } as Form);
   };
   const getFormValues = () => {
@@ -49,7 +51,7 @@ function SignUpPage() {
       login: form.login.value,
       email: form.email.value,
       password: form.password.value,
-      phone: form.phone.value,
+      phone: form.phone.value
     };
   };
   const sendData = (event: FormEvent) => {
@@ -74,12 +76,12 @@ function SignUpPage() {
               }
             />
           ))}
-          <button className={styles.registration__btn} type="submit">
+          <button className={styles.registration__btn} type='submit'>
             Зарегистрироваться
           </button>
         </form>
 
-        <a className={styles.registration__login} href="/login">
+        <a className={styles.registration__login} href='/login'>
           Войти
         </a>
       </div>
