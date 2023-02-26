@@ -1,9 +1,14 @@
-import { actionsType, UserData } from './types'
-import UserDataService from '../core/services/UserDataService'
-import { UserService } from '../core/services/UserService';
+import { actionsType, UserData } from './types';
+import UserDataService from '../core/services/UserDataService';
+import {
+  LoginRequestData,
+  RegistrationRequestData,
+  UserService,
+} from '../core/services/UserService';
+import { AppDispatch } from './store';
 
 export const changeUserData = (userData: UserData) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const response = await UserDataService.changeUserData(userData);
 
@@ -14,46 +19,40 @@ export const changeUserData = (userData: UserData) => {
     } catch (e) {
       console.error(e);
     }
-  }
-}
+  };
+};
 
-export function setAuth(payload) {
+export function setAuth(payload: boolean) {
   return { type: actionsType.setAUTH, payload };
 }
-// export async function signin(payload) {
-//   try {
-//     await UserService.signin(payload);
-//     return { type: actionsType.setAUTH, payload: true };
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-export const signin = (payload) => async (dispatch) => {
-  try {
-    const response = await UserService.signin(payload);
-    if (response.id) {
-      dispatch({ type: actionsType.setAUTH, payload: true });
-      dispatch(authUser());
+
+export const signin =
+  (payload: LoginRequestData) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await UserService.signin(payload);
+      if (response) {
+        dispatch({ type: actionsType.setAUTH, payload: true });
+        dispatch(authUser());
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
-export const signup = (payload) => async (dispatch) => {
-  try {
-    const response = await UserService.signup(payload);
-    if (response.id) {
-      dispatch({ type: actionsType.setAUTH, payload: true });
+  };
+export const signup =
+  (payload: RegistrationRequestData) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await UserService.signup(payload);
+      if (response) {
+        dispatch({ type: actionsType.setAUTH, payload: true });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
-export const authUser = () => async (dispatch) => {
+  };
+export const authUser = () => async (dispatch: AppDispatch) => {
   try {
-    console.log(123);
     const response = await UserService.authUser();
-    if (response.id) {
+    if (response && response.id) {
       dispatch({ type: actionsType.setUserInfo, payload: response });
     }
   } catch (error) {
