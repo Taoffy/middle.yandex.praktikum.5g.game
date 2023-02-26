@@ -2,6 +2,7 @@ import { User } from '../../redux/types';
 import { api } from '../api';
 import { apiHasError } from '../utils/apiHasError';
 import { AxiosResponse } from 'axios';
+
 export type LoginRequestData = {
   login: string;
   password: string;
@@ -18,6 +19,7 @@ export type RegistrationRequestData = {
   password: string;
   phone: string;
 };
+
 enum AuthPath {
   signup = '/auth/signup',
   signin = '/auth/signin',
@@ -39,32 +41,34 @@ class UserServiceClass {
     }
     return response.data;
   }
+
   async signup(data: RegistrationRequestData) {
-    const response = await api.post<
-      string,
+    const response = await api.post<string,
       AxiosResponse<string>,
-      RegistrationRequestData
-    >(AuthPath.signup, data);
+      RegistrationRequestData>(AuthPath.signup, data);
     return this.checkAnswer<string>(response);
   }
+
   async signin(data: LoginRequestData) {
-    const response = await api.post<
-      string,
+    const response = await api.post<string,
       AxiosResponse<string>,
-      LoginRequestData
-    >(AuthPath.signin, data);
+      LoginRequestData>(AuthPath.signin, data);
     return this.checkAnswer<string>(response);
   }
+
   async authUser() {
     try {
+      // @ts-ignore
       const response = await api.get<string, AxiosResponse<User>>(
         AuthPath.authUser
       );
+      // @ts-ignore
       return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);
     }
   }
+
   async logout() {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
