@@ -1,5 +1,22 @@
+import { actionsType, UserData } from './types'
+import UserDataService from '../core/services/UserDataService'
 import { UserService } from '../core/services/UserService';
-import { actionsType } from './types';
+
+export const changeUserData = (userData: UserData) => {
+  return async (dispatch: any) => {
+    try {
+      const response = await UserDataService.changeUserData(userData);
+
+      dispatch({
+        type: actionsType.changeData,
+        payload: response,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };
 }

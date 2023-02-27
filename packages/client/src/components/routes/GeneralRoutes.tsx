@@ -8,8 +8,11 @@ import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { ForumPostPage } from '../pages/forumPost/ForumPost';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
-import { Profile } from '../pages/Profile/Profile';
 import { GamePage } from '../pages/gamePage/GamePage';
+import withAuth from '../hoc/withAuth';
+import Profile from '../pages/Profile/Profile';
+import ChangeData from '../pages/Profile/ChangeData/ChangeData';
+import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
 
 const GeneralRoutes = () => {
   return (
@@ -20,10 +23,13 @@ const GeneralRoutes = () => {
         <Route path="main" element={<MainPage />} />
         <Route path="about-game" element={<AboutGame />} />
         <Route path="forum" element={<ForumPage />} />
-        <Route path="forumpost" element={<ForumPostPage />} />
         <Route path="leaderboard" element={<LeaderboardPage />} />
         <Route path="profile" element={<Profile />} />
         <Route path="game" element={<GamePage />} />
+        <Route path="profile/change-data" element={<ChangeData />} />
+        <Route path="profile/change-password" element={<ChangePassword />} />
+        <Route path="forumpost" element={withAuth(ForumPostPage)({})} />
+        <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
       </Route>
     </Routes>
   );
