@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { ComponentType, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/types';
