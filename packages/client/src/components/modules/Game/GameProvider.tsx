@@ -42,6 +42,7 @@ function GameProvider({ children }: TGameProvider) {
 
   const handleGameRestart = useCallback(() => {
     setTimeLeft('02:00');
+    setIsTimeOut(false);
   }, []);
 
   useEffect(() => {
