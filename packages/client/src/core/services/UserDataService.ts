@@ -22,7 +22,7 @@ class UserDataService {
     });
   }
 
-  async changeUserAvatar(data: UserAvatar) {
+  async changeUserAvatar(data: UserAvatar | FormData) {
     const response = await api
       .put('user/profile/avatar', data, {
         withCredentials: true

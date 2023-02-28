@@ -8,6 +8,7 @@ import React, {
 import styles from './AvatarPopup.module.scss';
 import { useDispatch } from 'react-redux';
 import * as Actions from '../../redux/actions';
+import { useAppDispatch } from '../../hooks';
 
 interface AvatarPopupProps {
   setPopupActive: Dispatch<SetStateAction<boolean>>;
@@ -15,14 +16,14 @@ interface AvatarPopupProps {
 
 function AvatarPopup({ setPopupActive }: AvatarPopupProps) {
   const avatarForm = useRef<HTMLFormElement>(null);
-  const dispatch = useDispatch() as any; // Как это типизировать? Как вообще понять как типизировать такие штуки?
+  const dispatch = useAppDispatch();
 
   const handleAvatarChange = (e: FormEvent) => {
     e.preventDefault();
 
     if (avatarForm.current) {
-      const avatar = new FormData(avatarForm?.current).get('file');
-      const formData = new FormData() as any; // Как это типизировать? Как вообще понять как типизировать такие штуки?
+      const avatar = new FormData(avatarForm?.current).get('file') as string | Blob;
+      const formData = new FormData(); // Как это типизировать? Как вообще понять как типизировать такие штуки?
       formData.append('avatar', avatar);
       dispatch(Actions.changeUserAvatar(formData));
     }

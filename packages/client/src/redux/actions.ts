@@ -17,7 +17,7 @@ export const changeUserData = (userData: UserData) => {
   };
 };
 
-export const changeUserAvatar = (data: UserAvatar) => {
+export const changeUserAvatar = (data: UserAvatar | FormData) => {
   return async (dispatch: any) => {
     try {
       const response = await UserDataService.changeUserAvatar(data);
