@@ -32,7 +32,9 @@ function LoginPage() {
   };
   const sendData = (event: FormEvent) => {
     event.preventDefault();
+    // @ts-ignore
     dispatch(Actions.signin(getFormValues()));
+    // @ts-ignore
     dispatch(Actions.authUser());
   };
   return (

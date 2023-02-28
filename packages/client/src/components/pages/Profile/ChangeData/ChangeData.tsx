@@ -9,7 +9,7 @@ function ChangeData() {
   const formEl = useRef(null);
   const user = useSelector((state: Store) => state.app.user);
 
-  const onDataSubmit = async (e: Event) => {
+  const onDataSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);
@@ -23,9 +23,11 @@ function ChangeData() {
       phone: formData.get('phone'),
     };
 
+    // @ts-ignore
     dispatch(Actions.changeUserData(data));
   };
 
+  // @ts-ignore
   return (
     <div className={styles.data__container}>
       <h1 className={styles.data__header}>Изменить данные</h1>

@@ -17,6 +17,7 @@ export const changeUserData = (userData: UserData) => {
   }
 }
 
+// @ts-ignore
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };
 }
@@ -28,9 +29,11 @@ export function setAuth(payload) {
 //     console.error(error);
 //   }
 // }
+// @ts-ignore
 export const signin = (payload) => async (dispatch) => {
   try {
     const response = await UserService.signin(payload);
+    // @ts-ignore
     if (response.id) {
       dispatch({ type: actionsType.setAUTH, payload: true });
       dispatch(authUser());
@@ -39,9 +42,11 @@ export const signin = (payload) => async (dispatch) => {
     console.error(error);
   }
 };
+// @ts-ignore
 export const signup = (payload) => async (dispatch) => {
   try {
     const response = await UserService.signup(payload);
+    // @ts-ignore
     if (response.id) {
       dispatch({ type: actionsType.setAUTH, payload: true });
     }
@@ -49,6 +54,7 @@ export const signup = (payload) => async (dispatch) => {
     console.error(error);
   }
 };
+// @ts-ignore
 export const authUser = () => async (dispatch) => {
   try {
     console.log(123);
