@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 
 dotenv.config();
 
@@ -10,6 +11,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const isDev = () => process.env.NODE_ENV === 'development';
+
+const sequelizeOptions: SequelizeOptions = {
+  host: 'localhost',
+  port: 5432,
+  username: 'user',
+  password: 'pass',
+  database: 'dbname',
+  dialect: 'postgres' // 'mysql', 'sqlite', 'mariadb', 'mssql'
+};
+
+const sequelize = new Sequelize(sequelizeOptions);
 
 async function startServer() {
   const app = express();
