@@ -19,8 +19,9 @@ const appReducer = (state = initialState, action: actions) => {
     case actionsType.changeData:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
+      break;
     case actionsType.setAUTH:
       return {
         ...state,
