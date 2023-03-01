@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
-import { useSelector } from 'react-redux';
 import { AvatarPopup } from '../../AvatarPopup/AvatarPopup';
 import { Store } from '../../../redux/types';
+import { useAppSelector } from '../../../hooks';
 
 function Profile() {
   const [isPopupActive, setPopupActive] = useState(false);
-  const user = useSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state: Store) => state.app.user);
 
   return (
     <>

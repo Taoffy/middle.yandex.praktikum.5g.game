@@ -6,16 +6,6 @@ const api = axios.create({
 });
 
 class UserDataService {
-  async logIn() {
-    const data = {
-      login: 'pavukkkkk',
-      password: '12345asd'
-    };
-    await api.post('/auth/signin', data, {
-      withCredentials: true
-    });
-  }
-
   async getUser() {
     await api.get('/auth/user', {
       withCredentials: true

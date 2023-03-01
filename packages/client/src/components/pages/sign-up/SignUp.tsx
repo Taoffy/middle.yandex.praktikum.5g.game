@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
 import styles from './SignUp.module.scss';
-import { useDispatch } from 'react-redux';
 import * as Actions from '../../../redux/actions';
+import { useAppDispatch } from '../../../hooks';
 function SignUpPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [form, setForm] = React.useState<Form>({
     first_name: {
       value: '',
