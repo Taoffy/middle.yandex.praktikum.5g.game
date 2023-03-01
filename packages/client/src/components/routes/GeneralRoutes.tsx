@@ -3,23 +3,23 @@ import { Route, Routes } from 'react-router-dom';
 
 import { LoginPage } from '../pages/login/Login';
 import { MainPage } from '../pages/main/Main';
-import { Loader } from '../pages/loader/loader';
 import { AboutGame } from '../pages/about-game/AboutGame';
 import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { ForumPostPage } from '../pages/forumPost/ForumPost';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
 import withAuth from '../hoc/withAuth';
-import Profile from '../pages/Profile/Profile'
-import ChangeData from '../pages/Profile/ChangeData/ChangeData'
-import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword'
-
+import Profile from '../pages/Profile/Profile';
+import ChangeData from '../pages/Profile/ChangeData/ChangeData';
+import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
+import withOauth from '../hoc/withOauth';
+import { Spinner } from '../ui/spinner/spinner';
 
 const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route path="" element={<Loader />} />
+        <Route path="" element={withOauth(Spinner)({})} />
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="main" element={<MainPage />} />
