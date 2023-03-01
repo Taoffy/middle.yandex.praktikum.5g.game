@@ -34,6 +34,11 @@ export interface UserData {
   phone: FormDataEntryValue | null;
 }
 
+export type UserPassword = {
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type State = {
   init: boolean;
   isAuth: boolean;
@@ -45,6 +50,7 @@ export enum actionsType {
   setUserInfo = 'setUserInfo',
   changeData = 'CHANGE_DATA',
   setInit = 'setInit',
+  changePassword = 'CHANGE_PASSWORD',
 }
 
 type signupAction = {
@@ -65,8 +71,13 @@ type setInitAction = {
   type: actionsType.setInit;
   payload: boolean;
 };
+type changeUserPassword = {
+  type: actionsType.changePassword;
+};
+
 export type actions =
   | signupAction
   | setUserInfoAction
   | changeDataAction
-  | setInitAction;
+  | setInitAction
+  | changeUserPassword;

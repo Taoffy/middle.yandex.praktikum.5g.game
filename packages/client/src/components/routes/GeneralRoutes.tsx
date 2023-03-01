@@ -22,13 +22,16 @@ const GeneralRoutes = () => {
         <Route path="" element={withOauth(Spinner)({})} />
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
-        <Route path="main" element={<MainPage />} />
-        <Route path="about-game" element={<AboutGame />} />
-        <Route path="forum" element={<ForumPage />} />
-        <Route path="leaderboard" element={<LeaderboardPage />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="profile/change-data" element={<ChangeData />} />
-        <Route path="profile/change-password" element={<ChangePassword />} />
+        <Route path="main" element={withAuth(MainPage)({})} />
+        <Route path="about-game" element={withAuth(AboutGame)({})} />
+        <Route path="forum" element={withAuth(ForumPage)({})} />
+        <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
+        <Route path="profile" element={withAuth(Profile)({})} />
+        <Route path="profile/change-data" element={withAuth(ChangeData)({})} />
+        <Route
+          path="profile/change-password"
+          element={withAuth(ChangePassword)({})}
+        />
         <Route path="forumpost" element={withAuth(ForumPostPage)({})} />
         <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
       </Route>
