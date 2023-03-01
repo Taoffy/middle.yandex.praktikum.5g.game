@@ -43,16 +43,20 @@ class UserServiceClass {
   }
 
   async signup(data: RegistrationRequestData) {
-    const response = await api.post<string,
+    const response = await api.post<
+      string,
       AxiosResponse<string>,
-      RegistrationRequestData>(AuthPath.signup, data);
+      RegistrationRequestData
+    >(AuthPath.signup, data);
     return this.checkAnswer<string>(response);
   }
 
   async signin(data: LoginRequestData) {
-    const response = await api.post<string,
+    const response = await api.post<
+      string,
       AxiosResponse<string>,
-      LoginRequestData>(AuthPath.signin, data);
+      LoginRequestData
+    >(AuthPath.signin, data);
     return this.checkAnswer<string>(response);
   }
 
@@ -79,7 +83,7 @@ class UserServiceClass {
       console.error(error);
     }
   }
-  async gitIdOAuth(redirect_uri: string) {
+  async getIdOAuth(redirect_uri: string) {
     try {
       const response = await api.get<string, AxiosResponse<string>>(
         `${Oauth.getId}?redirect_uri=${redirect_uri}`

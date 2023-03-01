@@ -1,9 +1,15 @@
-import { actionsType, UserData } from './types'
-import UserDataService from '../core/services/UserDataService'
-import { UserService } from '../core/services/UserService';
+import { actionsType, UserData } from './types';
+import UserDataService from '../core/services/UserDataService';
+import {
+  LoginRequestData,
+  LoginRequestDataOauth,
+  RegistrationRequestData,
+  UserService,
+} from '../core/services/UserService';
+import { AppDispatch } from './store';
 
 export const changeUserData = (userData: UserData) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const response = await UserDataService.changeUserData(userData);
 
@@ -14,23 +20,24 @@ export const changeUserData = (userData: UserData) => {
     } catch (e) {
       console.error(e);
     }
-  }
-}
+  };
+};
 
-export function setAuth(payload) {
+export function setAuth(payload: boolean) {
   return { type: actionsType.setAUTH, payload };
 }
-export const signin = (payload) => async (dispatch) => {
-  try {
-    const response = await UserService.signin(payload);
-    if (response.id) {
-      dispatch({ type: actionsType.setAUTH, payload: true });
-      dispatch(authUser());
+export const signin =
+  (payload: LoginRequestData) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await UserService.signin(payload);
+      if (response) {
+        dispatch({ type: actionsType.setAUTH, payload: true });
+        dispatch(authUser());
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
+  };
 export const logout = () => async () => {
   try {
     await UserService.logout();
@@ -38,17 +45,18 @@ export const logout = () => async () => {
     console.error(error);
   }
 };
-export const signup = (payload) => async (dispatch) => {
-  try {
-    const response = await UserService.signup(payload);
-    if (response.id) {
-      dispatch({ type: actionsType.setAUTH, payload: true });
+export const signup =
+  (payload: RegistrationRequestData) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await UserService.signup(payload);
+      if (response) {
+        dispatch({ type: actionsType.setAUTH, payload: true });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
-export const authUser = () => async (dispatch) => {
+  };
+export const authUser = () => async (dispatch: AppDispatch) => {
   try {
     const response = await UserService.authUser();
     if (response?.id) {
@@ -61,20 +69,21 @@ export const authUser = () => async (dispatch) => {
     dispatch({ type: actionsType.setInit, payload: true });
   }
 };
-export const gitIdOAuth = (redirect_uri) => async () => {
+export const getIdOAuth = (redirect_uri: string) => async () => {
   try {
-    const response = await UserService.gitIdOAuth(redirect_uri);
+    const response = await UserService.getIdOAuth(redirect_uri);
     const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
     window.open(urlYandexAuth, '_self');
   } catch (error) {
     console.error(error);
   }
 };
-export const signinOAuth = (data) => async (dispatch) => {
-  try {
-    await UserService.signinOAuth(data);
-    dispatch(authUser());
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const signinOAuth =
+  (data: LoginRequestDataOauth) => async (dispatch: AppDispatch) => {
+    try {
+      await UserService.signinOAuth(data);
+      dispatch(authUser());
+    } catch (error) {
+      console.error(error);
+    }
+  };
