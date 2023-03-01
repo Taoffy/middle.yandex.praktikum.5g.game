@@ -9,7 +9,7 @@ export const changeUserData = (userData: UserData) => {
 
       dispatch({
         type: actionsType.changeData,
-        payload: response
+        payload: response,
       });
     } catch (e) {
       console.error(e);
@@ -24,7 +24,7 @@ export const changeUserPassword = (userPassword: UserPassword) => {
 
       dispatch({
         type: actionsType.changePassword,
-        payload: response
+        payload: response,
       });
     } catch (e) {
       console.error(e);

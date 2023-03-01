@@ -35,8 +35,8 @@ export interface UserData {
 }
 
 export type UserPassword = {
-  oldPassword: string,
-  newPassword: string,
+  oldPassword: string;
+  newPassword: string;
 };
 
 export type State = {
@@ -66,7 +66,11 @@ type changeDataAction = {
 };
 
 type changeUserPassword = {
-  type: actionsType.changePassword,
-}
+  type: actionsType.changePassword;
+};
 
-export type actions = signupAction | setUserInfoAction | changeDataAction | changeUserPassword;
+export type actions =
+  | signupAction
+  | setUserInfoAction
+  | changeDataAction
+  | changeUserPassword;
