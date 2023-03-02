@@ -23,12 +23,7 @@ const withAuth =
     useEffect(() => {
       const code = searchParams.get('code');
       if (code && !isAuth) {
-        dispatch(
-          Actions.signinOAuth({
-            redirect_uri: 'http://localhost:3000',
-            code,
-          })
-        );
+        dispatch(Actions.signinOAuth(code));
       } else if (isInit) {
         navigate('/login');
       }

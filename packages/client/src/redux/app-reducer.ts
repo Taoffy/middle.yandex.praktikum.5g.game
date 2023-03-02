@@ -15,12 +15,15 @@ const initialState: State = {
   },
 };
 
-const appReducer = (state = initialState, action: actions) => {
+const appReducer = (state = initialState, action: actions): State => {
   switch (action.type) {
     case actionsType.changeData:
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
       break;
     case actionsType.setAUTH:

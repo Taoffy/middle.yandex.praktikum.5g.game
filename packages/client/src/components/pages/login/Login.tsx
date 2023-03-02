@@ -1,6 +1,5 @@
 import React, { FormEvent } from 'react';
 import styles from './Login.module.scss';
-// @ts-ignore
 import * as Actions from '../../../redux/actions';
 
 import { useAppDispatch } from '../../hook/AppUseSelectorAndDispathch';
@@ -37,7 +36,7 @@ function LoginPage() {
     dispatch(Actions.authUser());
   };
   const OathHandler = () => {
-    dispatch(Actions.gitIdOAuth('http://localhost:3000'));
+    dispatch(Actions.getIdOAuth());
   };
   return (
     <main className={styles.login}>

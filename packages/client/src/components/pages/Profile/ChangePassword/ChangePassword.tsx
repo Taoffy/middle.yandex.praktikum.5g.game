@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FormEvent, useRef } from 'react';
 import styles from './ChangePassword.module.scss';
 import * as Actions from '../../../../redux/actions';
+import { useAppDispatch } from '../../../hook/AppUseSelectorAndDispathch';
 
 function ChangePassword() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const formEl = useRef(null);
 
-  const onPasswordSubmit = (e: Event) => {
+  const onPasswordSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);

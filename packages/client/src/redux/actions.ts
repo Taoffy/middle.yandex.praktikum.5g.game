@@ -1,5 +1,4 @@
 import { actionsType, UserData, UserPassword } from './types';
-import UserDataService from '../core/services/UserDataService';
 import {
   LoginRequestData,
   LoginRequestDataOauth,
@@ -11,12 +10,13 @@ import { AppDispatch } from './store';
 export const changeUserData = (userData: UserData) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await UserDataService.changeUserData(userData);
-
-      dispatch({
-        type: actionsType.changeData,
-        payload: response,
-      });
+      const response = await UserService.changeUserData(userData);
+      if (response) {
+        dispatch({
+          type: actionsType.changeData,
+          payload: response,
+        });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -24,14 +24,9 @@ export const changeUserData = (userData: UserData) => {
 };
 
 export const changeUserPassword = (userPassword: UserPassword) => {
-  return async (dispatch: AppDispatch) => {
+  return async () => {
     try {
-      const response = await UserDataService.changeUserPassword(userPassword);
-
-      dispatch({
-        type: actionsType.changePassword,
-        payload: response,
-      });
+      await UserService.changeUserPassword(userPassword);
     } catch (e) {
       console.error(e);
     }
@@ -84,21 +79,24 @@ export const authUser = () => async (dispatch: AppDispatch) => {
     dispatch({ type: actionsType.setInit, payload: true });
   }
 };
-export const getIdOAuth = (redirect_uri: string) => async () => {
+export const getIdOAuth = () => async () => {
   try {
-    const response = await UserService.getIdOAuth(redirect_uri);
-    const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
-    window.open(urlYandexAuth, '_self');
+    const response = await UserService.getIdOAuth();
+    if (response) {
+      const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
+      window.open(urlYandexAuth, '_self');
+    } else {
+      console.error('пустой ответ от oauth.yandex.ru');
+    }
   } catch (error) {
     console.error(error);
   }
 };
-export const signinOAuth =
-  (data: LoginRequestDataOauth) => async (dispatch: AppDispatch) => {
-    try {
-      await UserService.signinOAuth(data);
-      dispatch(authUser());
-    } catch (error) {
-      console.error(error);
-    }
-  };
+export const signinOAuth = (code: string) => async (dispatch: AppDispatch) => {
+  try {
+    await UserService.signinOAuth(code);
+    dispatch(authUser());
+  } catch (error) {
+    console.error(error);
+  }
+};

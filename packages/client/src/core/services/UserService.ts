@@ -1,15 +1,12 @@
-import { User } from '../../redux/types';
+import { User, UserData, UserPassword } from '../../redux/types';
 import { api } from '../api';
+import { OauthCallback } from '../config/api.config';
 import { apiHasError } from '../utils/apiHasError';
 import { AxiosResponse } from 'axios';
 
 export type LoginRequestData = {
   login: string;
   password: string;
-};
-export type LoginRequestDataOauth = {
-  redirect_uri: string;
-  code: string;
 };
 export type RegistrationRequestData = {
   first_name: string;
@@ -19,13 +16,19 @@ export type RegistrationRequestData = {
   password: string;
   phone: string;
 };
+export type YandexClientIdResponse = {
+  service_id: string;
+};
 
-enum AuthPath {
+enum UserPath {
   signup = '/auth/signup',
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
+  changePassword = '/user/password',
+  changeUserData = '/user/profile',
 }
+
 enum Oauth {
   signin = '/oauth/yandex',
   getId = '/oauth/yandex/service-id',
@@ -47,7 +50,7 @@ class UserServiceClass {
       string,
       AxiosResponse<string>,
       RegistrationRequestData
-    >(AuthPath.signup, data);
+    >(UserPath.signup, data);
     return this.checkAnswer<string>(response);
   }
 
@@ -56,17 +59,15 @@ class UserServiceClass {
       string,
       AxiosResponse<string>,
       LoginRequestData
-    >(AuthPath.signin, data);
+    >(UserPath.signin, data);
     return this.checkAnswer<string>(response);
   }
 
   async authUser() {
     try {
-      // @ts-ignore
       const response = await api.get<string, AxiosResponse<User>>(
-        AuthPath.authUser
+        UserPath.authUser
       );
-      // @ts-ignore
       return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);
@@ -76,30 +77,58 @@ class UserServiceClass {
   async logout() {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
-        AuthPath.logout
+        UserPath.logout
       );
       return this.checkAnswer<string>(response);
     } catch (error) {
       console.error(error);
     }
   }
-  async getIdOAuth(redirect_uri: string) {
+  async getIdOAuth() {
     try {
-      const response = await api.get<string, AxiosResponse<string>>(
-        `${Oauth.getId}?redirect_uri=${redirect_uri}`
-      );
-      return this.checkAnswer<string>(response);
+      const response = await api.get<
+        string,
+        AxiosResponse<YandexClientIdResponse>
+      >(`${Oauth.getId}?redirect_uri=${OauthCallback}`);
+      return this.checkAnswer<YandexClientIdResponse>(response);
     } catch (error) {
       console.error(error);
     }
   }
-  async signinOAuth(data: LoginRequestDataOauth) {
+  async signinOAuth(code: string) {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
         Oauth.signin,
-        data
+        {
+          redirect_uri: OauthCallback,
+          code,
+        }
       );
       return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async changeUserData(data: UserData) {
+    try {
+      const response = await api.put<string, AxiosResponse<User>>(
+        UserPath.changeUserData,
+        data
+      );
+      return this.checkAnswer<User>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async changeUserPassword(data: UserPassword) {
+    try {
+      const response = await api.put<string, AxiosResponse<string>>(
+        UserPath.changePassword,
+        data
+      );
+      this.checkAnswer<string>(response);
+      console.log(this.checkAnswer<string>(response));
     } catch (error) {
       console.error(error);
     }

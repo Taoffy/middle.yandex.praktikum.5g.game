@@ -35,8 +35,8 @@ export interface UserData {
 }
 
 export type UserPassword = {
-  oldPassword: string;
-  newPassword: string;
+  oldPassword: FormDataEntryValue | null;
+  newPassword: FormDataEntryValue | null;
 };
 
 export type State = {
@@ -64,7 +64,7 @@ type setUserInfoAction = {
 
 type changeDataAction = {
   type: actionsType.changeData;
-  payload: UserData;
+  payload: User;
 };
 
 type setInitAction = {
