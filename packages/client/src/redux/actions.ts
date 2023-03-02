@@ -6,6 +6,7 @@ import {
   UserService,
 } from '../core/services/UserService';
 import { AppDispatch } from './store';
+import { OauthCallback } from '../core/config/api.config';
 
 export const changeUserData = (userData: UserData) => {
   return async (dispatch: AppDispatch) => {
@@ -83,7 +84,7 @@ export const getIdOAuth = () => async () => {
   try {
     const response = await UserService.getIdOAuth();
     if (response) {
-      const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${redirect_uri}`;
+      const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${OauthCallback}`;
       window.open(urlYandexAuth, '_self');
     } else {
       console.error('пустой ответ от oauth.yandex.ru');

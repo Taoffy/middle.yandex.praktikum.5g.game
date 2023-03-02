@@ -19,7 +19,7 @@ const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route path="" element={withOauth(Spinner)({})} />
+        <Route path="" element={withOauth(Spinner)} />
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="main" element={withAuth(MainPage)({})} />
