@@ -1,4 +1,4 @@
-import { User, UserData, UserPassword } from '../../redux/types';
+import { User, UserAvatar, UserData, UserPassword } from '../../redux/types';
 import { api } from '../api';
 import { OauthCallback } from '../config/api.config';
 import { apiHasError } from '../utils/apiHasError';
@@ -27,6 +27,7 @@ enum UserPath {
   logout = '/auth/logout',
   changePassword = '/user/password',
   changeUserData = '/user/profile',
+  changeUserAvatar = 'user/profile/avatar',
 }
 
 enum Oauth {
@@ -128,7 +129,17 @@ class UserServiceClass {
         data
       );
       this.checkAnswer<string>(response);
-      console.log(this.checkAnswer<string>(response));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async changeUserAvatar(data: UserAvatar | FormData) {
+    try {
+      const response = await api.put<
+        UserAvatar | FormData,
+        AxiosResponse<User>
+      >(UserPath.changeUserAvatar, data);
+      return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);
     }

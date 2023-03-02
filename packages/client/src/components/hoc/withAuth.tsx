@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { ComponentType, FC } from 'react';
 import { useAppSelector } from '../hook/AppUseSelectorAndDispathch';
 import { LoginPage } from '../pages/login/Login';

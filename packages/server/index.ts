@@ -25,7 +25,7 @@ async function startServer() {
     vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
-      appType: 'custom'
+      appType: 'custom',
     });
 
     app.use(vite.middlewares);
@@ -34,7 +34,6 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
-
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
@@ -58,18 +57,18 @@ async function startServer() {
         );
 
         template = await vite!.transformIndexHtml(url, template);
-
       }
 
-      let render: () => Promise<string>;
+      let render: (url: string) => Promise<string>;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
       } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
+        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+          .render;
       }
 
-      const appHtml = await render();
+      const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml);
 

@@ -4,7 +4,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { appReducer } from './app-reducer';
 
 const reducers = combineReducers({
-  app: appReducer
+  app: appReducer,
 });
 declare global {
   interface Window {

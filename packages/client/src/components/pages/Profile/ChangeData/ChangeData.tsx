@@ -24,6 +24,7 @@ function ChangeData() {
       email: formData.get('email'),
       display_name: '',
       phone: formData.get('phone'),
+      avatar: '',
     };
 
     dispatch(Actions.changeUserData(data));

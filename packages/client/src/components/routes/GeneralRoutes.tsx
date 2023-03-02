@@ -8,6 +8,7 @@ import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { ForumPostPage } from '../pages/forumPost/ForumPost';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
+import { GamePage } from '../pages/gamePage/GamePage';
 import withAuth from '../hoc/withAuth';
 import Profile from '../pages/Profile/Profile';
 import ChangeData from '../pages/Profile/ChangeData/ChangeData';
@@ -24,6 +25,7 @@ const GeneralRoutes = () => {
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="main" element={withAuth(MainPage)({})} />
         <Route path="about-game" element={withAuth(AboutGame)({})} />
+        <Route path="game" element={withAuth(GamePage)({})} />
         <Route path="forum" element={withAuth(ForumPage)({})} />
         <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
         <Route path="profile" element={withAuth(Profile)({})} />
