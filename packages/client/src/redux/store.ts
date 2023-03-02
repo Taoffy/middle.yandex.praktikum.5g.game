@@ -4,7 +4,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { appReducer } from './app-reducer';
 
 const reducers = combineReducers({
-  app: appReducer
+  app: appReducer,
 });
 declare global {
   interface Window {
@@ -20,6 +20,8 @@ const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(thunk as ThunkMiddleware))
 );
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;
 

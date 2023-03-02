@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import styles from './SignUp.module.scss';
 import * as Actions from '../../../redux/actions';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch } from '../../hook/AppUseSelectorAndDispathch';
 
 function SignUpPage() {
   const dispatch = useAppDispatch();
