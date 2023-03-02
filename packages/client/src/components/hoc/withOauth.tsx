@@ -6,8 +6,7 @@ import {
   useAppSelector,
 } from '../hook/AppUseSelectorAndDispathch';
 
-const withAuth =
-  (Component: ComponentType): FC =>
+const withAuth = (Component: ComponentType): FC =>
   (props) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
