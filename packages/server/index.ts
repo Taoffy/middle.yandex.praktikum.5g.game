@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { connectDatabase } from './db';
 
 dotenv.config();
 
@@ -12,21 +12,12 @@ import * as path from 'path';
 
 const isDev = () => process.env.NODE_ENV === 'development';
 
-const sequelizeOptions: SequelizeOptions = {
-  host: 'localhost',
-  port: 5432,
-  username: 'user',
-  password: 'pass',
-  database: 'dbname',
-  dialect: 'postgres' // 'mysql', 'sqlite', 'mariadb', 'mssql'
-};
-
-const sequelize = new Sequelize(sequelizeOptions);
-
 async function startServer() {
   const app = express();
   app.use(cors());
   const port = Number(process.env.SERVER_PORT) || 3001;
+
+  await connectDatabase();
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
@@ -37,7 +28,7 @@ async function startServer() {
     vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
-      appType: 'custom'
+      appType: 'custom',
     });
 
     app.use(vite.middlewares);
@@ -46,7 +37,6 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
-
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
@@ -70,7 +60,6 @@ async function startServer() {
         );
 
         template = await vite!.transformIndexHtml(url, template);
-
       }
 
       let render: () => Promise<string>;
@@ -78,7 +67,8 @@ async function startServer() {
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
       } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
+        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+          .render;
       }
 
       const appHtml = await render();

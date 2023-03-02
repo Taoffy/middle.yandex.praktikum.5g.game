@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './ChangePassword.module.scss';
 import * as Actions from '../../../../redux/actions';
@@ -7,8 +7,8 @@ function ChangePassword() {
   const dispatch = useDispatch();
   const formEl = useRef(null);
 
-  const onPasswordSubmit = (e: Event) => {
-    e.preventDefault();
+  const onPasswordSubmit = (event: FormEvent) => {
+    event.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);
 
@@ -16,7 +16,7 @@ function ChangePassword() {
       oldPassword: formData.get('oldPassword'),
       newPassword: formData.get('newPassword'),
     };
-
+    //@ts-ignore
     dispatch(Actions.changeUserPassword(data));
   };
 
