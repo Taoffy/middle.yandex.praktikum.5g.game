@@ -1,7 +1,6 @@
 import { actionsType, UserData, UserPassword } from './types';
 import {
   LoginRequestData,
-  LoginRequestDataOauth,
   RegistrationRequestData,
   UserService,
 } from '../core/services/UserService';

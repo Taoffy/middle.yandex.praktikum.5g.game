@@ -6,9 +6,8 @@ import {
   useAppSelector,
 } from '../hook/AppUseSelectorAndDispathch';
 
-const withOauth =
-  (Component: ComponentType): FC =>
-  (props) => {
+const withOauth = (Component: ComponentType): FC => {
+  const hoc = (props: any) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -30,5 +29,6 @@ const withOauth =
     }, [isInit]);
     return <Component {...props} />;
   };
-
+  return hoc;
+};
 export default withOauth;
