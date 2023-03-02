@@ -39,6 +39,11 @@ export interface UserAvatar {
   avatar: any;
 }
 
+export type UserPassword = {
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type State = {
   isAuth: boolean;
   user: User;
@@ -49,6 +54,7 @@ export enum actionsType {
   setUserInfo = 'setUserInfo',
   changeData = 'CHANGE_DATA',
   changeAvatar = 'CHANGE_AVATAR',
+  changePassword = 'CHANGE_PASSWORD',
 }
 
 type signupAction = {
@@ -70,8 +76,13 @@ type changeAvatarAction = {
   payload: UserAvatar;
 };
 
+type changeUserPassword = {
+  type: actionsType.changePassword;
+};
+
 export type actions =
   | signupAction
   | setUserInfoAction
   | changeDataAction
-  | changeAvatarAction;
+  | changeAvatarAction
+  | changeUserPassword;

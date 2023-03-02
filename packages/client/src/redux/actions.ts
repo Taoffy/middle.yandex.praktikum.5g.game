@@ -1,4 +1,4 @@
-import { actionsType, UserAvatar, UserData } from './types';
+import { actionsType, UserAvatar, UserData, UserPassword } from './types';
 import UserDataService from '../core/services/UserDataService';
 import { UserService } from '../core/services/UserService';
 
@@ -9,7 +9,22 @@ export const changeUserData = (userData: UserData) => {
 
       dispatch({
         type: actionsType.changeData,
-        payload: response
+        payload: response,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
+
+export const changeUserPassword = (userPassword: UserPassword) => {
+  return async (dispatch: any) => {
+    try {
+      const response = await UserDataService.changeUserPassword(userPassword);
+
+      dispatch({
+        type: actionsType.changePassword,
+        payload: response,
       });
     } catch (e) {
       console.error(e);
@@ -25,7 +40,7 @@ export const changeUserAvatar = (data: UserAvatar | FormData) => {
 
       dispatch({
         type: actionsType.changeAvatar,
-        payload: avatarPath
+        payload: avatarPath,
       });
     } catch (e) {
       console.error(e);

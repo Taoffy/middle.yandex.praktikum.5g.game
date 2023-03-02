@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react';
 import styles from './Login.module.scss';
 import * as Actions from '../../../redux/actions';
 import { useAppDispatch } from '../../../hooks';
+
 function LoginPage() {
   const dispatch = useAppDispatch();
   const [form, setForm] = React.useState<Form>({
