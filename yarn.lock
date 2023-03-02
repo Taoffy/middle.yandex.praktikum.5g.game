@@ -2045,6 +2045,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-18.7.13.tgz"
   integrity sha512-46yIhxSe5xEaJZXWdIBP7GU4HDTG8/eo0qd9atdiL+lFpA03y8KS+lkTN834TWJj5767GbWv4n/P6efyTFt1Dw==
 
+"@types/node@^18.11.17":
+  version "18.14.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.4.tgz#0e64ec0b35a772e1e3d849f9a0ff61782d0cb647"
+  integrity sha512-VhCw7I7qO2X49+jaKcAUwi3rR+hbxT5VcYF493+Z5kMLI0DL568b7JI4IDJaxWFH0D/xwmGJNoXisyX+w7GH/g==
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz"
