@@ -32,6 +32,11 @@ export interface UserData {
   login: FormDataEntryValue | null;
   email: FormDataEntryValue | null;
   phone: FormDataEntryValue | null;
+  avatar: FormDataEntryValue | null;
+}
+
+export interface UserAvatar {
+  avatar: any;
 }
 
 export type UserPassword = {
@@ -48,6 +53,7 @@ export enum actionsType {
   setAUTH = 'setAUTH',
   setUserInfo = 'setUserInfo',
   changeData = 'CHANGE_DATA',
+  changeAvatar = 'CHANGE_AVATAR',
   changePassword = 'CHANGE_PASSWORD',
 }
 
@@ -65,6 +71,11 @@ type changeDataAction = {
   payload: UserData;
 };
 
+type changeAvatarAction = {
+  type: actionsType.changeAvatar;
+  payload: UserAvatar;
+};
+
 type changeUserPassword = {
   type: actionsType.changePassword;
 };
@@ -73,4 +84,5 @@ export type actions =
   | signupAction
   | setUserInfoAction
   | changeDataAction
+  | changeAvatarAction
   | changeUserPassword;

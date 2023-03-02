@@ -1,14 +1,16 @@
 import React, { FormEvent, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './ChangeData.module.scss';
 import { Store, UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
-import { useAppDispatch } from '../../../hook/AppUseSelectorAndDispathch';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../hooks/AppUseSelectorAndDispathch';
 
 function ChangeData() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
-  const user = useSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state: Store) => state.app.user);
 
   const onDataSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ function ChangeData() {
       email: formData.get('email'),
       display_name: '',
       phone: formData.get('phone'),
+      avatar: '',
     };
 
     dispatch(Actions.changeUserData(data));

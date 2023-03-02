@@ -1,4 +1,4 @@
-import { actionsType, UserData, UserPassword } from './types';
+import { actionsType, UserAvatar, UserData, UserPassword } from './types';
 import UserDataService from '../core/services/UserDataService';
 import {
   LoginRequestData,
@@ -30,6 +30,22 @@ export const changeUserPassword = (userPassword: UserPassword) => {
       dispatch({
         type: actionsType.changePassword,
         payload: response,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
+
+export const changeUserAvatar = (data: UserAvatar | FormData) => {
+  return async (dispatch: any) => {
+    try {
+      const response = await UserDataService.changeUserAvatar(data);
+      const avatarPath = `https://ya-praktikum.tech/api/v2/resources${response.avatar}`;
+
+      dispatch({
+        type: actionsType.changeAvatar,
+        payload: avatarPath,
       });
     } catch (e) {
       console.error(e);
