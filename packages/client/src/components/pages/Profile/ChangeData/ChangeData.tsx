@@ -1,15 +1,16 @@
-import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FormEvent, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './ChangeData.module.scss';
 import { Store, UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
+import { useAppDispatch } from '../../../hook/AppUseSelectorAndDispathch';
 
 function ChangeData() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const formEl = useRef(null);
   const user = useSelector((state: Store) => state.app.user);
 
-  const onDataSubmit = async (e: Event) => {
+  const onDataSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);
