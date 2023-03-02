@@ -1,5 +1,5 @@
-import { actionsType, UserData } from './types'
-import UserDataService from '../core/services/UserDataService'
+import { actionsType, UserData, UserPassword } from './types';
+import UserDataService from '../core/services/UserDataService';
 import { UserService } from '../core/services/UserService';
 
 export const changeUserData = (userData: UserData) => {
@@ -14,13 +14,29 @@ export const changeUserData = (userData: UserData) => {
     } catch (e) {
       console.error(e);
     }
-  }
-}
+  };
+};
+
+export const changeUserPassword = (userPassword: UserPassword) => {
+  return async (dispatch: any) => {
+    try {
+      const response = await UserDataService.changeUserPassword(userPassword);
+
+      dispatch({
+        type: actionsType.changePassword,
+        payload: response,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
 
 // @ts-ignore
 export function setAuth(payload) {
   return { type: actionsType.setAUTH, payload };
 }
+
 // export async function signin(payload) {
 //   try {
 //     await UserService.signin(payload);
