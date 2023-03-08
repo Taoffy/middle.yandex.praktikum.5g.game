@@ -7,6 +7,9 @@ import {
   useAppSelector,
 } from '../../../hook/AppUseSelectorAndDispathch';
 
+import BackButton from '../../../common/BackButton';
+import { ROUTES } from '../../../../utils';
+
 function ChangeData() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
@@ -32,6 +35,7 @@ function ChangeData() {
 
   return (
     <div className={styles.data__container}>
+      <BackButton to={ROUTES.profile} />
       <h1 className={styles.data__header}>Изменить данные</h1>
       <form id="change-data" onSubmit={onDataSubmit} ref={formEl}>
         <input

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { RequireAuth, UnauthorizedOnly } from '../hoc';
 
 import { LoginPage } from '../pages/login/Login';
-import { MainPage } from '../pages/main/Main';
 import { AboutGame } from '../pages/about-game/AboutGame';
 import { SignUpPage } from '../pages/sign-up/SignUp';
 import { ForumPage } from '../pages/forum/Forum';
 import { ForumPostPage } from '../pages/forumPost/ForumPost';
 import { LeaderboardPage } from '../pages/leaderboard/Leaderboard';
 import { GamePage } from '../pages/gamePage/GamePage';
-import withAuth from '../hoc/withAuth';
 import Profile from '../pages/Profile/Profile';
 import ChangeData from '../pages/Profile/ChangeData/ChangeData';
 import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
@@ -20,22 +20,94 @@ const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route path="" element={withOauth(Spinner)({})} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="sign-up" element={<SignUpPage />} />
-        <Route path="main" element={withAuth(MainPage)({})} />
-        <Route path="about-game" element={withAuth(AboutGame)({})} />
-        <Route path="game" element={withAuth(GamePage)({})} />
-        <Route path="forum" element={withAuth(ForumPage)({})} />
-        <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
-        <Route path="profile" element={withAuth(Profile)({})} />
-        <Route path="profile/change-data" element={withAuth(ChangeData)({})} />
+        <Route
+          index
+          element={
+            <RequireAuth>
+              <Navigate to={'/about-game'} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <UnauthorizedOnly>
+              <LoginPage />
+            </UnauthorizedOnly>
+          }
+        />
+        <Route
+          path="sign-up"
+          element={
+            <UnauthorizedOnly>
+              <SignUpPage />
+            </UnauthorizedOnly>
+          }
+        />
+        <Route
+          path="about-game"
+          element={
+            <RequireAuth>
+              <AboutGame />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="game"
+          element={
+            <RequireAuth>
+              <GamePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="forum"
+          element={
+            <RequireAuth>
+              <ForumPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="leaderboard"
+          element={
+            <RequireAuth>
+              <LeaderboardPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile/change-data"
+          element={
+            <RequireAuth>
+              <ChangeData />
+            </RequireAuth>
+          }
+        />
         <Route
           path="profile/change-password"
-          element={withAuth(ChangePassword)({})}
+          element={
+            <RequireAuth>
+              <ChangePassword />
+            </RequireAuth>
+          }
         />
-        <Route path="forumpost" element={withAuth(ForumPostPage)({})} />
-        <Route path="leaderboard" element={withAuth(LeaderboardPage)({})} />
+        <Route
+          path="forumpost"
+          element={
+            <RequireAuth>
+              <ForumPostPage />
+            </RequireAuth>
+          }
+        />
       </Route>
     </Routes>
   );

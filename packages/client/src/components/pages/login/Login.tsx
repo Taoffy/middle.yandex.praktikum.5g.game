@@ -1,7 +1,12 @@
 import React, { FormEvent } from 'react';
-import styles from './Login.module.scss';
+
 import * as Actions from '../../../redux/actions';
 import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
+
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../utils';
+
+import styles from './Login.module.scss';
 
 function LoginPage() {
   const dispatch = useAppDispatch();
@@ -33,7 +38,6 @@ function LoginPage() {
   const sendData = (event: FormEvent) => {
     event.preventDefault();
     dispatch(Actions.signin(getFormValues()));
-    dispatch(Actions.authUser());
   };
   const OathHandler = () => {
     dispatch(Actions.getIdOAuth());
@@ -62,10 +66,9 @@ function LoginPage() {
               Войти
             </button>
           </form>
-          <button onClick={OathHandler}>Авторизация через Yandex</button>
-          <a className={styles.form__link} href="#">
+          <Link className={styles.form__link} to={ROUTES.signUp}>
             Зарегистрироваться
-          </a>
+          </Link>
         </div>
       </div>
     </main>

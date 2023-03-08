@@ -60,14 +60,17 @@ class UserServiceClass {
       string,
       AxiosResponse<string>,
       LoginRequestData
-    >(UserPath.signin, data);
+    >(UserPath.signin, data, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     return this.checkAnswer<string>(response);
   }
 
   async authUser() {
     try {
       const response = await api.get<string, AxiosResponse<User>>(
-        UserPath.authUser
+        UserPath.authUser,
+        { headers: { accept: 'application/json' } }
       );
       return this.checkAnswer<User>(response);
     } catch (error) {

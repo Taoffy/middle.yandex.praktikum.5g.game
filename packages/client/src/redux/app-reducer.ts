@@ -3,6 +3,7 @@ import { State, actions, actionsType } from './types';
 const initialState: State = {
   init: false,
   isAuth: false,
+  isInitialApp: false,
   user: {
     id: 1,
     first_name: '',
@@ -43,10 +44,11 @@ const appReducer = (state = initialState, action: actions): State => {
         user: action.payload,
       };
       break;
-    case actionsType.setInit:
+
+    case actionsType.setIsInitialApp:
       return {
         ...state,
-        init: action.payload,
+        isInitialApp: action.payload,
       };
       break;
     default:

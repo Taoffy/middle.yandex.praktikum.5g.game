@@ -1,20 +1,25 @@
 import React, { FormEvent, useRef } from 'react';
-import styles from './ChangePassword.module.scss';
+
 import * as Actions from '../../../../redux/actions';
-import { useAppDispatch } from '../../../hook/AppUseSelectorAndDispathch';
+import { useAppDispatch } from '../../../hooks/AppUseSelectorAndDispathch';
+
+import BackButton from '../../../common/BackButton';
+import { ROUTES } from '../../../../utils';
+
+import styles from './ChangePassword.module.scss';
 
 function ChangePassword() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
 
-  const onPasswordSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onPasswordSubmit = (event: FormEvent) => {
+    event.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);
 
     const data = {
-      oldPassword: formData.get('oldPassword'),
-      newPassword: formData.get('newPassword'),
+      oldPassword: formData.get('oldPassword') as string,
+      newPassword: formData.get('newPassword') as string,
     };
 
     dispatch(Actions.changeUserPassword(data));
@@ -22,6 +27,7 @@ function ChangePassword() {
 
   return (
     <div className={styles.password__container}>
+      <BackButton to={ROUTES.profile} />
       <h1 className={styles.password__header}> Изменить пароль</h1>
       <form
         id="change-password"

@@ -63,19 +63,14 @@ export const signin =
       console.error(error);
     }
   };
-export const logout = () => async () => {
-  try {
-    await UserService.logout();
-  } catch (error) {
-    console.error(error);
-  }
-};
+
 export const signup =
   (payload: RegistrationRequestData) => async (dispatch: AppDispatch) => {
     try {
       const response = await UserService.signup(payload);
       if (response) {
         dispatch({ type: actionsType.setAUTH, payload: true });
+        dispatch(authUser());
       }
     } catch (error) {
       console.error(error);
@@ -113,5 +108,24 @@ export const signinOAuth = (code: string) => async (dispatch: AppDispatch) => {
     dispatch(authUser());
   } catch (error) {
     console.error(error);
+  }
+};
+export const setInitialApp = () => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(authUser());
+    dispatch({ type: actionsType.setIsInitialApp, payload: true });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const logout = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await UserService.logout();
+    if (response) {
+      dispatch({ type: actionsType.setAUTH, payload: false });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

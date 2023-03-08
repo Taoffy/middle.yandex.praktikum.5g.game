@@ -1,7 +1,9 @@
 import React, { Dispatch, FormEvent, SetStateAction, useRef } from 'react';
+
+import * as Actions from '../../../redux/actions';
+import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
+
 import styles from './AvatarPopup.module.scss';
-import * as Actions from '../../redux/actions';
-import { useAppDispatch } from '../hooks/AppUseSelectorAndDispathch';
 
 interface AvatarPopupProps {
   setPopupActive: Dispatch<SetStateAction<boolean>>;

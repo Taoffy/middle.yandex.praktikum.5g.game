@@ -1,9 +1,16 @@
 import React from 'react';
+
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../utils';
+
+import Header from '../../common/Header';
+
 import styles from './AboutGame.module.scss';
 
 function AboutGame() {
   return (
     <div className={styles.aboutGame}>
+      <Header />
       <div className={styles.info}>
         <p className={styles.info__text}>
           Прокачай свой мозг
@@ -20,9 +27,9 @@ function AboutGame() {
         <div></div>
         <div className={styles.main__buttonsWrap}>
           <div className={styles.main__buttons}>
-            <a className={styles.main__link} href="./main">
+            <Link className={styles.main__link} to={ROUTES.game}>
               Начать игру
-            </a>
+            </Link>
             <button className={styles.main__btn}>Правила игры</button>
           </div>
         </div>
