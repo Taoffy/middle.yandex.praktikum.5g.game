@@ -75,6 +75,7 @@ export const signup =
       const response = await UserService.signup(payload);
       if (response) {
         dispatch({ type: actionsType.setAUTH, payload: true });
+        dispatch(authUser());
       }
     } catch (error) {
       console.error(error);
@@ -85,8 +86,29 @@ export const authUser = () => async (dispatch: AppDispatch) => {
     const response = await UserService.authUser();
     if (response && response.id) {
       dispatch({ type: actionsType.setUserInfo, payload: response });
+      dispatch({ type: actionsType.setAUTH, payload: true });
     }
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const setInitialApp = () => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(authUser());
+    dispatch({ type: actionsType.setIsInitialApp, payload: true });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const logout = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await UserService.logout();
+    if (response) {
+      dispatch({ type: actionsType.setAUTH, payload: false });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

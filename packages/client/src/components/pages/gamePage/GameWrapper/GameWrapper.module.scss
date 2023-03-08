@@ -45,6 +45,10 @@
     );
     border-radius: 8px;
     color: var(--color-white);
+
+    &:nth-child(n + 2) {
+      margin-top: 16px;
+    }
   }
 }
 
