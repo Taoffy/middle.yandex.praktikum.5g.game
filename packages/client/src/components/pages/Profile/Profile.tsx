@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../utils';
 
-import { Store } from '../../../redux/types';
 import { useAppSelector } from '../../hooks/AppUseSelectorAndDispathch';
 
 import { AvatarPopup } from '../../common/AvatarPopup/AvatarPopup';
@@ -13,7 +12,7 @@ import styles from './Profile.module.scss';
 
 function Profile() {
   const [isPopupActive, setPopupActive] = useState(false);
-  const user = useAppSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state) => state.app.user);
 
   return (
     <>

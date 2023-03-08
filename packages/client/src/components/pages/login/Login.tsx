@@ -22,6 +22,7 @@ function LoginPage() {
       placeholder: 'Пароль',
     },
   });
+
   const handleInputChange = (key: string, value: string) => {
     setForm({
       ...form,
@@ -37,6 +38,9 @@ function LoginPage() {
   const sendData = (event: FormEvent) => {
     event.preventDefault();
     dispatch(Actions.signin(getFormValues()));
+  };
+  const OathHandler = () => {
+    dispatch(Actions.getIdOAuth());
   };
   return (
     <main className={styles.login}>

@@ -13,6 +13,8 @@ import { GamePage } from '../pages/gamePage/GamePage';
 import Profile from '../pages/Profile/Profile';
 import ChangeData from '../pages/Profile/ChangeData/ChangeData';
 import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
+import withOauth from '../hoc/withOauth';
+import { Spinner } from '../ui/spinner/spinner';
 
 const GeneralRoutes = () => {
   return (

@@ -1,11 +1,11 @@
 import React, { FormEvent, useRef } from 'react';
 import styles from './ChangeData.module.scss';
-import { Store, UserData } from '../../../../redux/types';
+import { UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../hooks/AppUseSelectorAndDispathch';
+} from '../../../hook/AppUseSelectorAndDispathch';
 
 import BackButton from '../../../common/BackButton';
 import { ROUTES } from '../../../../utils';
@@ -13,7 +13,7 @@ import { ROUTES } from '../../../../utils';
 function ChangeData() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
-  const user = useAppSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state) => state.app.user);
 
   const onDataSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
