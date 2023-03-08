@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+
 import { Link } from 'react-router-dom';
-import styles from './Profile.module.scss';
-import { AvatarPopup } from '../../AvatarPopup/AvatarPopup';
+import { ROUTES } from '../../../utils';
+
 import { Store } from '../../../redux/types';
-import { useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../hooks/AppUseSelectorAndDispathch';
+
+import { AvatarPopup } from '../../common/AvatarPopup/AvatarPopup';
+import Header from '../../common/Header';
+
+import styles from './Profile.module.scss';
 
 function Profile() {
   const [isPopupActive, setPopupActive] = useState(false);
@@ -12,12 +18,13 @@ function Profile() {
   return (
     <>
       <div className={styles.profile}>
+        <Header isPositionFixed />
         <div className={styles.profile__container}>
           <h1 className={styles.profile__title}>Профиль</h1>
 
           <img
             className={styles.avatar}
-            src={user.avatar}
+            src={`https://ya-praktikum.tech/api/v2/resources${user.avatar}`}
             alt="user avatar"
             onClick={() => setPopupActive(true)}
           />
@@ -45,10 +52,12 @@ function Profile() {
             </li>
           </ul>
 
-          <Link className={styles.profile__btn} to="change-data">
+          <Link className={styles.profile__btn} to={ROUTES.changeProfileData}>
             Изменить данные
           </Link>
-          <Link className={styles.profile__btn} to="change-password">
+          <Link
+            className={styles.profile__btn}
+            to={ROUTES.changeProfilePassword}>
             Изменить пароль
           </Link>
         </div>

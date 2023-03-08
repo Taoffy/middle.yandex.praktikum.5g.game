@@ -15,6 +15,7 @@ class UserDataService {
   async changeUserData(data: UserData) {
     const response = await api.put('/user/profile', data, {
       withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     return response.data;
@@ -23,6 +24,7 @@ class UserDataService {
   async changeUserPassword(data: UserPassword) {
     await api.put('/user/password', data, {
       withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 }

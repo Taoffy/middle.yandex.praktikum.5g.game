@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 24px;
+
+  &__fixed {
+    position: fixed;
+    top: 0;
+  }
+}
+
+.link {
+  color: var(--color-black);
+  font-size: 24px;
+  font-weight: 29px;
+
+  &:visited,
+  &:active {
+    color: var(--color-black);
+  }
+
+  &:nth-child(n + 2) {
+    margin-left: 18px;
+  }
+}
