@@ -1,41 +1,42 @@
 import React, { FormEvent } from 'react';
-import styles from './Login.module.scss';
-import { useDispatch } from 'react-redux';
-// @ts-ignore
+
 import * as Actions from '../../../redux/actions';
+import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
+
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../utils';
+
+import styles from './Login.module.scss';
 
 function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [form, setForm] = React.useState<Form>({
     login: {
       value: '',
       type: 'text',
-      placeholder: 'Логин'
+      placeholder: 'Логин',
     },
     password: {
       value: '',
       type: 'password',
-      placeholder: 'Пароль'
-    }
+      placeholder: 'Пароль',
+    },
   });
   const handleInputChange = (key: string, value: string) => {
     setForm({
       ...form,
-      [key]: { ...form[key], value }
+      [key]: { ...form[key], value },
     } as Form);
   };
   const getFormValues = () => {
     return {
       login: form.login.value,
-      password: form.password.value
+      password: form.password.value,
     };
   };
   const sendData = (event: FormEvent) => {
     event.preventDefault();
-    // @ts-ignore
     dispatch(Actions.signin(getFormValues()));
-    // @ts-ignore
-    dispatch(Actions.authUser());
   };
   return (
     <main className={styles.login}>
@@ -57,13 +58,13 @@ function LoginPage() {
                 />
               </div>
             ))}
-            <button className={styles.form__btnSubmit} type='submit'>
+            <button className={styles.form__btnSubmit} type="submit">
               Войти
             </button>
           </form>
-          <a className={styles.form__link} href='#'>
+          <Link className={styles.form__link} to={ROUTES.signUp}>
             Зарегистрироваться
-          </a>
+          </Link>
         </div>
       </div>
     </main>

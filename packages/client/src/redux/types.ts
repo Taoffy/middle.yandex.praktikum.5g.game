@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number;
   first_name: string;
   second_name: string;
@@ -11,7 +11,8 @@ type User = {
 
 export type Store = {
   app: {
-    isAuth: false;
+    isAuth: boolean;
+    isInitialApp: boolean;
     user: {
       id: 1;
       first_name: '';
@@ -32,6 +33,11 @@ export interface UserData {
   login: FormDataEntryValue | null;
   email: FormDataEntryValue | null;
   phone: FormDataEntryValue | null;
+  avatar: FormDataEntryValue | null;
+}
+
+export interface UserAvatar {
+  avatar: string;
 }
 
 export type UserPassword = {
@@ -41,6 +47,7 @@ export type UserPassword = {
 
 export type State = {
   isAuth: boolean;
+  isInitialApp: boolean;
   user: User;
 };
 
@@ -48,7 +55,9 @@ export enum actionsType {
   setAUTH = 'setAUTH',
   setUserInfo = 'setUserInfo',
   changeData = 'CHANGE_DATA',
+  changeAvatar = 'CHANGE_AVATAR',
   changePassword = 'CHANGE_PASSWORD',
+  setIsInitialApp = 'setIsInitialApp',
 }
 
 type signupAction = {
@@ -65,12 +74,24 @@ type changeDataAction = {
   payload: UserData;
 };
 
+type changeAvatarAction = {
+  type: actionsType.changeAvatar;
+  payload: UserAvatar;
+};
+
 type changeUserPassword = {
   type: actionsType.changePassword;
+};
+
+type setIsInitialApp = {
+  type: actionsType.setIsInitialApp;
+  payload: boolean;
 };
 
 export type actions =
   | signupAction
   | setUserInfoAction
   | changeDataAction
-  | changeUserPassword;
+  | changeAvatarAction
+  | changeUserPassword
+  | setIsInitialApp;

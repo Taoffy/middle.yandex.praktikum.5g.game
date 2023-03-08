@@ -2,6 +2,7 @@ import { State, actions, actionsType } from './types';
 
 const initialState: State = {
   isAuth: false,
+  isInitialApp: false,
   user: {
     id: 1,
     first_name: '',
@@ -19,7 +20,15 @@ const appReducer = (state = initialState, action: actions) => {
     case actionsType.changeData:
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...action.payload,
+          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
+        },
+      };
+    case actionsType.changeAvatar:
+      return {
+        ...state,
+        user: { ...state.user, avatar: action.payload },
       };
       break;
     case actionsType.setAUTH:
@@ -32,6 +41,13 @@ const appReducer = (state = initialState, action: actions) => {
       return {
         ...state,
         user: action.payload,
+      };
+      break;
+
+    case actionsType.setIsInitialApp:
+      return {
+        ...state,
+        isInitialApp: action.payload,
       };
       break;
     default:

@@ -1,13 +1,21 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './ChangeData.module.scss';
+
 import { Store, UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../hooks/AppUseSelectorAndDispathch';
+
+import BackButton from '../../../common/BackButton';
+import { ROUTES } from '../../../../utils';
+
+import styles from './ChangeData.module.scss';
 
 function ChangeData() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const formEl = useRef(null);
-  const user = useSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state: Store) => state.app.user);
 
   const onDataSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,15 +29,15 @@ function ChangeData() {
       email: formData.get('email'),
       display_name: '',
       phone: formData.get('phone'),
+      avatar: '',
     };
 
-    // @ts-ignore
     dispatch(Actions.changeUserData(data));
   };
 
-  // @ts-ignore
   return (
     <div className={styles.data__container}>
+      <BackButton to={ROUTES.profile} />
       <h1 className={styles.data__header}>Изменить данные</h1>
       <form id="change-data" onSubmit={onDataSubmit} ref={formEl}>
         <input

@@ -1,3 +1,4 @@
+import { User } from '../../redux/types';
 import { api } from '../api';
 import { apiHasError } from '../utils/apiHasError';
 import { AxiosResponse } from 'axios';
@@ -34,26 +35,32 @@ class UserServiceClass {
   }
 
   async signup(data: RegistrationRequestData) {
-    const response = await api.post<string,
+    const response = await api.post<
+      string,
       AxiosResponse<string>,
-      RegistrationRequestData>(AuthPath.signup, data);
+      RegistrationRequestData
+    >(AuthPath.signup, data);
     return this.checkAnswer<string>(response);
   }
 
   async signin(data: LoginRequestData) {
-    const response = await api.post<string,
+    const response = await api.post<
+      string,
       AxiosResponse<string>,
-      LoginRequestData>(AuthPath.signin, data);
+      LoginRequestData
+    >(AuthPath.signin, data, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     return this.checkAnswer<string>(response);
   }
 
   async authUser() {
     try {
-      // @ts-ignore
       const response = await api.get<string, AxiosResponse<User>>(
-        AuthPath.authUser
+        AuthPath.authUser,
+        { headers: { accept: 'application/json' } }
       );
-      // @ts-ignore
+
       return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);

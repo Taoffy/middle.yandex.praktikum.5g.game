@@ -5,9 +5,9 @@ import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 
-export function render(url, context) {
+export function render(url) {
   return renderToString(
-    <StaticRouter location={url} context={context}>
+    <StaticRouter location={url}>
       <Provider store={store}>
         <App />
       </Provider>
