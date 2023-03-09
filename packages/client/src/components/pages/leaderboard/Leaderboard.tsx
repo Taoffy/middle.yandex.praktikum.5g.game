@@ -1,8 +1,10 @@
 import React from 'react';
+import Leaderboard from '../../../api/leaderboardAPI';
 
 import styles from './Leaderboard.module.scss';
 
 function LeaderboardPage() {
+
   return (
     <main className={styles.leaderboard}>
       <div className={styles.centeredBox}>

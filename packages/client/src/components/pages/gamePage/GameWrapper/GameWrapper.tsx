@@ -20,7 +20,7 @@ function GameWrapper() {
   const handleQuitButtonClick = () => {
     navigate(ROUTES.mainPage);
   };
-
+  
   if (isGameFinished && !isTimeOut) {
     return (
       <div className={styles.game}>
