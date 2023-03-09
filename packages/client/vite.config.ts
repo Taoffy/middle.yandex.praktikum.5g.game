@@ -12,6 +12,10 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT || 3001,
   },
   plugins: [react()],
+  ssr: {
+    target: 'node',
+    format: 'cjs',
+  },
   build: {
     sourcemap: Boolean(process.env.IS_DEV) || false,
   },
