@@ -10,6 +10,10 @@ import { useGame } from '../../../modules/Game';
 
 import { ROUTES } from '../../../../utils';
 
+import Leaderboard from '../../../../api/leaderboardAPI';
+
+import {LeaderboardListData, LeaderboardObject, LeaderboardRequestData} from '../../../../api/leaderboardAPI';
+
 import styles from './GameWrapper.module.scss';
 
 function GameWrapper() {
@@ -20,7 +24,7 @@ function GameWrapper() {
   const handleQuitButtonClick = () => {
     navigate(ROUTES.mainPage);
   };
-
+  
   if (isGameFinished && !isTimeOut) {
     return (
       <div className={styles.game}>

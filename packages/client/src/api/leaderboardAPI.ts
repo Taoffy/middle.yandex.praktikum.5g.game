@@ -18,17 +18,18 @@ export type LeaderboardListData = {
 
 class Leaderboard {
     async addToLeaderboard(data: LeaderboardRequestData) {
-        const response = await api.put('/leaderboard', data, {
+        const response = await api.post('/leaderboard', data, {
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' },
         }).then((res) => res.data);
         return response;
     }
     async getLeaderboard(data: LeaderboardListData) {
-        const response = await api.put('/leaderboard/5g', data, {
+        const response = await api.post('/leaderboard/5g', data, {
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' },
         }).then((res) => res.data);
+        console.log('response', response)
         return response;
     }
 }
