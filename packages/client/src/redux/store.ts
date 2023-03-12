@@ -9,12 +9,15 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { appReducer } from './app-reducer';
 
+import { Store } from './types';
+
 const reducers = combineReducers({
   app: appReducer,
 });
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    __PRELOADED_STATE__?: Store;
   }
 }
 const composeEnhancers =
