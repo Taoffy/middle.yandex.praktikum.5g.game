@@ -1,4 +1,5 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { CommentModel, TopicModel, UserModel } from './models';
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_INNER_PORT } =
   process.env;
@@ -14,6 +15,10 @@ const sequelizeOptions: SequelizeOptions = {
 
 const sequelize = new Sequelize(sequelizeOptions);
 
+const Topic = sequelize.define('Topic', TopicModel, {});
+const Comment = sequelize.define('Comment', CommentModel, {});
+const User = sequelize.define('User', UserModel, {});
+
 async function connectDatabase() {
   try {
     await sequelize.authenticate();
@@ -23,4 +28,4 @@ async function connectDatabase() {
   }
 }
 
-export { sequelize, connectDatabase };
+export { sequelize, connectDatabase, Topic, Comment, User };

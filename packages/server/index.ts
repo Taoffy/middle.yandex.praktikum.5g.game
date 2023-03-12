@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 
 import { connectDatabase } from './db';
-import { router } from './router';
+import { router, forumRouter } from './routers';
 
 dotenv.config();
 
@@ -20,6 +20,7 @@ async function startServer() {
     express.static(path.resolve(__dirname, 'dist/client/assets'))
   );
 
+  app.use('/api', forumRouter);
   app.use(router);
 
   app.listen(port, () => {
