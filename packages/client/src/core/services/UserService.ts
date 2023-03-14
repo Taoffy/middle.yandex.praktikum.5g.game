@@ -1,7 +1,7 @@
 import { User } from '../../redux/types';
 import { api } from '../api';
-import { apiHasError } from '../utils/apiHasError';
 import { AxiosResponse } from 'axios';
+import { BasicServiceClass } from './BasicService';
 
 export type LoginRequestData = {
   login: string;
@@ -23,17 +23,7 @@ enum AuthPath {
   logout = '/auth/logout',
 }
 
-class UserServiceClass {
-  private checkAnswer<T>(response: AxiosResponse<T>) {
-    if (response.status !== 200) {
-      if (apiHasError(response.data)) {
-        throw new Error(response.data.reason);
-      }
-      throw new Error(response.statusText);
-    }
-    return response.data;
-  }
-
+class UserServiceClass extends BasicServiceClass {
   async signup(data: RegistrationRequestData) {
     const response = await api.post<
       string,

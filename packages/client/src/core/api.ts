@@ -6,4 +6,9 @@ const api = axios.create({
   baseURL: apiConfig.serverURL,
 });
 
-export { api };
+const myApi = axios.create({
+  withCredentials: true,
+  baseURL: apiConfig.myServerURL,
+});
+
+export { api, myApi };

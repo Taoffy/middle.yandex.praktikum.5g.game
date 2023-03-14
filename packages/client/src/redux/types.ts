@@ -1,3 +1,5 @@
+import { ExistComment, ExistTopic } from '../core/services/ForumService';
+
 export type User = {
   id: number;
   first_name: string;

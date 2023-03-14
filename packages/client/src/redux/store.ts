@@ -2,9 +2,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { appReducer } from './app-reducer';
+import { forumReducer } from './forum/forum-reducer';
 
 const reducers = combineReducers({
   app: appReducer,
+  forum: forumReducer,
 });
 declare global {
   interface Window {
