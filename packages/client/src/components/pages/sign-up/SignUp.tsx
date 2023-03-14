@@ -55,6 +55,7 @@ function SignUpPage() {
   };
   const sendData = (event: FormEvent) => {
     event.preventDefault();
+    // @ts-ignore
     dispatch(Actions.signup(getFormValues()));
   };
   return (
