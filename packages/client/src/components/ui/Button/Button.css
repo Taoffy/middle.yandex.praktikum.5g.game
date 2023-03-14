@@ -1,0 +1,33 @@
+:root{
+    --color-purple: #5754EB;
+    --color-blue: #2C28DB;
+    --color-dark-blue: #0E0BA7;
+    --color-cyan: #54BEEB;
+    --color-light-blue: #2870DB;
+    --color-green: #0BA794;
+    --color-white: #FFFFFF;
+}
+
+.btn{
+    padding: 12px 32px;
+    background: linear-gradient(90deg, var(--color-purple) 2%,  var(--color-blue) 68%, var(--color-dark-blue) 100%);
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+}
+
+.btn:hover{
+    background: linear-gradient(90deg, var(--color-cyan) 2%, var(--color-light-blue) 68%, var(--color-green) 100%);
+}
+
+.btn:active{
+    box-shadow: 0px 0px 0px 2px #000000;
+    background: linear-gradient(90deg, var(--color-purple) 2%,  var(--color-blue) 68%, var(--color-dark-blue) 100%);
+}
+
+.btn:disabled{
+    background: #D5D5D5;
+}
