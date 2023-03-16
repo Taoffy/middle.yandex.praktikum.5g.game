@@ -1,20 +1,17 @@
-import { Router } from 'express';
+import express from 'express';
 import { commentController, topicController } from '../controllers';
 
-function forumRouter(apiRouter: Router) {
-  const router: Router = Router();
+const forumRouter: express.Router = express.Router();
 
-  router.get('/topic/:id', topicController.getTopic);
-  router.get('/topic', topicController.getAllTopics);
-  router.post('/topic', topicController.createTopic);
-  router.delete('/topic/:id', topicController.deleteTopic);
+forumRouter.use(express.json());
+forumRouter.get('/topic/:id', topicController.getTopic);
+forumRouter.get('/topic', topicController.getAllTopics);
+forumRouter.post('/topic', topicController.createTopic);
+forumRouter.delete('/topic/:id', topicController.deleteTopic);
 
-  router.get('/comment/:id', commentController.getComment);
-  router.get('/comment', commentController.getComments);
-  router.post('/comment', commentController.createComment);
-  router.delete('/comment/:id', commentController.deleteComment);
-
-  apiRouter.use('/forum', router);
-}
+forumRouter.get('/comment/:id', commentController.getComment);
+forumRouter.get('/comment', commentController.getComments);
+forumRouter.post('/comment', commentController.createComment);
+forumRouter.delete('/comment/:id', commentController.deleteComment);
 
 export default forumRouter;

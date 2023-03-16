@@ -11,13 +11,16 @@ import { forumRouter } from './routers';
 
 import { INITIAL_STATE } from './utils';
 
+const app = express();
+app.use(cors());
+
 const isDev = () => process.env.NODE_ENV === 'development';
 
 dotenv.config();
 
+app.use('api/forum', forumRouter);
+
 async function startServer() {
-  const app = express();
-  app.use(cors());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   await connectDatabase();
