@@ -1,25 +1,30 @@
 import dotenv from 'dotenv';
 import cors from 'cors';
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
-dotenv.config();
+import { connectDatabase } from './db';
 
-import express from 'express';
-import * as fs from 'fs';
-import * as path from 'path';
+import { INITIAL_STATE } from './utils';
 
 const isDev = () => process.env.NODE_ENV === 'development';
+
+dotenv.config();
 
 async function startServer() {
   const app = express();
   app.use(cors());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
+  await connectDatabase();
+
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));
-  const ssrClientPath = require.resolve('client/ssr-dist/client.cjs');
+  const ssrClientPath = require.resolve('client/dist-ssr/client.cjs');
 
   if (isDev()) {
     vite = await createViteServer({
@@ -31,17 +36,16 @@ async function startServer() {
     app.use(vite.middlewares);
   }
 
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)');
-  });
-
   if (!isDev()) {
-    app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+    app.use(`/assets`, express.static(path.resolve(distPath, 'assets')));
+
+    global.window = {} as typeof global.window;
+    global.FormData = {} as typeof global.FormData;
+    global.Blob = {} as typeof global.Blob;
   }
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
-
     try {
       let template: string;
 
@@ -55,22 +59,29 @@ async function startServer() {
           path.resolve(srcPath, 'index.html'),
           'utf-8'
         );
-
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: (url: string) => Promise<string>;
+      let ssr;
 
       if (!isDev()) {
-        render = (await import(ssrClientPath)).render;
+        ssr = await import(ssrClientPath);
       } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render;
+        ssr = await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'entry-server.tsx')
+        );
       }
 
-      const appHtml = await render(url);
+      const { render } = ssr;
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const appHtml = await render(url, INITIAL_STATE);
+      const storesValues = `<script>window.__INITIAL_STATE__=${JSON.stringify(
+        INITIAL_STATE
+      )}</script>`;
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(`<!--ssr-redux-->`, storesValues);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
