@@ -1,15 +1,17 @@
 const INITIAL_STATE = {
-  isAuth: false,
-  isInitialApp: false,
-  user: {
-    id: 1,
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    login: '',
-    email: '',
-    phone: '',
-    avatar: '',
+  app: {
+    isAuth: false,
+    isInitialApp: false,
+    user: {
+      id: 1,
+      first_name: '',
+      second_name: '',
+      display_name: '',
+      login: '',
+      email: '',
+      phone: '',
+      avatar: '',
+    },
   },
 };
 

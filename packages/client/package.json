@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:client": "vite build --outDir=../server/dist/client",
-    "build:ssr": "vite build --outDir=../server/dist/ssr --ssr entry-server.tsx",
-    "build": "rm -rf ../server/dist && yarn build:client && yarn build:ssr",
+    "build:client": "vite build",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
+    "build": "rm -rf ./dist && tsc && vite build --config vite.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
