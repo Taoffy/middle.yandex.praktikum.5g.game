@@ -7,7 +7,7 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
 import { connectDatabase } from './db';
-import { forumRouter } from './routers';
+import { topicRouter, userRouter } from './routers';
 
 import { INITIAL_STATE } from './utils';
 
@@ -18,7 +18,8 @@ const isDev = () => process.env.NODE_ENV === 'development';
 
 dotenv.config();
 
-app.use('api/forum', forumRouter);
+app.use('api/forum', topicRouter);
+app.use('api/user', userRouter);
 
 async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 3001;

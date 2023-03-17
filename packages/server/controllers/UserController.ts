@@ -35,7 +35,8 @@ class UserController {
 
   async findUser(req: Request, res: Response) {
     try {
-      const { id } = req.body;
+      //@ts-ignore
+      const { id } = req.query.id;
       const data = await userService.findUser(id);
       res.send(data);
     } catch (error) {
@@ -48,6 +49,18 @@ class UserController {
       const { id, theme } = req.body;
       await userService.setTheme(id, theme);
       res.status(200).json({ message: 'ok' });
+    } catch (error) {
+      res.status(500).json({ message: error });
+    }
+  }
+
+  async getTheme(req: Request, res: Response) {
+    try {
+      //@ts-ignore
+      const { id } = req.query.id;
+      const data = await userService.findUser(id);
+      const theme = data?.getDataValue('theme');
+      res.send(theme);
     } catch (error) {
       res.status(500).json({ message: error });
     }

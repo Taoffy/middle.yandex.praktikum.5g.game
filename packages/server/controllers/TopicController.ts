@@ -13,7 +13,8 @@ class TopicController {
 
   async getTopic(req: Request, res: Response) {
     try {
-      const { id } = req.query;
+      //@ts-ignore
+      const { id } = req.params.id;
       const data = await topicService.getTopic(id as string);
       res.send(data);
     } catch (error) {
@@ -40,7 +41,8 @@ class TopicController {
 
   async deleteTopic(req: Request, res: Response) {
     try {
-      const { id } = req.body;
+      //@ts-ignore
+      const { id } = req.params.id;
       await topicService.deleteTopic(id);
     } catch (error) {
       res.status(500).json({ message: error });
