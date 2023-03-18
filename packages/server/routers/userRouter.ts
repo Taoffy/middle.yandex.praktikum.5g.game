@@ -3,6 +3,7 @@ import { userController } from '../controllers';
 
 const userRouter: express.Router = express.Router();
 
+userRouter.use(express.json());
 userRouter.get('/user', userController.findUser);
 userRouter.post('/create-user', userController.createUser);
 userRouter.post('set-theme', userController.setTheme);

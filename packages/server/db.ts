@@ -19,10 +19,10 @@ const Topic = sequelize.define('Topic', TopicModel, {});
 const Comment = sequelize.define('Comment', CommentModel, {});
 const User = sequelize.define('User', UserModel, {});
 
-User.hasMany(Comment);
-User.hasMany(Topic);
-Comment.belongsTo(User);
-Topic.belongsTo(User);
+User.hasMany(Comment, { foreignKey: 'id', as: 'comments' });
+User.hasMany(Topic, { foreignKey: 'id', as: 'topics' });
+Comment.belongsTo(User, { foreignKey: 'id_author', as: 'user' });
+Topic.belongsTo(User, { foreignKey: 'id_author', as: 'user' });
 
 async function connectDatabase() {
   try {
