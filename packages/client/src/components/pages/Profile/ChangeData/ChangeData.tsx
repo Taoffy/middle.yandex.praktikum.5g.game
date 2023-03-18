@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { Store, UserData } from '../../../../redux/types';
+import { UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
 import {
   useAppDispatch,
@@ -15,7 +15,7 @@ import styles from './ChangeData.module.scss';
 function ChangeData() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
-  const user = useAppSelector((state: Store) => state.app.user);
+  const user = useAppSelector((state) => state.app.user);
 
   const onDataSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

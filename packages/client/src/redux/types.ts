@@ -1,5 +1,3 @@
-import { ExistComment, ExistTopic } from '../core/services/ForumService';
-
 export type User = {
   id: number;
   first_name: string;
@@ -11,21 +9,10 @@ export type User = {
   avatar: string | null;
 };
 
-export type Store = {
-  app: {
-    isAuth: boolean;
-    isInitialApp: boolean;
-    user: {
-      id: 1;
-      first_name: '';
-      second_name: '';
-      display_name: '';
-      login: '';
-      email: '';
-      phone: '';
-      avatar: '';
-    };
-  };
+export type State = {
+  isAuth: boolean;
+  isInitialApp: boolean;
+  user: User;
 };
 
 export interface UserData {
@@ -45,12 +32,6 @@ export interface UserAvatar {
 export type UserPassword = {
   oldPassword: string;
   newPassword: string;
-};
-
-export type State = {
-  isAuth: boolean;
-  isInitialApp: boolean;
-  user: User;
 };
 
 export enum actionsType {
@@ -78,7 +59,7 @@ type changeDataAction = {
 
 type changeAvatarAction = {
   type: actionsType.changeAvatar;
-  payload: UserAvatar;
+  payload: string;
 };
 
 type changeUserPassword = {

@@ -21,7 +21,7 @@ const appReducer = (state = initialState, action: actions): State => {
       return {
         ...state,
         user: {
-          ...action.payload,
+          ...state.user,
           avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
         },
       };

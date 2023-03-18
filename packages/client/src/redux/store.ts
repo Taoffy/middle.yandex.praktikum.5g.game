@@ -10,8 +10,6 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { appReducer } from './app-reducer';
 import { forumReducer } from './forum/forum-reducer';
 
-import { Store } from './types';
-
 const reducers = combineReducers({
   app: appReducer,
   forum: forumReducer,
@@ -19,7 +17,7 @@ const reducers = combineReducers({
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    __PRELOADED_STATE__?: Store;
+    __PRELOADED_STATE__?: RootState;
   }
 }
 const composeEnhancers =
