@@ -17,6 +17,9 @@ const UserModel: ModelAttributes<Model, IUser> = {
   theme: {
     type: DataType.STRING,
     allowNull: false,
+    get() {
+      return this.getDataValue('theme');
+    },
   },
   avatar: {
     type: DataType.STRING,

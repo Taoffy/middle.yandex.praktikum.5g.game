@@ -19,6 +19,9 @@ const Topic = sequelize.define('Topic', TopicModel, {});
 const Comment = sequelize.define('Comment', CommentModel, {});
 const User = sequelize.define('User', UserModel, {});
 
+User.hasMany(Comment);
+Comment.belongsTo(User);
+
 async function connectDatabase() {
   try {
     await sequelize.authenticate();

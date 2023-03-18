@@ -18,16 +18,21 @@ class UserService {
     phone: string,
     second_name: string
   ) {
-    return this.user.create({
-      id,
-      login,
-      theme,
-      avatar,
-      display_name,
-      email,
-      first_name,
-      phone,
-      second_name,
+    return this.user.findOrCreate({
+      where: {
+        id,
+      },
+      defaults: {
+        id,
+        login,
+        theme,
+        avatar,
+        display_name,
+        email,
+        first_name,
+        phone,
+        second_name,
+      },
     });
   }
 
