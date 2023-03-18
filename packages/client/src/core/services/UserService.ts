@@ -1,5 +1,5 @@
 import { User } from '../../redux/types';
-import { api } from '../api';
+import { api, expressApi } from '../api';
 import { AxiosResponse } from 'axios';
 import { BasicServiceClass } from './BasicService';
 
@@ -21,6 +21,7 @@ enum AuthPath {
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
+  setUserExpress = '/user/create-user'
 }
 
 class UserServiceClass extends BasicServiceClass {
@@ -63,6 +64,19 @@ class UserServiceClass extends BasicServiceClass {
         AuthPath.logout
       );
       return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async setUserExpress(user: User) {
+    try {
+      const response = await expressApi.post<User, AxiosResponse<object>>(
+        AuthPath.setUserExpress, user, {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      return this.checkAnswer<object>(response);
     } catch (error) {
       console.error(error);
     }

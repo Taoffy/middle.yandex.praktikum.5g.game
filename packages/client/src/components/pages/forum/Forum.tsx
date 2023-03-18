@@ -6,6 +6,7 @@ import {
   useAppSelector,
 } from '../../hooks/AppUseSelectorAndDispathch';
 import * as Actions from '../../../redux/forum/actions';
+import * as ActionsUser from '../../../redux/actions';
 import { v1 as uuidv1 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../utils';
@@ -18,10 +19,11 @@ function ForumPage() {
     navigate(`${ROUTES.forumpost}/${id}`);
   };
   const topics = useAppSelector((state) => state.forum.topics);
-  const { id } = useAppSelector((state) => state.app.user);
+  const user = useAppSelector((state) => state.app.user);
   useEffect(() => {
+    dispatch(ActionsUser.setUserExpress(user));
     dispatch(Actions.getTopics());
-  }, [dispatch]);
+  }, [dispatch, user]);
   const [openForm, setOpenForm] = React.useState(false);
   const [form, setForm] = React.useState<Form>({
     title: {
@@ -40,7 +42,7 @@ function ForumPage() {
       id: uuidv1(),
       title: form.title.value,
       description: form.description.value,
-      id_author: `${id}`,
+      id_author: `${user.id}`,
       date: new Date().toISOString().slice(0, 10),
       views: 0,
     };

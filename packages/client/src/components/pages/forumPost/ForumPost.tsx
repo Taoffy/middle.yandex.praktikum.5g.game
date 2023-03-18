@@ -6,25 +6,28 @@ import {
   useAppSelector,
 } from '../../hooks/AppUseSelectorAndDispathch';
 import * as Actions from '../../../redux/forum/actions';
+import * as ActionsUser from '../../../redux/actions';
 import { v1 as uuidv1 } from 'uuid';
 import Header from '../../common/Header';
 
 function ForumPostPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.app.user);
+
   const [input, setInput] = useState('');
   const { id } = useParams();
   useEffect(() => {
     if (!id) {
       navigate(-1);
     } else {
+      dispatch(ActionsUser.setUserExpress(user));
       dispatch(Actions.getTopic(id));
       dispatch(Actions.getComments(id));
     }
-  }, []);
+  }, [navigate, dispatch, user, id]);
   const topic = useAppSelector((state) => state.forum.topics[id || '']);
   const comments = useAppSelector((state) => state.forum.comments[id || '']);
-  const user = useAppSelector((state) => state.app.user);
 
   const createComment = () => {
     return {
