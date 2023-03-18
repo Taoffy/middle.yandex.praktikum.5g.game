@@ -18,8 +18,8 @@ const isDev = () => process.env.NODE_ENV === 'development';
 
 dotenv.config();
 
-app.use('api/forum', topicRouter);
-app.use('api/user', userRouter);
+app.use('/api/forum', topicRouter);
+app.use('/api/user', userRouter);
 
 async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 3001;

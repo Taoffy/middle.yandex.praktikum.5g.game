@@ -1,6 +1,9 @@
+import { User } from '../types';
+
 export type ExistComment = Comment & {
   id: string;
   likes: number;
+  user: User;
 };
 export type Comment = {
   id: string;
@@ -11,13 +14,14 @@ export type Comment = {
   id_author: string;
   date: string;
 };
-export type ExistTopic = Topic;
+export type ExistTopic = Topic & {
+  user: User;
+};
 export type Topic = {
   id: string;
   views: number;
   title: string;
   description: string;
-  author: string;
   id_author: string;
   date: string;
 };

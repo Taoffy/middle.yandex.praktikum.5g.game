@@ -1,4 +1,4 @@
-import { Topic } from '../db';
+import { Topic, User } from '../db';
 
 class TopicService {
   topic: typeof Topic;
@@ -12,10 +12,13 @@ class TopicService {
   }
 
   async getTopic(id: string) {
+    console.log(id);
+
     return this.topic.findOne({
       where: {
         id,
       },
+      include: [User],
     });
   }
 

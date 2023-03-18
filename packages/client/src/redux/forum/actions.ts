@@ -12,6 +12,7 @@ export const getTopics = () => {
   return async (dispatch: AppDispatch) => {
     try {
       const response = await ForumService.getTopics();
+
       const responseObject: ForumState['topics'] = {};
       response.forEach((cur) => {
         responseObject[cur.id] = cur;
@@ -25,14 +26,31 @@ export const getTopics = () => {
     }
   };
 };
+export const getTopic = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const response = await ForumService.getTopic(id);
+
+      const responseObject = {
+        [response.id]: response,
+      };
+      dispatch({
+        type: actionsType.setTopics,
+        payload: responseObject,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
 
 export const addTopic = (topic: Topic) => {
   return async (dispatch: AppDispatch) => {
     try {
-      // const response = await ForumService.addTopic(topic);
-      const response = topic;
+      await ForumService.addTopic(topic);
+
       const responseObject = {
-        [response.id]: response,
+        [topic.id]: topic,
       };
       dispatch({
         type: actionsType.setTopics,
@@ -66,15 +84,13 @@ export const getComments = (idTopic: string) => {
 export const addComment = (comment: Comment) => {
   return async (dispatch: AppDispatch) => {
     try {
-      // const response = await ForumService.addCommentsByTopic(
-      //   comment,
-      //   comment.id_topic
-      // );
-      console.log(comment);
-
-      const response = comment;
+      const response = await ForumService.addCommentsByTopic(
+        comment,
+        comment.id_topic
+      );
+      console.log(response);
       const responseObject = {
-        [response.id]: response,
+        [comment.id]: comment,
       };
       dispatch({
         type: actionsType.setComments,

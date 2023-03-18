@@ -7,6 +7,7 @@ export type User = {
   email: string;
   phone: string;
   avatar: string | null;
+  theme?: string;
 };
 
 export type State = {

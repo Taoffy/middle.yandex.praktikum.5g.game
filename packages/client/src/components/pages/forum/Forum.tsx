@@ -9,6 +9,7 @@ import * as Actions from '../../../redux/forum/actions';
 import { v1 as uuidv1 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../utils';
+import Header from '../../common/Header';
 
 function ForumPage() {
   const navigate = useNavigate();
@@ -17,9 +18,9 @@ function ForumPage() {
     navigate(`${ROUTES.forumpost}/${id}`);
   };
   const topics = useAppSelector((state) => state.forum.topics);
-  const user = useAppSelector((state) => state.app.user);
+  const { id } = useAppSelector((state) => state.app.user);
   useEffect(() => {
-    // dispatch(Actions.getTopics());
+    dispatch(Actions.getTopics());
   }, [dispatch]);
   const [openForm, setOpenForm] = React.useState(false);
   const [form, setForm] = React.useState<Form>({
@@ -36,13 +37,12 @@ function ForumPage() {
   });
   const getFormValues = () => {
     return {
+      id: uuidv1(),
       title: form.title.value,
       description: form.description.value,
-      author: user.login,
-      id: uuidv1(),
-      views: 0,
+      id_author: `${id}`,
       date: new Date().toISOString().slice(0, 10),
-      id_author: `${user.id}`,
+      views: 0,
     };
   };
   const handleInputChange = (key: string, value: string) => {
@@ -71,6 +71,7 @@ function ForumPage() {
   ));
   return (
     <main className={styles.forum}>
+      <Header />
       <div className={styles.centeredBox}>
         <div className={styles.centeredBox__inner}>
           <div className={styles.centeredBox__inner__header}>
