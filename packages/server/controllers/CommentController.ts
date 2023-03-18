@@ -15,7 +15,8 @@ class CommentController {
 
   async getComment(req: Request, res: Response) {
     try {
-      const { id } = req.body;
+      //@ts-ignore
+      const { id } = req.params.id;
       const data = await commentService.getComment(id);
       res.send(data);
     } catch (error) {
@@ -42,7 +43,8 @@ class CommentController {
 
   async deleteComment(req: Request, res: Response) {
     try {
-      const { id } = req.body;
+      //@ts-ignore
+      const { id } = req.params.id;
       await commentService.deleteComment(id);
       res.status(200).json({ message: 'ok' });
     } catch (error) {

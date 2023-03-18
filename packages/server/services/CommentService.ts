@@ -1,4 +1,4 @@
-import { Comment } from '../db';
+import { Comment, User } from '../db';
 
 class CommentService {
   comment: typeof Comment;
@@ -8,11 +8,11 @@ class CommentService {
   }
 
   async getAllComments(id_topic: string) {
-    return this.comment.findAll({ where: { id_topic } });
+    return this.comment.findAll({ where: { id_topic }, include: [User] });
   }
 
   async getComment(id: string) {
-    return this.comment.findOne({ where: { id } });
+    return this.comment.findOne({ where: { id }, include: [User] });
   }
 
   async createComment(

@@ -1,4 +1,4 @@
-import { router, appRoutes } from './router';
-import forumRouter from './forumRouter';
+import topicRouter from './topicRouter';
+import userRouter from './userRouter';
 
-export { router, appRoutes, forumRouter };
+export { topicRouter, userRouter };
