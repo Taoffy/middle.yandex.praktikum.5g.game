@@ -22,7 +22,7 @@ function ForumPage() {
   const user = useAppSelector((state) => state.app.user);
   useEffect(() => {
     dispatch(ActionsUser.setUserExpress(user));
-    dispatch(Actions.getTopics());
+    // dispatch(Actions.getTopics());
   }, [dispatch, user]);
   const [openForm, setOpenForm] = React.useState(false);
   const [form, setForm] = React.useState<Form>({

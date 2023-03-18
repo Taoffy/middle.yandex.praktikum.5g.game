@@ -115,7 +115,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
 export const setUserExpress = (user: User) => async () => {
   try {
-    await UserService.setUserExpress(user);
+    await UserService.setUserExpress({ ...user, theme: user.theme || 'light' });
   } catch (error) {
     console.log(error);
   }

@@ -20,7 +20,9 @@ const Comment = sequelize.define('Comment', CommentModel, {});
 const User = sequelize.define('User', UserModel, {});
 
 User.hasMany(Comment);
+User.hasMany(Topic);
 Comment.belongsTo(User);
+Topic.belongsTo(User);
 
 async function connectDatabase() {
   try {

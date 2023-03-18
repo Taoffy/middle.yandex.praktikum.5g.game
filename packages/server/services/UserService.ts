@@ -8,7 +8,7 @@ class UserService {
   }
 
   async createUser(
-    id: string,
+    id: number,
     login: string,
     theme: string,
     avatar: string,
@@ -18,6 +18,18 @@ class UserService {
     phone: string,
     second_name: string
   ) {
+    console.log(
+      id,
+      login,
+      theme,
+      avatar,
+      display_name,
+      email,
+      first_name,
+      phone,
+      second_name
+    );
+
     return this.user.findOrCreate({
       where: {
         id,
