@@ -5,7 +5,8 @@ import { commentService } from '../services';
 class CommentController {
   async getComments(req: Request, res: Response) {
     try {
-      const { id_topic } = req.body;
+      //@ts-ignore
+      const { id_topic } = req.params.id;
       const data = await commentService.getAllComments(id_topic);
       res.send(data);
     } catch (error) {
