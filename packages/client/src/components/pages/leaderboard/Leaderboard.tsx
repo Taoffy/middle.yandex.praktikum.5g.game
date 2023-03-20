@@ -21,7 +21,7 @@ function LeaderboardPage() {
               return (
                 <div key={key} className={styles.liders__wrapper}>
                   <div className={styles.liders__item}>
-                    <img className={styles.liders__img} src={svg} />
+                    <img className={styles.liders__img} src={value.data.avatar ?? svg} />
                     <span className={styles.liders__name}>
                       {value.data.name}
                     </span>
