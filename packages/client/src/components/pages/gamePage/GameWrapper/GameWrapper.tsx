@@ -12,16 +12,33 @@ import { ROUTES } from '../../../../utils';
 
 import styles from './GameWrapper.module.scss';
 
+import leaderboardAPI from '../../../../api/leaderboardAPI';
+import { LeaderboardObject, LeaderboardRequestData } from '../../../../api/leaderboardAPI';
+
 function GameWrapper() {
   const navigate = useNavigate();
 
   const { isGameFinished, isTimeOut, score, timeLeft, restartGame } = useGame();
 
+  const data : LeaderboardObject = {
+    name: '',
+    score: score,
+    avatar: ''
+  }
+
+  const res : LeaderboardRequestData = {
+    data: data,
+    ratingFieldName: 'score',
+    teamName: '5g'
+  }
+
   const handleQuitButtonClick = () => {
     navigate(ROUTES.mainPage);
   };
-  
+
   if (isGameFinished && !isTimeOut) {
+    
+    leaderboardAPI.addToLeaderboard(res)
     return (
       <div className={styles.game}>
         <div className={styles.endGame}>

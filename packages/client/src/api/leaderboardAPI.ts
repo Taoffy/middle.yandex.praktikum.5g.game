@@ -15,6 +15,9 @@ export type LeaderboardListData = {
     cursor: number;
     limit: number;
 }
+export type LeaderboardResultData = [{
+    data: LeaderboardObject;
+}]
 
 class Leaderboard {
     async addToLeaderboard(data: LeaderboardRequestData) {
@@ -24,12 +27,16 @@ class Leaderboard {
         }).then((res) => res.data);
         return response;
     }
-    async getLeaderboard(data: LeaderboardListData) {
+    async getLeaderboard() {
+        const data = {
+            ratingFieldName: 'score',
+            cursor: 0,
+            limit: 5
+        }
         const response = await api.post('/leaderboard/5g', data, {
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' },
         }).then((res) => res.data);
-        console.log('response', response)
         return response;
     }
 }
