@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
 import * as Actions from '../../../redux/actions';
 
 import styles from './Header.module.scss';
+import ThemeToggler from '../ThemeToggler/ThemeToggler';
 
 function Header({ isPositionFixed = false }: { isPositionFixed?: boolean }) {
   const dispatch = useAppDispatch();
@@ -26,7 +27,8 @@ function Header({ isPositionFixed = false }: { isPositionFixed?: boolean }) {
       <Link className={styles.link} to={ROUTES.mainPage}>
         Главная
       </Link>
-      <div>
+      <div className={styles.header__items}>
+        <ThemeToggler />
         <Link className={styles.link} to={ROUTES.profile}>
           Профиль
         </Link>
