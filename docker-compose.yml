@@ -20,8 +20,8 @@ services:
         - awesome
 
     server:
-        container_name: prakticum-server
-        image: prackicum-server
+        container_name: app
+        image: app
         build:
             context: .
             dockerfile: Dockerfile.server

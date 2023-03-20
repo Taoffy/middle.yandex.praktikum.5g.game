@@ -6,7 +6,7 @@ const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_INNER_PORT } =
 
 const sequelizeOptions: SequelizeOptions = {
   host: 'postgresql',
-  port: parseInt(POSTGRES_INNER_PORT || ''),
+  port: parseInt(POSTGRES_INNER_PORT || '5432'),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,

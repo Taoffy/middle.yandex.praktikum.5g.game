@@ -126,8 +126,6 @@ class Game {
   protected timerCallback() {
     --this._timeLeft;
 
-    console.log(1);
-
     this.Events.emit(EVENTS_LIST.timeLeftChanged, { timeLeft: this._timeLeft });
 
     if (this._timeLeft === 0) {

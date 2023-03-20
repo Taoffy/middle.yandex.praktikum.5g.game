@@ -1,6 +1,11 @@
 # Определяем название процесса (просто отображается на странице Actions в GitHub)
 name: Push To Yandex Cloud CR
 
+env:
+  CR_REGISTRY: crpeafnu8o7dqtkiq2mp
+  APP_IMAGE: cr.yandex/crpeafnu8o7dqtkiq2mp/app:${{ github.sha }}
+  NGINX_IMAGE: cr.yandex/crpeafnu8o7dqtkiq2mp/nginx:${{ github.sha }}
+
 # Определяем условия запуска процесса
 # Подробнее см. https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 on:
@@ -15,7 +20,7 @@ on:
 # Определяем процесс (состоит из нескольких последовательных/параллельных джобов)
 jobs:
   # Но нам хватит одного
-  build:
+  build-app:
     # Для построение проекта от вас не требуется сервер или что-либо подобное, 
 		# GitHub выполнит построение, используя собственный runner - такую
 		# общедоступную 'виртуальную машину'
@@ -36,22 +41,74 @@ jobs:
 			# Построение образа и отправка его в Container Registry
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-					# Здесь указываем идентификатор регистра (о нём позднее)
-          CR_REGISTRY: crpeafnu8o7dqtkiq2mp
 					# Здесь указываем название репозитория (впрочем оно далее не используется)
-          CR_REPOSITORY: game.practicum.yandex.ru
+          CR_REPOSITORY: app
 					# Здесь ничего не меняем (формирует уникальное название для образа)
           IMAGE_TAG: ${{ github.sha }}
-					# Далее указываем все прочие нужные нам перееменные среды
-          CLIENT_PORT: 3000
-          SERVER_PORT: 3001
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-          POSTGRES_PORT: 5432
 				# Всё описание выше было лишь подготовкой
 				# Тем не менее, оставшиеся шаги более не должны вызывать вопросы
         run: |
-          docker compose build
-          docker tag practicum-server:latest cr.yandex/$CR_REGISTRY/practicum-server:latest
-          docker push cr.yandex/$CR_REGISTRY/practicum-server:latest
+          docker build - t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG . -f Dockerfile.server
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+
+  build-nginx:
+    runs-on: ubuntu-latest
+
+    # Определяем шаги процесса
+    steps:
+      # Запускает предварительную проверку 
+			# Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Авторизация в Яндекс.Облаке (здесь ничего не меняем)
+      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+        uses: yc-actions/yc-cr-login@v0.1-alpha
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+			# Построение образа и отправка его в Container Registry
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+					# Здесь указываем название репозитория (впрочем оно далее не используется)
+          CR_REPOSITORY: nginx
+					# Здесь ничего не меняем (формирует уникальное название для образа)
+          IMAGE_TAG: ${{ github.sha }}
+				# Всё описание выше было лишь подготовкой
+				# Тем не менее, оставшиеся шаги более не должны вызывать вопросы
+        run: |
+          docker build - t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+
+  update-yc:
+    runs-on: ubuntu-latest
+    needs: [build-app, build-nginx]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Deploy COI VM
+      id: deploy-coi
+      uses: yc-actions/yc-coi-deploy@v1.0.1
+      env:
+        APP_IMAGE: ${{ env.APP_IMAGE }}
+        NGINX_IMAGE: ${{ env.NGINX_IMAGE }}
+        YC_VM_SSH: ${{ secrets.YC_VM_SSH }}
+        NGINX_CERT: ${{ secrets.NGINX_CERT }}
+        NGINX_CERT_KEY: ${{ secrets.NGINX_CERT_KEY }}
+        SERVER_PORT: ${{ vars.SERVER_PORT }}
+        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      with:
+        yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+        folder-id: b1gmr7m3isdo78gf7ao4
+        VM-name: fhm0dspig1knfq81241u
+        vm-service-account-id: ajea0ufqvn3im526qfjp
+        vm-cores: 2
+        vm-memory: 2Gb
+        vm-disk-size: 30Gb
+        vm-core-fraction: 20
+        vm-subnet-id: e9bd6hcfnum09pmdb05g
+        docker-compose-path: './yandex-deploy/docker-compose.yaml'
+        user-data-path: './yandex-deploy/user-data.yaml'
