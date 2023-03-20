@@ -12,7 +12,7 @@ function Oauth() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isAuth = useAppSelector(({ app }) => app.isAuth);
-  const isInit = useAppSelector(({ app }) => app.init);
+  const isInit = useAppSelector(({ app }) => app.isInitialApp);
   useEffect(() => {
     if (isAuth) {
       navigate('/main');
