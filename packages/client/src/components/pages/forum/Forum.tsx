@@ -7,7 +7,6 @@ import {
 } from '../../hooks/AppUseSelectorAndDispathch';
 import * as Actions from '../../../redux/forum/actions';
 import * as ActionsUser from '../../../redux/actions';
-import { v1 as uuidv1 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../utils';
 import Header from '../../common/Header';
@@ -22,7 +21,7 @@ function ForumPage() {
   const user = useAppSelector((state) => state.app.user);
   useEffect(() => {
     dispatch(ActionsUser.setUserExpress(user));
-    // dispatch(Actions.getTopics());
+    dispatch(Actions.getTopics());
   }, [dispatch, user]);
   const [openForm, setOpenForm] = React.useState(false);
   const [form, setForm] = React.useState<Form>({
@@ -39,12 +38,10 @@ function ForumPage() {
   });
   const getFormValues = () => {
     return {
-      id: uuidv1(),
       title: form.title.value,
       description: form.description.value,
-      id_author: `${user.id}`,
+      UserId: `${user.id}`,
       date: new Date().toISOString().slice(0, 10),
-      views: 0,
     };
   };
   const handleInputChange = (key: string, value: string) => {

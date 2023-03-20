@@ -17,6 +17,7 @@ export const getTopics = () => {
       response.forEach((cur) => {
         responseObject[cur.id] = cur;
       });
+
       dispatch({
         type: actionsType.setTopics,
         payload: responseObject,
@@ -47,10 +48,10 @@ export const getTopic = (id: string) => {
 export const addTopic = (topic: Topic) => {
   return async (dispatch: AppDispatch) => {
     try {
-      await ForumService.addTopic(topic);
+      const response = await ForumService.addTopic(topic);
 
       const responseObject = {
-        [topic.id]: topic,
+        [response.id]: response,
       };
       dispatch({
         type: actionsType.setTopics,
@@ -84,18 +85,15 @@ export const getComments = (idTopic: string) => {
 export const addComment = (comment: Comment) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const response = await ForumService.addCommentsByTopic(
-        comment,
-        comment.id_topic
-      );
-      console.log(response);
+      const response = await ForumService.addCommentsByTopic(comment);
+
       const responseObject = {
-        [comment.id]: comment,
+        [response.id]: response,
       };
       dispatch({
         type: actionsType.setComments,
         payload: {
-          idTopic: response.id_topic,
+          idTopic: response.TopicId,
           comments: responseObject,
         },
       });

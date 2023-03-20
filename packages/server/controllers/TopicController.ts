@@ -25,16 +25,16 @@ class TopicController {
 
   async createTopic(req: Request, res: Response) {
     try {
-      const { id, title, description, id_author, date, views } = req.body;
-      await topicService.createTopic(
-        id,
+      const { title, description, UserId, date } = req.body;
+
+      const data = await topicService.createTopic(
         title,
         description,
-        id_author,
-        date,
-        views
+        UserId,
+        date
       );
-      res.status(200).json({ message: 'ok' });
+
+      res.send(data);
     } catch (error) {
       res.status(500).json({ message: error });
     }

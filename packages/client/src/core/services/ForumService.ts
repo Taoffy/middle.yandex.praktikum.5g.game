@@ -26,7 +26,7 @@ class ForumServiceClass extends BasicServiceClass {
     );
     return this.checkAnswer<ExistTopic>(response);
   }
-  async addTopic(topic: Topic) {
+  async addTopic(topic: Topic): Promise<ExistTopic> {
     const response = await expressApi.post<
       string,
       AxiosResponse<ExistTopic>,
@@ -41,12 +41,12 @@ class ForumServiceClass extends BasicServiceClass {
     >(`${forumPath.comment}s/${idTopic}`);
     return this.checkAnswer<ExistComment[]>(response);
   }
-  async addCommentsByTopic(comment: Comment, idTopic: string) {
+  async addCommentsByTopic(comment: Comment) {
     const response = await expressApi.post<
       string,
       AxiosResponse<ExistComment>,
       Comment
-    >(`${forumPath.comment}/${idTopic}`, comment);
+    >(`${forumPath.comment}`, comment);
     return this.checkAnswer<ExistComment>(response);
   }
 }

@@ -15,14 +15,18 @@ const sequelizeOptions: SequelizeOptions = {
 
 const sequelize = new Sequelize(sequelizeOptions);
 
-const Topic = sequelize.define('Topic', TopicModel, {});
-const Comment = sequelize.define('Comment', CommentModel, {});
-const User = sequelize.define('User', UserModel, {});
+const Topic = sequelize.define('Topic', TopicModel, { freezeTableName: true });
+const Comment = sequelize.define('Comment', CommentModel, {
+  freezeTableName: true,
+});
+const User = sequelize.define('User', UserModel, { freezeTableName: true });
 
-User.hasMany(Comment, { foreignKey: 'id', as: 'comments' });
-User.hasMany(Topic, { foreignKey: 'id', as: 'topics' });
-Comment.belongsTo(User, { foreignKey: 'id_author', as: 'user' });
-Topic.belongsTo(User, { foreignKey: 'id_author', as: 'user' });
+User.hasMany(Comment);
+Comment.belongsTo(User);
+User.hasMany(Topic);
+Topic.belongsTo(User);
+Topic.hasMany(Comment);
+Comment.belongsTo(Topic);
 
 async function connectDatabase() {
   try {

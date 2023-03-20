@@ -12,25 +12,40 @@ class TopicService {
   }
 
   async getTopic(id: string) {
-    console.log(id);
-
-    return this.topic.findOne({
+    const topic = await this.topic.findOne({
       where: {
         id,
       },
       include: [User],
     });
+    if (topic) {
+      this.topic.update(
+        {
+          // @ts-ignore
+          views: topic.views + 1,
+        },
+        {
+          where: {
+            id: topic.id,
+          },
+        }
+      );
+    }
+    return topic;
   }
 
   async createTopic(
-    id: string,
     title: string,
     description: string,
-    id_author: string,
-    date: string,
-    views: number
+    UserId: number,
+    date: string
   ) {
-    await this.topic.create({ id, title, description, id_author, date, views });
+    return this.topic.create({
+      title,
+      description,
+      date,
+      UserId,
+    });
   }
 
   async deleteTopic(id: string) {

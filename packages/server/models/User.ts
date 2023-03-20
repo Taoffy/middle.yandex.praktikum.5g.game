@@ -8,7 +8,6 @@ const UserModel: ModelAttributes<Model, IUser> = {
     type: DataType.INTEGER,
     allowNull: false,
     primaryKey: true,
-    unique: true,
   },
   login: {
     type: DataType.STRING,

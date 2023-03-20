@@ -3,27 +3,24 @@ import { User } from '../types';
 export type ExistComment = Comment & {
   id: string;
   likes: number;
-  user: User;
+  User: User;
+  createdAt: string;
 };
 export type Comment = {
-  id: string;
-  likes: number;
-  id_topic: string;
   text: string;
-  author: string;
-  id_author: string;
-  date: string;
+  TopicId: string;
+  UserId: string;
 };
 export type ExistTopic = Topic & {
-  user: User;
-};
-export type Topic = {
+  User: User;
   id: string;
   views: number;
+  createdAt: string;
+};
+export type Topic = {
   title: string;
   description: string;
-  id_author: string;
-  date: string;
+  UserId: string;
 };
 
 export type ForumState = {

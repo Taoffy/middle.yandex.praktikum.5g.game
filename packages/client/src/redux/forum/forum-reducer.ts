@@ -20,7 +20,10 @@ const forumReducer = (state = initialState, action: actions) => {
         ...state,
         comments: {
           ...state.comments,
-          [action.payload.idTopic]: action.payload.comments,
+          [action.payload.idTopic]: {
+            ...state.comments[action.payload.idTopic],
+            ...action.payload.comments,
+          },
         },
       };
     default:

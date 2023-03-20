@@ -7,7 +7,6 @@ import {
 } from '../../hooks/AppUseSelectorAndDispathch';
 import * as Actions from '../../../redux/forum/actions';
 import * as ActionsUser from '../../../redux/actions';
-import { v1 as uuidv1 } from 'uuid';
 import Header from '../../common/Header';
 
 function ForumPostPage() {
@@ -25,19 +24,16 @@ function ForumPostPage() {
       dispatch(Actions.getTopic(id));
       dispatch(Actions.getComments(id));
     }
-  }, [navigate, dispatch, user, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const topic = useAppSelector((state) => state.forum.topics[id || '']);
   const comments = useAppSelector((state) => state.forum.comments[id || '']);
 
   const createComment = () => {
     return {
-      id: uuidv1(),
-      likes: 0,
-      id_topic: topic.id,
+      TopicId: topic.id,
       text: input,
-      author: user.login,
-      id_author: `${user.id}`,
-      date: new Date().toISOString().slice(0, 10),
+      UserId: `${user.id}`,
     };
   };
   const handleButton = () => {
@@ -53,9 +49,13 @@ function ForumPostPage() {
             <div className={styles.centeredBox__inner__theme}>
               <div className={styles.centeredBox__inner__theme__header}>
                 <h3 className={styles.forum__title}>
-                  {topic?.user.display_name || topic?.user.login || 'автор'}
+                  {topic?.User?.display_name ||
+                    topic?.User?.first_name ||
+                    'автор'}
                 </h3>
-                <span className={styles.date}>{topic?.date || 'дата'}</span>
+                <span className={styles.date}>
+                  {topic?.createdAt.slice(0, 10) || 'дата'}
+                </span>
               </div>
               <span>{topic?.description || 'описание'}</span>
               <br></br>
@@ -66,8 +66,12 @@ function ForumPostPage() {
                   key={comment.id}
                   className={styles.centeredBox__inner__theme__comment}>
                   <div className={styles.centeredBox__inner__theme__header}>
-                    <h3 className={styles.forum__title}>{comment.author}</h3>
-                    <span className={styles.date}>{comment.date}</span>
+                    <h3 className={styles.forum__title}>
+                      {comment.User.first_name}
+                    </h3>
+                    <span className={styles.date}>
+                      {comment.createdAt.slice(0, 10)}
+                    </span>
                   </div>
                   <span>{comment.text}</span>
                   <br></br>
