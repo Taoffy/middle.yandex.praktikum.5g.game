@@ -33,7 +33,7 @@ export const changeUserPassword = (userPassword: UserPassword) => {
 };
 
 export const changeUserAvatar = (data: UserAvatar | FormData) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const response = await UserService.changeUserAvatar(data);
       const avatarPath = `https://ya-praktikum.tech/api/v2/resources${response.avatar}`;

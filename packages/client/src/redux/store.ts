@@ -1,7 +1,15 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose,
+  PreloadedState,
+} from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { appReducer } from './app-reducer';
+
+import { Store } from './types';
 
 const reducers = combineReducers({
   app: appReducer,
@@ -9,6 +17,7 @@ const reducers = combineReducers({
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    __PRELOADED_STATE__?: Store;
   }
 }
 const composeEnhancers =
@@ -20,6 +29,17 @@ const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(thunk as ThunkMiddleware))
 );
+
+export function createStoreWithDataFromServer(
+  initialState: PreloadedState<RootState>
+) {
+  return createStore(
+    reducers,
+    initialState,
+    composeEnhancers(applyMiddleware(thunk as ThunkMiddleware))
+  );
+}
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export default store;

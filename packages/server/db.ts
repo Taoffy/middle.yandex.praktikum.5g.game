@@ -1,28 +1,34 @@
-import { Client } from 'pg';
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { CommentModel, TopicModel, UserModel } from './models';
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_INNER_PORT } =
   process.env;
 
-export const createClientAndConnect = async (): Promise<Client | null> => {
-  try {
-    const client = new Client({
-      user: POSTGRES_USER,
-      host: 'localhost',
-      database: POSTGRES_DB,
-      password: POSTGRES_PASSWORD,
-      port: Number(POSTGRES_PORT),
-    });
-
-    await client.connect();
-
-    const res = await client.query('SELECT NOW()');
-    console.log('  ➜ 🎸 Connected to the database at:', res?.rows?.[0].now);
-    client.end();
-
-    return client;
-  } catch (e) {
-    console.error(e);
-  }
-
-  return null;
+const sequelizeOptions: SequelizeOptions = {
+  host: 'postgresql',
+  port: parseInt(POSTGRES_INNER_PORT || ''),
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB,
+  dialect: 'postgres',
 };
+
+const sequelize = new Sequelize(sequelizeOptions);
+
+const Topic = sequelize.define('Topic', TopicModel, {});
+const Comment = sequelize.define('Comment', CommentModel, {});
+const User = sequelize.define('User', UserModel, {});
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
+
+async function connectDatabase() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { sequelize, connectDatabase, Topic, Comment, User };

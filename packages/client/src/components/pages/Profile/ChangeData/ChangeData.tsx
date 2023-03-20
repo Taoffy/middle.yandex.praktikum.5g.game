@@ -1,5 +1,5 @@
-import React, { FormEvent, useRef } from 'react';
-import styles from './ChangeData.module.scss';
+import React, { useRef } from 'react';
+
 import { UserData } from '../../../../redux/types';
 import * as Actions from '../../../../redux/actions';
 import {
@@ -10,12 +10,14 @@ import {
 import BackButton from '../../../common/BackButton';
 import { ROUTES } from '../../../../utils';
 
+import styles from './ChangeData.module.scss';
+
 function ChangeData() {
   const dispatch = useAppDispatch();
   const formEl = useRef(null);
   const user = useAppSelector((state) => state.app.user);
 
-  const onDataSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onDataSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(formEl.current as unknown as HTMLFormElement);
