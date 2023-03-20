@@ -8,7 +8,7 @@ class UserService {
   }
 
   async createUser(
-    id: string,
+    id: number,
     login: string,
     theme: string,
     avatar: string,

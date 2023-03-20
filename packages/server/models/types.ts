@@ -1,9 +1,6 @@
 export interface IComment {
   id?: string;
-  id_topic: string;
-  id_author: string;
   text: string;
-  date: string;
   likes: number;
 }
 
@@ -11,8 +8,6 @@ export interface ITopic {
   id?: string;
   title: string;
   description: string;
-  id_author: string;
-  date: string;
   views: number;
 }
 
