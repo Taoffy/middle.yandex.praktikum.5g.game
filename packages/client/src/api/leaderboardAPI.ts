@@ -3,7 +3,7 @@ import { api } from '../core/api';
 export type LeaderboardObject = {
     name: string;
     score: number;
-    avatar: string;
+    avatar?: string;
 }
 export type LeaderboardRequestData = {
     data: LeaderboardObject;

@@ -28,7 +28,7 @@ function GameWrapper() {
   const data : LeaderboardObject = {
     name: user.login,
     score: score,
-    avatar:' https://ya-praktikum.tech/api/v2/resources'+user.avatar
+    avatar: user.avatar ?? 'https://ya-praktikum.tech/api/v2/resources'+user.avatar
   }
 
   const res : LeaderboardRequestData = {
