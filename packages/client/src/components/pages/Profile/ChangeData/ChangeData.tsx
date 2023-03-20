@@ -5,7 +5,7 @@ import * as Actions from '../../../../redux/actions';
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../hook/AppUseSelectorAndDispathch';
+} from '../../../hooks/AppUseSelectorAndDispathch';
 
 import BackButton from '../../../common/BackButton';
 import { ROUTES } from '../../../../utils';

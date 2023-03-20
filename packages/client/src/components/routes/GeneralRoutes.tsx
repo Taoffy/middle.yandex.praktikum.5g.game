@@ -13,15 +13,15 @@ import { GamePage } from '../pages/gamePage/GamePage';
 import Profile from '../pages/Profile/Profile';
 import ChangeData from '../pages/Profile/ChangeData/ChangeData';
 import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
-import withOauth from '../hoc/withOauth';
-import { Spinner } from '../ui/spinner/spinner';
+import { Oauth } from '../pages/Oauth/Oauth';
 
 const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
+        <Route index element={<Oauth />} />
         <Route
-          index
+          path="main"
           element={
             <RequireAuth>
               <Navigate to={'/about-game'} />

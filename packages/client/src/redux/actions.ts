@@ -5,6 +5,7 @@ import {
   UserService,
 } from '../core/services/UserService';
 import { AppDispatch } from './store';
+import { OauthCallback } from '../core/config/api.config';
 
 export const changeUserData = (userData: UserData) => {
   return async (dispatch: AppDispatch) => {

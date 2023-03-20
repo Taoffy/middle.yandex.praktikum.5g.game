@@ -65,6 +65,7 @@ function LoginPage() {
             <button className={styles.form__btnSubmit} type="submit">
               Войти
             </button>
+            <button onClick={OathHandler}>войти через yandexId</button>
           </form>
           <Link className={styles.form__link} to={ROUTES.signUp}>
             Зарегистрироваться
