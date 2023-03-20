@@ -8,7 +8,6 @@ class UserController {
       const {
         id,
         login,
-        theme,
         avatar,
         display_name,
         email,
@@ -19,7 +18,6 @@ class UserController {
       await userService.createUser(
         id,
         login,
-        theme,
         avatar,
         display_name,
         email,

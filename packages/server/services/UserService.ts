@@ -10,7 +10,6 @@ class UserService {
   async createUser(
     id: number,
     login: string,
-    theme: string,
     avatar: string,
     display_name: string,
     email: string,
@@ -25,7 +24,6 @@ class UserService {
       defaults: {
         id,
         login,
-        theme,
         avatar,
         display_name,
         email,
