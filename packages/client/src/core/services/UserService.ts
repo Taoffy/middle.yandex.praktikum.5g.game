@@ -21,7 +21,8 @@ enum AuthPath {
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
-  setUserExpress = '/user/create-user'
+  setUserExpress = '/user/create-user',
+  setUserTheme = '/user/set-theme',
 }
 
 class UserServiceClass extends BasicServiceClass {
@@ -77,6 +78,20 @@ class UserServiceClass extends BasicServiceClass {
         }
       );
       return this.checkAnswer<object>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async setUserTheme(theme: string) {
+    try {
+      await expressApi.post<string>(
+        AuthPath.setUserTheme, theme, {
+          headers: {'Content-Type': 'application/json'},
+        }
+      );
+
+      return theme;
     } catch (error) {
       console.error(error);
     }

@@ -123,3 +123,12 @@ export const setUserExpress = (user: User) => async () => {
     console.log(error);
   }
 };
+
+export const setUserTheme = (theme: string) => async (dispatch: AppDispatch) => {
+  try {
+    const userTheme = await UserService.setUserTheme(theme);
+    dispatch({type: actionsType.setUserTheme, payload: userTheme});
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -42,6 +42,13 @@ export enum actionsType {
   changeAvatar = 'CHANGE_AVATAR',
   changePassword = 'CHANGE_PASSWORD',
   setIsInitialApp = 'setIsInitialApp',
+
+  setUserTheme = 'SET_USER_THEME',
+}
+
+type setUserThemeAction = {
+  type: actionsType.setUserTheme;
+  payload: string;
 }
 
 type signupAction = {
@@ -78,4 +85,5 @@ export type actions =
   | changeDataAction
   | changeAvatarAction
   | changeUserPassword
-  | setIsInitialApp;
+  | setIsInitialApp
+  | setUserThemeAction;
