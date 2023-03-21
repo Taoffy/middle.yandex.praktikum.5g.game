@@ -6,6 +6,7 @@ import {
   useAppSelector,
 } from '../../hooks/AppUseSelectorAndDispathch';
 import { Spinner } from '../../ui/spinner/spinner';
+import { ROUTES } from '../../../utils';
 
 function Oauth() {
   const dispatch = useAppDispatch();
@@ -15,7 +16,7 @@ function Oauth() {
   const isInit = useAppSelector(({ app }) => app.isInitialApp);
   useEffect(() => {
     if (isAuth) {
-      navigate('/main');
+      navigate(ROUTES.mainPage);
       return;
     }
   }, [isAuth, navigate]);
@@ -24,7 +25,7 @@ function Oauth() {
     if (code && !isAuth) {
       dispatch(Actions.signinOAuth(code));
     } else if (isInit) {
-      navigate('/login');
+      navigate(ROUTES.login);
     }
   }, [dispatch, isAuth, isInit, navigate, searchParams]);
   return (

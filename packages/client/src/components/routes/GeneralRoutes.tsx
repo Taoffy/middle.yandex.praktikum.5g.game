@@ -21,14 +21,6 @@ const GeneralRoutes = () => {
       <Route path="/">
         <Route index element={<Oauth />} />
         <Route
-          path="main"
-          element={
-            <RequireAuth>
-              <Navigate to={'/about-game'} />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="login"
           element={
             <UnauthorizedOnly>

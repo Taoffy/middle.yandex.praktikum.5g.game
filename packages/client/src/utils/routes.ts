@@ -4,6 +4,7 @@ const ROUTES = {
   mainPage: '/about-game',
   game: '/game',
   forum: '/forum',
+  forumpost: '/forumpost',
   leaderboard: '/leaderboard',
   profile: '/profile',
   changeProfileData: '/profile/change-data',
