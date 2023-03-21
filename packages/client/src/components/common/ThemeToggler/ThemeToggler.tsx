@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ThemeToggler.module.css';
+import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
 
-function ThemeToggler() {
+function ThemeSwitcher() {
+  const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useAppDispatch();
+  const handleSwitch = () => {
+    setIsChecked(!isChecked)
+  }
+
   return (
     <div className={styles.wrapper}>
-      <input type='checkbox' id={styles.hide_checkbox} />
+      <input type='checkbox' id={styles.hide_checkbox} onClick={handleSwitch}/>
       <label htmlFor={styles.hide_checkbox} className={styles.toggle}>
         <span className={styles.toggle_button}>
           <span className={`${styles.crater} ${styles.crater_one}`} />
@@ -28,4 +35,4 @@ function ThemeToggler() {
   );
 }
 
-export default ThemeToggler;
+export default ThemeSwitcher;
