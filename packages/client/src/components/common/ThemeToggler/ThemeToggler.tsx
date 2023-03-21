@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ThemeToggler.module.css';
-import { useAppDispatch } from '../../hooks/AppUseSelectorAndDispathch';
+import { useAppDispatch, useAppSelector } from '../../hooks/AppUseSelectorAndDispathch';
 import { setUserTheme } from '../../../redux/actions';
 
 function ThemeSwitcher() {
   const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState(false);
-  const handleSwitch = () => {
+  const mainTheme = useAppSelector((state) => {
+    if (state.app.user.theme) {
+      return state.app.user.theme;
+    }
+
+    return 'dark';
+  });
+  const themeElement = document.getElementById('root');
+  const toggleChecked = () => {
     setIsChecked((isChecked) => !isChecked);
+  }
+
+  const handleThemeClass = () => {
+    if (isChecked) {
+      themeElement!.classList.remove('dark');
+      themeElement!.classList.add('light');
+    } else {
+      themeElement!.classList.remove('light');
+      themeElement!.classList.add('dark');
+    }
   }
 
   useEffect(() => {
     const theme = isChecked ? 'light' : 'dark';
+    handleThemeClass();
 
     dispatch(setUserTheme(theme));
   }, [isChecked])
 
   return (
     <div className={styles.wrapper}>
-      <input type='checkbox' id={styles.hide_checkbox} onClick={() => handleSwitch()}/>
+      <input type='checkbox' id={styles.hide_checkbox} onClick={() => toggleChecked()}/>
       <label htmlFor={styles.hide_checkbox} className={styles.toggle}>
         <span className={styles.toggle_button}>
           <span className={`${styles.crater} ${styles.crater_one}`} />

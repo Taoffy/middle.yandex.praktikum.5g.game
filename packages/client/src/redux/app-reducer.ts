@@ -1,4 +1,4 @@
-import { State, actions, actionsType } from './types';
+import { actions, actionsType, State } from './types';
 
 const initialState: State = {
   isAuth: false,
@@ -12,6 +12,7 @@ const initialState: State = {
     email: '',
     phone: '',
     avatar: '',
+    theme: '',
   },
 };
 
@@ -49,6 +50,16 @@ const appReducer = (state = initialState, action: actions): State => {
         ...state,
         isInitialApp: action.payload,
       };
+      break;
+
+    case actionsType.setUserTheme:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          theme: action.payload,
+        }
+      }
       break;
     default:
       return state;
