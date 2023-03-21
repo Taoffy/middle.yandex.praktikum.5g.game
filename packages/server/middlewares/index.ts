@@ -1,3 +1,4 @@
 import { cookieParser } from './cookie-parser';
+import { auth } from './auth';
 
-export { cookieParser };
+export { cookieParser, auth };
