@@ -12,16 +12,38 @@ import { ROUTES } from '../../../../utils';
 
 import styles from './GameWrapper.module.scss';
 
+import leaderboardAPI from '../../../../api/leaderboardAPI';
+
+import { LeaderboardObject, LeaderboardRequestData } from '../../../../api/leaderboardAPI';
+import { useAppSelector } from '../../../hooks/AppUseSelectorAndDispathch';
+import { Store } from '../../../../redux/types';
+
 function GameWrapper() {
   const navigate = useNavigate();
-
+  
+  const user = useAppSelector((state: Store) => state.app.user);
+  
   const { isGameFinished, isTimeOut, score, timeLeft, restartGame } = useGame();
+
+  const data : LeaderboardObject = {
+    name: user.login,
+    score: score,
+    avatar: user.avatar ?? 'https://ya-praktikum.tech/api/v2/resources'+user.avatar
+  }
+
+  const res : LeaderboardRequestData = {
+    data: data,
+    ratingFieldName: 'score',
+    teamName: '5g'
+  }
 
   const handleQuitButtonClick = () => {
     navigate(ROUTES.mainPage);
   };
 
   if (isGameFinished && !isTimeOut) {
+    
+    leaderboardAPI.addToLeaderboard(res)
     return (
       <div className={styles.game}>
         <div className={styles.endGame}>

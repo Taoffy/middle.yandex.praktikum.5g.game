@@ -6,4 +6,8 @@ const api = axios.create({
   baseURL: apiConfig.serverURL,
 });
 
-export { api };
+const expressApi = axios.create({
+  baseURL: apiConfig.expressApi,
+});
+
+export { api, expressApi };

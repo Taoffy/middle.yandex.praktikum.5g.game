@@ -1,8 +1,8 @@
 import { User, UserAvatar, UserData, UserPassword } from '../../redux/types';
-import { api } from '../api';
 import { OauthCallback } from '../config/api.config';
-import { apiHasError } from '../utils/apiHasError';
+import { api, expressApi } from '../api';
 import { AxiosResponse } from 'axios';
+import { BasicServiceClass } from './BasicService';
 
 export type LoginRequestData = {
   login: string;
@@ -28,24 +28,16 @@ enum UserPath {
   changePassword = '/user/password',
   changeUserData = '/user/profile',
   changeUserAvatar = 'user/profile/avatar',
+  setUserExpress = '/user/create-user',
 }
 
 enum Oauth {
   signin = '/oauth/yandex',
   getId = '/oauth/yandex/service-id',
+  setUserExpress = '/user/create-user',
 }
 
-class UserServiceClass {
-  private checkAnswer<T>(response: AxiosResponse<T>) {
-    if (response.status !== 200) {
-      if (apiHasError(response.data)) {
-        throw new Error(response.data.reason);
-      }
-      throw new Error(response.statusText);
-    }
-    return response.data;
-  }
-
+class UserServiceClass extends BasicServiceClass {
   async signup(data: RegistrationRequestData) {
     const response = await api.post<
       string,
@@ -143,6 +135,21 @@ class UserServiceClass {
         AxiosResponse<User>
       >(UserPath.changeUserAvatar, data);
       return this.checkAnswer<User>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async setUserExpress(user: User) {
+    try {
+      const response = await expressApi.post<User, AxiosResponse<object>>(
+        UserPath.setUserExpress,
+        user,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      return this.checkAnswer<object>(response);
     } catch (error) {
       console.error(error);
     }

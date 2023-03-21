@@ -5,8 +5,8 @@ import { commentService } from '../services';
 class CommentController {
   async getComments(req: Request, res: Response) {
     try {
-      const { id_topic } = req.body;
-      const data = await commentService.getAllComments(id_topic);
+      const TopicId = req.params.id_topic;
+      const data = await commentService.getAllComments(TopicId);
       res.send(data);
     } catch (error) {
       res.status(500).json({ message: error });
@@ -15,8 +15,7 @@ class CommentController {
 
   async getComment(req: Request, res: Response) {
     try {
-      //@ts-ignore
-      const { id } = req.params.id;
+      const { id } = req.params;
       const data = await commentService.getComment(id);
       res.send(data);
     } catch (error) {
@@ -26,16 +25,9 @@ class CommentController {
 
   async createComment(req: Request, res: Response) {
     try {
-      const { id, id_topic, text, id_author, date, likes } = req.body;
-      await commentService.createComment(
-        id,
-        id_topic,
-        text,
-        id_author,
-        date,
-        likes
-      );
-      res.status(200).json({ message: 'ok' });
+      const { TopicId, text, UserId } = req.body;
+      const comment = await commentService.createComment(TopicId, text, UserId);
+      res.send(comment);
     } catch (error) {
       res.status(500).json({ message: error });
     }
@@ -43,8 +35,7 @@ class CommentController {
 
   async deleteComment(req: Request, res: Response) {
     try {
-      //@ts-ignore
-      const { id } = req.params.id;
+      const { id } = req.params;
       await commentService.deleteComment(id);
       res.status(200).json({ message: 'ok' });
     } catch (error) {

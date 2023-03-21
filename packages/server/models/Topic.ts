@@ -5,9 +5,8 @@ import type { ITopic } from './types';
 
 const TopicModel: ModelAttributes<Model, ITopic> = {
   id: {
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    allowNull: false,
+    type: DataType.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
   },
   title: {
@@ -18,16 +17,10 @@ const TopicModel: ModelAttributes<Model, ITopic> = {
     type: DataType.STRING,
     allowNull: false,
   },
-  id_author: {
-    type: DataType.STRING,
-    allowNull: false,
-  },
-  date: {
-    type: DataType.STRING,
-    allowNull: false,
-  },
   views: {
     type: DataType.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
   },
 };
 

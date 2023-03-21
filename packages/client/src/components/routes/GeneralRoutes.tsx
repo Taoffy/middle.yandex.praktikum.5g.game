@@ -93,7 +93,7 @@ const GeneralRoutes = () => {
           }
         />
         <Route
-          path="forumpost"
+          path="forumpost/:id"
           element={
             <RequireAuth>
               <ForumPostPage />

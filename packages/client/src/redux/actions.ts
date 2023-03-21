@@ -1,4 +1,4 @@
-import { actionsType, UserAvatar, UserData, UserPassword } from './types';
+import { actionsType, User, UserAvatar, UserData, UserPassword } from './types';
 import {
   LoginRequestData,
   RegistrationRequestData,
@@ -126,6 +126,17 @@ export const logout = () => async (dispatch: AppDispatch) => {
     if (response) {
       dispatch({ type: actionsType.setAUTH, payload: false });
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const setUserExpress = (user: User) => async () => {
+  try {
+    await UserService.setUserExpress({
+      ...user,
+      theme: user.theme || 'light',
+    });
   } catch (error) {
     console.log(error);
   }

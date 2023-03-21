@@ -24,6 +24,9 @@ const appReducer = (state = initialState, action: actions): State => {
         user: {
           ...state.user,
           ...action.payload,
+          avatar: action.payload.avatar
+            ? `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`
+            : null,
         },
       };
     case actionsType.changeAvatar:

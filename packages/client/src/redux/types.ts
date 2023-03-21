@@ -6,24 +6,8 @@ export type User = {
   login: string;
   email: string;
   phone: string;
-  avatar?: string;
-};
-
-export type Store = {
-  app: {
-    isAuth: boolean;
-    isInitialApp: boolean;
-    user: {
-      id: 1;
-      first_name: '';
-      second_name: '';
-      display_name: '';
-      login: '';
-      email: '';
-      phone: '';
-      avatar: '';
-    };
-  };
+  avatar: string | null;
+  theme?: string;
 };
 
 export interface UserData {
