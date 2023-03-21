@@ -8,7 +8,6 @@ const UserModel: ModelAttributes<Model, IUser> = {
     type: DataType.INTEGER,
     allowNull: false,
     primaryKey: true,
-    unique: true,
   },
   login: {
     type: DataType.STRING,
@@ -16,7 +15,7 @@ const UserModel: ModelAttributes<Model, IUser> = {
   },
   theme: {
     type: DataType.STRING,
-    allowNull: false,
+    defaultValue: 'light',
     get() {
       return this.getDataValue('theme');
     },

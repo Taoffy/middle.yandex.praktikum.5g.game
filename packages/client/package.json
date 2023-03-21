@@ -13,6 +13,7 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.1",
     "autoprefixer": "10.4.13",
     "axios": "1.2.1",
     "dotenv": "16.0.2",

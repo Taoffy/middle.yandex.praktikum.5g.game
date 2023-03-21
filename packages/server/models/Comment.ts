@@ -5,26 +5,16 @@ import type { IComment } from './types';
 
 const CommentModel: ModelAttributes<Model, IComment> = {
   id: {
-    type: DataType.STRING,
-    defaultValue: DataType.UUIDV4,
-    allowNull: false,
+    type: DataType.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
-  },
-  id_topic: {
-    type: DataType.STRING,
-    allowNull: false,
   },
   text: {
     type: DataType.STRING,
   },
-  id_author: {
-    type: DataType.STRING,
-  },
-  date: {
-    type: DataType.STRING,
-  },
   likes: {
     type: DataType.INTEGER,
+    defaultValue: 0,
   },
 };
 

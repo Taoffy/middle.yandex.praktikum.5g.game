@@ -1,7 +1,7 @@
 import { User } from '../../redux/types';
-import { api } from '../api';
-import { apiHasError } from '../utils/apiHasError';
+import { api, expressApi } from '../api';
 import { AxiosResponse } from 'axios';
+import { BasicServiceClass } from './BasicService';
 
 export type LoginRequestData = {
   login: string;
@@ -21,19 +21,10 @@ enum AuthPath {
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
+  setUserExpress = '/user/create-user'
 }
 
-class UserServiceClass {
-  private checkAnswer<T>(response: AxiosResponse<T>) {
-    if (response.status !== 200) {
-      if (apiHasError(response.data)) {
-        throw new Error(response.data.reason);
-      }
-      throw new Error(response.statusText);
-    }
-    return response.data;
-  }
-
+class UserServiceClass extends BasicServiceClass {
   async signup(data: RegistrationRequestData) {
     const response = await api.post<
       string,
@@ -73,6 +64,19 @@ class UserServiceClass {
         AuthPath.logout
       );
       return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async setUserExpress(user: User) {
+    try {
+      const response = await expressApi.post<User, AxiosResponse<object>>(
+        AuthPath.setUserExpress, user, {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      return this.checkAnswer<object>(response);
     } catch (error) {
       console.error(error);
     }
