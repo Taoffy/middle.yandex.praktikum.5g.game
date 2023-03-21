@@ -7,7 +7,7 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
 import { connectDatabase } from './db';
-import { forumRouter } from './routers';
+import { topicRouter, userRouter } from './routers';
 
 import { auth, cookieParser } from './middlewares';
 
@@ -15,12 +15,19 @@ import { INITIAL_STATE } from './utils';
 
 const app = express();
 app.use(cors());
+app.use(function(_req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy', "connect-src *; default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-inline' https://ya-praktikum.tech/api/v2/*; style-src 'self'; frame-src 'self'; base-uri 'self'; worker-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'"
+  );
+  next();
+});
 
 const isDev = () => process.env.NODE_ENV === 'development';
 
 dotenv.config();
 
-app.use('api/forum', forumRouter);
+app.use('api/forum', topicRouter);
+app.use('api/user', userRouter);
 
 async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 3001;
@@ -36,7 +43,7 @@ async function startServer() {
     vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
-      appType: 'custom',
+      appType: 'custom'
     });
 
     app.use(vite.middlewares);

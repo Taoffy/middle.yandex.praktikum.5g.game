@@ -1,3 +1,4 @@
-import forumRouter from './forumRouter';
+import topicRouter from './topicRouter';
+import userRouter from './userRouter';
 
-export { forumRouter };
+export { topicRouter, userRouter };
