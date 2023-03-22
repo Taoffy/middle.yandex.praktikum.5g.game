@@ -9,7 +9,7 @@ import styles from './AboutGame.module.scss';
 import RulesModal from '../../common/RulesModal/RulesModal';
 
 function AboutGame() {
-  const [rulesModalActive, setRulesModalActive] = useState(true);
+  const [rulesModalActive, setRulesModalActive] = useState(false);
 
   return (
     <div className={styles.aboutGame}>
