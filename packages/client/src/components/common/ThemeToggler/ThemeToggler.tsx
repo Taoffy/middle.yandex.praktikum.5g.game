@@ -36,7 +36,7 @@ function ThemeSwitcher() {
 
   useEffect(() => {
     if (user.theme === 'dark') {
-      setIsChecked(true);
+      setIsChecked(false);
     }
   }, []);
 
