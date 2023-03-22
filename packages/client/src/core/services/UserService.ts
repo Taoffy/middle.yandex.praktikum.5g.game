@@ -73,7 +73,9 @@ class UserServiceClass extends BasicServiceClass {
   async setUserExpress(user: User) {
     try {
       const response = await expressApi.post<User, AxiosResponse<object>>(
-        AuthPath.setUserExpress, user, {
+        AuthPath.setUserExpress,
+        user,
+        {
           headers: { 'Content-Type': 'application/json' },
         }
       );
@@ -83,11 +85,13 @@ class UserServiceClass extends BasicServiceClass {
     }
   }
 
-  async setUserTheme(theme: string) {
+  async setUserTheme(id: number, theme: string) {
     try {
       await expressApi.post<string>(
-        AuthPath.setUserTheme, theme, {
-          headers: {'Content-Type': 'application/json'},
+        AuthPath.setUserTheme,
+        JSON.stringify({ id, theme }),
+        {
+          headers: { 'Content-Type': 'application/json' },
         }
       );
 

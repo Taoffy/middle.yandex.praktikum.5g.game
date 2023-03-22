@@ -1,43 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import styles from './ThemeToggler.module.css';
-import { useAppDispatch, useAppSelector } from '../../hooks/AppUseSelectorAndDispathch';
+import React, { useState, useEffect } from 'react';
+import styles from './ThemeToggler.module.scss';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../hooks/AppUseSelectorAndDispathch';
 import { setUserTheme } from '../../../redux/actions';
+
+function handleThemeClass(isChecked: boolean) {
+  const rootElement = document.getElementById('root');
+
+  if (isChecked) {
+    rootElement!.classList.remove('dark');
+    rootElement!.classList.add('light');
+  } else {
+    rootElement!.classList.remove('light');
+    rootElement!.classList.add('dark');
+  }
+}
 
 function ThemeSwitcher() {
   const dispatch = useAppDispatch();
-  const [isChecked, setIsChecked] = useState(false);
-  const mainTheme = useAppSelector((state) => {
-    if (state.app.user.theme) {
-      return state.app.user.theme;
-    }
 
-    return 'dark';
-  });
-  const themeElement = document.getElementById('root');
-  const toggleChecked = () => {
-    setIsChecked((isChecked) => !isChecked);
-  }
+  const [isChecked, setIsChecked] = useState(true);
 
-  const handleThemeClass = () => {
-    if (isChecked) {
-      themeElement!.classList.remove('dark');
-      themeElement!.classList.add('light');
-    } else {
-      themeElement!.classList.remove('light');
-      themeElement!.classList.add('dark');
-    }
-  }
+  const user = useAppSelector((state) => state.app.user);
+
+  const handleInputChange = () => {
+    setIsChecked(!isChecked);
+
+    handleThemeClass(!isChecked);
+
+    const theme = !isChecked ? 'light' : 'dark';
+    dispatch(setUserTheme(user.id, theme));
+  };
 
   useEffect(() => {
-    const theme = isChecked ? 'light' : 'dark';
-    handleThemeClass();
-
-    dispatch(setUserTheme(theme));
-  }, [isChecked])
+    if (user.theme === 'dark') {
+      setIsChecked(true);
+    }
+  }, []);
 
   return (
     <div className={styles.wrapper}>
-      <input type='checkbox' id={styles.hide_checkbox} onClick={() => toggleChecked()}/>
+      <input
+        type="checkbox"
+        id={styles.hide_checkbox}
+        onChange={handleInputChange}
+        checked={isChecked}
+      />
       <label htmlFor={styles.hide_checkbox} className={styles.toggle}>
         <span className={styles.toggle_button}>
           <span className={`${styles.crater} ${styles.crater_one}`} />

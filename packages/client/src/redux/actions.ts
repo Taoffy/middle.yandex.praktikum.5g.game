@@ -124,11 +124,12 @@ export const setUserExpress = (user: User) => async () => {
   }
 };
 
-export const setUserTheme = (theme: string) => async (dispatch: AppDispatch) => {
-  try {
-    const userTheme = await UserService.setUserTheme(theme);
-    dispatch({type: actionsType.setUserTheme, payload: userTheme});
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const setUserTheme =
+  (id: number, theme: string) => async (dispatch: AppDispatch) => {
+    try {
+      const userTheme = await UserService.setUserTheme(id, theme);
+      dispatch({ type: actionsType.setUserTheme, payload: userTheme });
+    } catch (error) {
+      console.log(error);
+    }
+  };
