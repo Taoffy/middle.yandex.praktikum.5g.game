@@ -1,6 +1,7 @@
 import { State, actions, actionsType } from './types';
 
 const initialState: State = {
+  init: false,
   isAuth: false,
   isInitialApp: false,
   user: {
@@ -22,7 +23,10 @@ const appReducer = (state = initialState, action: actions): State => {
         ...state,
         user: {
           ...state.user,
-          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
+          ...action.payload,
+          avatar: action.payload.avatar
+            ? `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`
+            : null,
         },
       };
     case actionsType.changeAvatar:

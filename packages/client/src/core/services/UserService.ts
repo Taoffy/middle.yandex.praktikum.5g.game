@@ -1,4 +1,5 @@
-import { User } from '../../redux/types';
+import { User, UserAvatar, UserData, UserPassword } from '../../redux/types';
+import { oauthCallback } from '../config/api.config';
 import { api, expressApi } from '../api';
 import { AxiosResponse } from 'axios';
 import { BasicServiceClass } from './BasicService';
@@ -15,13 +16,25 @@ export type RegistrationRequestData = {
   password: string;
   phone: string;
 };
+export type YandexClientIdResponse = {
+  service_id: string;
+};
 
-enum AuthPath {
+enum UserPath {
   signup = '/auth/signup',
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
-  setUserExpress = '/user/create-user'
+  changePassword = '/user/password',
+  changeUserData = '/user/profile',
+  changeUserAvatar = 'user/profile/avatar',
+  setUserExpress = '/user/create-user',
+}
+
+enum Oauth {
+  signin = '/oauth/yandex',
+  getId = '/oauth/yandex/service-id',
+  setUserExpress = '/user/create-user',
 }
 
 class UserServiceClass extends BasicServiceClass {
@@ -30,7 +43,7 @@ class UserServiceClass extends BasicServiceClass {
       string,
       AxiosResponse<string>,
       RegistrationRequestData
-    >(AuthPath.signup, data);
+    >(UserPath.signup, data);
     return this.checkAnswer<string>(response);
   }
 
@@ -39,7 +52,7 @@ class UserServiceClass extends BasicServiceClass {
       string,
       AxiosResponse<string>,
       LoginRequestData
-    >(AuthPath.signin, data, {
+    >(UserPath.signin, data, {
       headers: { 'Content-Type': 'application/json' },
     });
     return this.checkAnswer<string>(response);
@@ -48,10 +61,9 @@ class UserServiceClass extends BasicServiceClass {
   async authUser() {
     try {
       const response = await api.get<string, AxiosResponse<User>>(
-        AuthPath.authUser,
+        UserPath.authUser,
         { headers: { accept: 'application/json' } }
       );
-
       return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);
@@ -61,9 +73,68 @@ class UserServiceClass extends BasicServiceClass {
   async logout() {
     try {
       const response = await api.post<string, AxiosResponse<string>>(
-        AuthPath.logout
+        UserPath.logout
       );
       return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async getIdOAuth() {
+    try {
+      const response = await api.get<
+        string,
+        AxiosResponse<YandexClientIdResponse>
+      >(`${Oauth.getId}?redirect_uri=${oauthCallback}`);
+      return this.checkAnswer<YandexClientIdResponse>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async signinOAuth(code: string) {
+    try {
+      const response = await api.post<string, AxiosResponse<string>>(
+        Oauth.signin,
+        {
+          redirect_uri: oauthCallback,
+          code,
+        }
+      );
+      return this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async changeUserData(data: UserData) {
+    try {
+      const response = await api.put<string, AxiosResponse<User>>(
+        UserPath.changeUserData,
+        data
+      );
+      return this.checkAnswer<User>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async changeUserPassword(data: UserPassword) {
+    try {
+      const response = await api.put<string, AxiosResponse<string>>(
+        UserPath.changePassword,
+        data
+      );
+      this.checkAnswer<string>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async changeUserAvatar(data: UserAvatar | FormData) {
+    try {
+      const response = await api.put<
+        UserAvatar | FormData,
+        AxiosResponse<User>
+      >(UserPath.changeUserAvatar, data);
+      return this.checkAnswer<User>(response);
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +143,9 @@ class UserServiceClass extends BasicServiceClass {
   async setUserExpress(user: User) {
     try {
       const response = await expressApi.post<User, AxiosResponse<object>>(
-        AuthPath.setUserExpress, user, {
+        UserPath.setUserExpress,
+        user,
+        {
           headers: { 'Content-Type': 'application/json' },
         }
       );

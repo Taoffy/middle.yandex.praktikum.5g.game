@@ -7,7 +7,6 @@ import {
 } from './components/hooks/AppUseSelectorAndDispathch';
 
 import { GeneralRoutes } from './components/routes/GeneralRoutes';
-
 import './scss/index.scss';
 
 function App() {
