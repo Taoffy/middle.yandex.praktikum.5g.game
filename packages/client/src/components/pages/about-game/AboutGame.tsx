@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../utils';
@@ -6,8 +6,11 @@ import { ROUTES } from '../../../utils';
 import Header from '../../common/Header';
 
 import styles from './AboutGame.module.scss';
+import RulesModal from '../../common/RulesModal/RulesModal';
 
 function AboutGame() {
+  const [rulesModalActive, setRulesModalActive] = useState(true);
+
   return (
     <div className={styles.aboutGame}>
       <Header />
@@ -30,10 +33,13 @@ function AboutGame() {
             <Link className={styles.main__link} to={ROUTES.game}>
               Начать игру
             </Link>
-            <button className={styles.main__btn}>Правила игры</button>
+            <button className={styles.main__btn} onClick={() => setRulesModalActive(true)}>Правила игры</button>
           </div>
         </div>
       </div>
+      <RulesModal active={rulesModalActive} setActive={setRulesModalActive}>
+          <p>Мемо — полезная игра с простыми правилами. Игра состоит из карточек с парными изображениями, которые нужно переворачивать и запоминать, находя пару. Это игра, безусловно, расширяет кругозор, развивает внимание, тренирует память.</p>
+      </RulesModal>
     </div>
   );
 }
