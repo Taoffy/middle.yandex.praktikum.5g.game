@@ -9,10 +9,19 @@ import type { ViteDevServer } from 'vite';
 import { connectDatabase } from './db';
 import { topicRouter, userRouter } from './routers';
 
+import { auth, cookieParser } from './middlewares';
+
 import { INITIAL_STATE } from './utils';
 
 const app = express();
 app.use(cors());
+app.use(function (_req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy',
+    "connect-src *; default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-inline' https://ya-praktikum.tech/api/v2/*; style-src 'self'; frame-src 'self'; base-uri 'self'; worker-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'"
+  );
+  next();
+});
 
 const isDev = () => process.env.NODE_ENV === 'development';
 
@@ -49,8 +58,12 @@ async function startServer() {
     global.Blob = {} as typeof global.Blob;
   }
 
+  app.use(cookieParser);
+  app.use(auth);
+
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
+    console.log(url);
     try {
       let template: string;
 
@@ -77,10 +90,15 @@ async function startServer() {
         );
       }
 
+      if (res.locals.user) {
+        INITIAL_STATE.app.isAuth = true;
+        INITIAL_STATE.app.user = res.locals.user;
+      }
+
       const { render } = ssr;
 
       const appHtml = await render(url, INITIAL_STATE);
-      const storesValues = `<script>window.__INITIAL_STATE__=${JSON.stringify(
+      const storesValues = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
         INITIAL_STATE
       )}</script>`;
 

@@ -15,7 +15,7 @@ const UserModel: ModelAttributes<Model, IUser> = {
   },
   theme: {
     type: DataType.STRING,
-    allowNull: false,
+    defaultValue: 'light',
     get() {
       return this.getDataValue('theme');
     },
