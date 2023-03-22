@@ -39,7 +39,7 @@ class UserService {
   }
 
   async setTheme(id: string, theme: string) {
-    return this.user.upsert({ id, theme });
+    return this.user.update({ theme }, { where: { id } });
   }
 }
 

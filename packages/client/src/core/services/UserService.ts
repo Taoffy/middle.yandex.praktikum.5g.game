@@ -25,6 +25,7 @@ enum UserPath {
   signin = '/auth/signin',
   authUser = '/auth/user',
   logout = '/auth/logout',
+  setUserTheme = '/user/set-theme',
   changePassword = '/user/password',
   changeUserData = '/user/profile',
   changeUserAvatar = 'user/profile/avatar',
@@ -150,6 +151,22 @@ class UserServiceClass extends BasicServiceClass {
         }
       );
       return this.checkAnswer<object>(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async setUserTheme(id: number, theme: string) {
+    try {
+      await expressApi.post<string>(
+        UserPath.setUserTheme,
+        JSON.stringify({ id, theme }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+
+      return theme;
     } catch (error) {
       console.error(error);
     }

@@ -6,7 +6,7 @@ const userRouter: express.Router = express.Router();
 userRouter.use(express.json());
 userRouter.get('/user', userController.findUser);
 userRouter.post('/create-user', userController.createUser);
-userRouter.post('set-theme', userController.setTheme);
+userRouter.post('/set-theme', userController.setTheme);
 userRouter.get('/get-theme', userController.getTheme);
 
 export default userRouter;

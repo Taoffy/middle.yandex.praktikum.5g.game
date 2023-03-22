@@ -44,6 +44,7 @@ class UserController {
   async setTheme(req: Request, res: Response) {
     try {
       const { id, theme } = req.body;
+      console.log(req.body, id, theme);
       await userService.setTheme(id, theme);
       res.status(200).json({ message: 'ok' });
     } catch (error) {
