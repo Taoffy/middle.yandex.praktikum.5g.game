@@ -3,6 +3,7 @@ import leaderboardAPI from '../../../api/leaderboardAPI';
 import svg from '../../../../public/vite.svg';
 import styles from './Leaderboard.module.scss';
 import { LeaderboardResultData } from '../../../api/leaderboardAPI';
+import Header from '../../common/Header';
 
 function LeaderboardPage() {
   const [leaders, setLeaders] = useState<LeaderboardResultData>();
@@ -13,6 +14,7 @@ function LeaderboardPage() {
   });
   return (
     <main className={styles.leaderboard}>
+      <Header />
       <div className={styles.centeredBox}>
         <div className={styles.centeredBox__inner}>
           <h1 className={styles.liders__title}>Лидеры игры</h1>
@@ -21,7 +23,10 @@ function LeaderboardPage() {
               return (
                 <div key={key} className={styles.liders__wrapper}>
                   <div className={styles.liders__item}>
-                    <img className={styles.liders__img} src={value.data.avatar ?? svg} />
+                    <img
+                      className={styles.liders__img}
+                      src={value.data.avatar ?? svg}
+                    />
                     <span className={styles.liders__name}>
                       {value.data.name}
                     </span>
