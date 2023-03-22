@@ -14,17 +14,20 @@ function Oauth() {
   const [searchParams] = useSearchParams();
   const isAuth = useAppSelector(({ app }) => app.isAuth);
   const isInit = useAppSelector(({ app }) => app.isInitialApp);
+
   useEffect(() => {
+    const code = searchParams.get('code');
     if (isAuth) {
       navigate(ROUTES.mainPage);
       return;
     }
-  }, [isAuth, navigate]);
-  useEffect(() => {
-    const code = searchParams.get('code');
+
     if (code && !isAuth) {
       dispatch(Actions.signinOAuth(code));
-    } else if (isInit) {
+      return;
+    }
+
+    if (isInit) {
       navigate(ROUTES.login);
     }
   }, [dispatch, isAuth, isInit, navigate, searchParams]);

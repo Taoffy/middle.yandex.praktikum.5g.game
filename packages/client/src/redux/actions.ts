@@ -5,7 +5,7 @@ import {
   UserService,
 } from '../core/services/UserService';
 import { AppDispatch } from './store';
-import { OauthCallback } from '../core/config/api.config';
+import { oauthCallback } from '../core/config/api.config';
 
 export const changeUserData = (userData: UserData) => {
   return async (dispatch: AppDispatch) => {
@@ -37,7 +37,7 @@ export const changeUserAvatar = (data: UserAvatar | FormData) => {
   return async (dispatch: AppDispatch) => {
     try {
       const response = await UserService.changeUserAvatar(data);
-      const avatarPath = `https://ya-praktikum.tech/api/v2/resources${response.avatar}`;
+      const avatarPath = `https://ya-praktikum.tech/api/v2/resources${response?.avatar}`;
 
       dispatch({
         type: actionsType.changeAvatar,
@@ -94,7 +94,7 @@ export const getIdOAuth = () => async () => {
   try {
     const response = await UserService.getIdOAuth();
     if (response) {
-      const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${OauthCallback}`;
+      const urlYandexAuth = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${oauthCallback}`;
       window.open(urlYandexAuth, '_self');
     } else {
       console.error('пустой ответ от oauth.yandex.ru');

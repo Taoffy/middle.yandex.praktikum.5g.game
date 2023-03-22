@@ -1,5 +1,5 @@
 import { User, UserAvatar, UserData, UserPassword } from '../../redux/types';
-import { OauthCallback } from '../config/api.config';
+import { oauthCallback } from '../config/api.config';
 import { api, expressApi } from '../api';
 import { AxiosResponse } from 'axios';
 import { BasicServiceClass } from './BasicService';
@@ -85,7 +85,7 @@ class UserServiceClass extends BasicServiceClass {
       const response = await api.get<
         string,
         AxiosResponse<YandexClientIdResponse>
-      >(`${Oauth.getId}?redirect_uri=${OauthCallback}`);
+      >(`${Oauth.getId}?redirect_uri=${oauthCallback}`);
       return this.checkAnswer<YandexClientIdResponse>(response);
     } catch (error) {
       console.error(error);
@@ -96,7 +96,7 @@ class UserServiceClass extends BasicServiceClass {
       const response = await api.post<string, AxiosResponse<string>>(
         Oauth.signin,
         {
-          redirect_uri: OauthCallback,
+          redirect_uri: oauthCallback,
           code,
         }
       );
