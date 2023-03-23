@@ -57,32 +57,32 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-app, build-nginx]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Deploy COI VM
-      id: deploy-coi
-      uses: yc-actions/yc-coi-deploy@v1.0.1
-      env:
-        APP_IMAGE: ${{ env.APP_IMAGE }}
-        NGINX_IMAGE: ${{ env.NGINX_IMAGE }}
-        YC_VM_SSH: ${{ secrets.YC_VM_SSH }}
-        NGINX_CERT: ${{ secrets.NGINX_CERT }}
-        NGINX_CERT_KEY: ${{ secrets.NGINX_CERT_KEY }}
-        SERVER_PORT: ${{ vars.SERVER_PORT }}
-        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
-      with:
-        yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-        folder-id: b1gmr7m3isdo78gf7ao4
-        VM-name: team5g
-        vm-service-account-id: ajea0ufqvn3im526qfjp
-        vm-cores: 2
-        vm-memory: 2Gb
-        vm-disk-size: 30Gb
-        vm-core-fraction: 20
-        vm-subnet-id: e9bd6hcfnum09pmdb05g
-        docker-compose-path: './yandex-deploy/docker-compose.yaml'
-        user-data-path: './yandex-deploy/user-data.yaml'
+      - name: Deploy COI VM
+        id: deploy-coi
+        uses: yc-actions/yc-coi-deploy@v1.0.1
+        env:
+          APP_IMAGE: ${{ env.APP_IMAGE }}
+          NGINX_IMAGE: ${{ env.NGINX_IMAGE }}
+          YC_VM_SSH: ${{ secrets.YC_VM_SSH }}
+          NGINX_CERT: ${{ secrets.NGINX_CERT }}
+          NGINX_CERT_KEY: ${{ secrets.NGINX_CERT_KEY }}
+          SERVER_PORT: ${{ vars.SERVER_PORT }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          folder-id: b1gmr7m3isdo78gf7ao4
+          VM-name: team5g
+          vm-service-account-id: ajea0ufqvn3im526qfjp
+          vm-cores: 2
+          vm-memory: 2Gb
+          vm-disk-size: 30Gb
+          vm-core-fraction: 20
+          vm-subnet-id: e9bd6hcfnum09pmdb05g
+          docker-compose-path: './yandex-deploy/docker-compose.yaml'
+          user-data-path: './yandex-deploy/user-data.yaml'
