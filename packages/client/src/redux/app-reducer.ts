@@ -1,6 +1,7 @@
-import { State, actions, actionsType } from './types';
+import { actions, actionsType, State } from './types';
 
 const initialState: State = {
+  init: false,
   isAuth: false,
   isInitialApp: false,
   user: {
@@ -12,17 +13,21 @@ const initialState: State = {
     email: '',
     phone: '',
     avatar: '',
+    theme: '',
   },
 };
 
-const appReducer = (state = initialState, action: actions) => {
+const appReducer = (state = initialState, action: actions): State => {
   switch (action.type) {
     case actionsType.changeData:
       return {
         ...state,
         user: {
+          ...state.user,
           ...action.payload,
-          avatar: `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`,
+          avatar: action.payload.avatar
+            ? `https://ya-praktikum.tech/api/v2/resources/${action.payload.avatar}`
+            : null,
         },
       };
     case actionsType.changeAvatar:
@@ -49,6 +54,16 @@ const appReducer = (state = initialState, action: actions) => {
         ...state,
         isInitialApp: action.payload,
       };
+      break;
+
+    case actionsType.setUserTheme:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          theme: action.payload,
+        }
+      }
       break;
     default:
       return state;

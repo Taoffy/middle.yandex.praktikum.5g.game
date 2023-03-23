@@ -4,13 +4,6 @@
 html {
   width: 100%;
   height: 100%;
-
-  background: linear-gradient(
-    88.67deg,
-    #54beeb 1.13%,
-    #2870db 63.38%,
-    #0ba794 98.87%
-  );
 }
 
 * {
@@ -34,12 +27,34 @@ body {
   font-size: 16px;
   line-height: 1.2;
   color: var(--color-black);
-  background: linear-gradient(
-    88.67deg,
-    #54beeb 1.13%,
-    #2870db 63.38%,
-    #0ba794 98.87%
-  );
+}
+
+#root {
+  &.dark {
+    background: rgb(33,16,66);
+    background: linear-gradient(7deg, rgba(33,16,66,1) 0%, rgba(16,64,66,1) 100%);
+
+    * {
+      color: #ffffff;
+    }
+
+    header a {
+      color: #ffffff;
+    }
+
+    input {
+      color: var(--color-black) !important;
+    }
+  }
+
+  &.light {
+    background: linear-gradient(
+                    88.67deg,
+                    #54beeb 1.13%,
+                    #2870db 63.38%,
+                    #0ba794 98.87%
+    );
+  }
 }
 
 button,

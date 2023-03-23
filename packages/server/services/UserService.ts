@@ -8,9 +8,8 @@ class UserService {
   }
 
   async createUser(
-    id: string,
+    id: number,
     login: string,
-    theme: string,
     avatar: string,
     display_name: string,
     email: string,
@@ -25,7 +24,6 @@ class UserService {
       defaults: {
         id,
         login,
-        theme,
         avatar,
         display_name,
         email,
@@ -41,7 +39,7 @@ class UserService {
   }
 
   async setTheme(id: string, theme: string) {
-    return this.user.upsert({ id, theme });
+    return this.user.update({ theme }, { where: { id } });
   }
 }
 

@@ -13,19 +13,13 @@ import { GamePage } from '../pages/gamePage/GamePage';
 import Profile from '../pages/Profile/Profile';
 import ChangeData from '../pages/Profile/ChangeData/ChangeData';
 import ChangePassword from '../pages/Profile/ChangePassword/ChangePassword';
+import { Oauth } from '../pages/Oauth/Oauth';
 
 const GeneralRoutes = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route
-          index
-          element={
-            <RequireAuth>
-              <Navigate to={'/about-game'} />
-            </RequireAuth>
-          }
-        />
+        <Route index element={<Oauth />} />
         <Route
           path="login"
           element={
@@ -99,7 +93,7 @@ const GeneralRoutes = () => {
           }
         />
         <Route
-          path="forumpost"
+          path="forumpost/:id"
           element={
             <RequireAuth>
               <ForumPostPage />
