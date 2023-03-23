@@ -77,7 +77,7 @@ jobs:
       with:
         yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
         folder-id: b1gmr7m3isdo78gf7ao4
-        VM-name: fhm0dspig1knfq81241u
+        VM-name: team5g
         vm-service-account-id: ajea0ufqvn3im526qfjp
         vm-cores: 2
         vm-memory: 2Gb
