@@ -18,7 +18,7 @@ app.use(cors());
 app.use(function (_req, res, next) {
   res.setHeader(
     'Content-Security-Policy',
-    "connect-src *; default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-inline' https://ya-praktikum.tech/api/v2/*; style-src 'self'; frame-src 'self'; base-uri 'self'; worker-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'"
+    "connect-src *; default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-inline' https://ya-praktikum.tech/api/v2/*; style-src 'self'; base-uri 'self'; worker-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'"
   );
   next();
 });

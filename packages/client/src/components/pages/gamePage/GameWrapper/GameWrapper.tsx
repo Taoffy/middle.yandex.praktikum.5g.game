@@ -16,13 +16,12 @@ import leaderboardAPI from '../../../../api/leaderboardAPI';
 
 import { LeaderboardObject, LeaderboardRequestData } from '../../../../api/leaderboardAPI';
 import { useAppSelector } from '../../../hooks/AppUseSelectorAndDispathch';
-import { Store } from '../../../../redux/types';
 
 function GameWrapper() {
   const navigate = useNavigate();
-  
-  const user = useAppSelector((state: Store) => state.app.user);
-  
+
+  const user = useAppSelector((state) => state.app.user);
+
   const { isGameFinished, isTimeOut, score, timeLeft, restartGame } = useGame();
 
   const data : LeaderboardObject = {
@@ -42,7 +41,7 @@ function GameWrapper() {
   };
 
   if (isGameFinished && !isTimeOut) {
-    
+
     leaderboardAPI.addToLeaderboard(res)
     return (
       <div className={styles.game}>
