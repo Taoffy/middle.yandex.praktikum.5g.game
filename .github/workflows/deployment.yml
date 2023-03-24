@@ -7,9 +7,9 @@ env:
 
 on:
   workflow_dispatch:
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main
 
 jobs:
   build-app:
@@ -17,6 +17,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Create env file
+        run: |
+          touch .env
+          echo VITE_OAUTH_CALLBACK="http://team5g.ya-praktikum.tech" >> .env
+          echo VITE_EXPRESS_API="http://team5g.ya-praktikum.tech/api" >> .env
+          cat .env
 
       - name: Yandex Cloud CR "Login" Action for GitHub Actions
         uses: yc-actions/yc-cr-login@v0.1-alpha
